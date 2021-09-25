@@ -50,7 +50,7 @@ namespace Gestor_Digital_ASADA_CL
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Index}/{action=Index}/{id?}");
             });
         }
     }
