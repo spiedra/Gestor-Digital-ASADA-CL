@@ -94,6 +94,10 @@ body {
     height: 90vh;
 }
 
+.menu__card {
+    border-radius: 1em !important;
+}
+
 .form__register, form__registervaccination {
     background-color: hsla(0, 0%, 95%, 0.065);
     box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.5);
