@@ -82,6 +82,16 @@ body {
     width: 95%;
     background-color: #93BFBB;
     border-radius: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.container__index {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    height: 90vh;
 }
 
 .form__register, form__registervaccination {
@@ -119,7 +129,7 @@ body {
     }
 
     .form__login {
-        width: 50%;
+        width: 70%;
     }
 }
 
@@ -130,8 +140,6 @@ body {
     }
 
     .form__login {
-        padding-top: 1em;
-        padding-bottom: 1em;
         max-width: 40em;
     }
 }
