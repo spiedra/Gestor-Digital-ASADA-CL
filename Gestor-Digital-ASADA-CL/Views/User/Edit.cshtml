@@ -80,6 +80,54 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modificación de información de usuario</h5>
+            </div>
+            <form class="row g-3 p-3 was-validated">
+                <div class="col-md-4">
+                    <label for="inputName" class="form-label">Nombre del trabajor</label>
+                    <input id="inputName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre" @*asp-for="name"*@ required>
+                    @*<span class="field-validation-error" asp-validation-for="name"></span>*@
+                </div>
+                <div class="col-md-4">
+                    <label for="inputLastName" class="form-label">Apellido del trabajador</label>
+                    <input id="inputLastName" class="form-control is-invalid" type="text" placeholder="Ingrese el apellido" @*asp-for="lastName"*@ required>
+                    @*<span class="field-validation-error" asp-validation-for="workerLastName"></span>*@
+                </div>
+                <div class="col-md-4">
+                    <label for="inputIdCard" class="form-label">Cédula del trabajor</label>
+                    <input id="inputIdCard" class="form-control is-invalid" type="text" placeholder="Ingrese la cédula" @*asp-for="idCard"*@ required>
+                    @*<span class="field-validation-error" asp-validation-for="workerIdCard"></span>*@
+                </div>
+                <div class="col-12">
+                    <label for="inputUserName" class="form-label">Nombre de usuario del trabajor</label>
+                    <input id="inputUserName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre de usuario" @*asp-for="userName"*@ required>
+                    @*<span class="field-validation-error" asp-validation-for="workerIdCard"></span>*@
+                </div>
+                <div class="col-12">
+                    <label for="inputPassword" class="form-label">Contraseña del trabajor</label>
+                    <input id="inputPassword" class="form-control is-invalid" type="text" placeholder="Ingrese la contraseña" required>
+                    @*<span class="field-validation-error" asp-validation-for="userName"></span>*@
+                </div>
+                <div class="col-12">
+                    <label for="selectPuesto" class="form-label">Puesto</label>
+                    <select class="form-select" required aria-label="Lista puesto">
+                        <option value="">Seleccione algún puesto</option>
+                        <option value="1">One</option>
+                    </select>
+                    @*<span class="field-validation-error" asp-validation-for="SpecialityType"></span>*@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="btn-search" type="button" class="btn btn-primary">Actualizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
