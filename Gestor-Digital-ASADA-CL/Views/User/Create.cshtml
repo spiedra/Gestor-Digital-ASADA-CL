@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Registro usuarios";
+}
+
+<h1>Registro de usuarios</h1>
+<hr />
+<form class="row g-3 p-1">
+    <div class="col-md-4">
+        <label for="inputName" class="form-label">Nombre del trabajor</label>
+        <input id="inputName" class="form-control" type="text" placeholder="Ingrese el nombre" @*asp-for="name"*@>
+        @*<span class="field-validation-error" asp-validation-for="name"></span>*@
+    </div>
+    <div class="col-md-4">
+        <label for="inputLastName" class="form-label">Apellido del trabajador</label>
+        <input id="inputLastName" class="form-control" type="text" placeholder="Ingrese el apellido" @*asp-for="lastName"*@>
+        @*<span class="field-validation-error" asp-validation-for="workerLastName"></span>*@
+    </div>
+    <div class="col-4">
+        <label for="inputIdCard" class="form-label">Cédula del trabajor</label>
+        <input id="inputIdCard" class="form-control" type="text" placeholder="Ingrese la cédula" @*asp-for="idCard"*@>
+        @*<span class="field-validation-error" asp-validation-for="workerIdCard"></span>*@
+    </div>
+    <div class="col-12">
+        <label for="inputUserName" class="form-label">Nombre de usuario del trabajor</label>
+        <input id="inputUserName" class="form-control" type="text" placeholder="Ingrese el nombre de usuario" @*asp-for="userName"*@>
+        @*<span class="field-validation-error" asp-validation-for="workerIdCard"></span>*@
+    </div>
+    <div class="col-12">
+        <label for="inputPassword" class="form-label">Contraseña del trabajor</label>
+        <input id="inputPassword" class="form-control" type="text" placeholder="Ingrese la contraseña">
+        @*<span class="field-validation-error" asp-validation-for="userName"></span>*@
+    </div>
+    <div class="col-12">
+        <label class="form-label">Puesto del trabajor</label>
+        <select class="form-select form-control" @*asp-for="SpecialityType"*@>
+            <option selected>Seleccione un puesto</option>
+            @*@foreach (string item in ViewBag.SpecialityTypes)
+                {
+                    <option class="select_opcion">@Html.DisplayFor(modelItem => item)</option>
+                }*@
+        </select>
+        @*<span class="field-validation-error" asp-validation-for="SpecialityType"></span>*@
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-dark">Registrar</button>
+    </div>
+</form>
+
+@section scripts
+{
+    @*<script>
+            $(document).ready(function () {
+                if ("@ViewBag.response" !== "") {
+                   createModalResponse("@ViewBag.response");
+                }
+           });
+        </script>
+        <partial name="_ValidationScriptsPartial" />*@
+}
