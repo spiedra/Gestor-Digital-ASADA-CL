@@ -27,7 +27,25 @@
                         <th scope="col">Acción</th>
                     </tr>
                 </thead>
-                <tbody id="tbodyUserSearch"></tbody>
+                <tbody id="tbodyUserSearch">
+                    <tr>
+                        <td>00000000</td>
+                        <td>Juan Carlos</td>
+                        <td>Sequeira Piedra</td>
+                        <td>spiedra</td>
+                        <td>perroygato</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                Modificar
+                                <img src="~/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                            <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                Eliminar
+                                <img src="~/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
@@ -59,6 +77,23 @@
                     <button id="btn-search" type="button" class="btn btn-primary">Buscar</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">¿Está seguro de eliminar a este usuario?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                El usuario va a ser borrado permanentemente del sistema
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Confirmar eliminación</button>
+            </div>
         </div>
     </div>
 </div>
