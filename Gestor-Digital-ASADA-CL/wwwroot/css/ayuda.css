@@ -1,0 +1,36 @@
+﻿
+.consejo {
+    display: none;
+}
+
+.estructura_consejo_tareas {
+    position:relative;
+    height: 70vh;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+}
+
+.estructura_consejo_inventario {
+    position: relative;
+    height: 70vh;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+}
+.estructura_consejo_cloros {
+    position: relative;
+    height: 70vh;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+}
+.estructura_consejo_bitacora {
+    position: relative;
+    height: 70vh;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+}
+
+
