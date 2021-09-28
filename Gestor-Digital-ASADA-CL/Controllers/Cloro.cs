@@ -62,6 +62,26 @@ namespace Gestor_Digital_ASADA_CL.Controllers
                 return View();
             }
         }
+        // GET: Cloro/EditUser/5
+        public ActionResult EditUser(int id)
+        {
+            return View();
+        }
+
+        // POST: Cloro/EditUser/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditUser(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
         // GET: Cloro/Delete/5
         public ActionResult Delete(int id)
