@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Menú principal";
+    Layout = "~/Views/Shared/_ClientSiteLayout.cshtml";
+}
+
+<h2 class="mt-2">Bitácora personal ASADA</h2>
+<hr />
+
+<div class="row">
+    <div class="col-12">
+        <h2>Agregar una actividad  <a href="#" class="btn btn-dark me-1"><i class="fas fa-search"></i></a></h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="note">¿Qué hiciste?</label>
+                <textarea class="form-control" id="note" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit" style="background-color: #6DC7F6;" class=" mt-2 btn btn-success">Anotar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row py-3">
+    <div class="col-sm-6 my-2">
+        <div class="actividad_t card shadow menu__card py-3">
+            <div class="card-body">
+
+                <h4 class="">Hoy firmé la carta de los pedidos de fin de mes que me pidió la junta</h4>
+                <hr />
+                <h5 class="card-title">Escrito el: 15-09-2021</h5>
+                <div class="d-flex justify-content-center justify-content-xl-start flex-wrap">
+                    <a href="#" class="btn btn-warning btn-sm m-1">Editar</a>
+                    <a href="#" class="btn btn-danger btn-sm m-1">Borrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 my-2">
+        <div class="actividad_t card shadow menu__card py-3">
+            <div class="card-body">
+                <h4 class="">hoy mis compañeros y yo asistimos a una reunión con la municipalidad por el caso B432</h4>
+                <hr />
+                <h5 class="card-title">Escrito el: 12-09-2021</h5>
+                <div class="d-flex justify-content-center justify-content-xl-start flex-wrap">
+                    <a href="#" class="btn btn-warning btn-sm m-1">Editar</a>
+                    <a href="#" class="btn btn-danger btn-sm m-1">Borrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+            $(document).ready(function () {
+            if ('@ViewBag.ShowModalResponse' === 'True') {
+               createModalResponse("@ViewBag.mensaje");
+            }
+           });
+    </script>
+}
