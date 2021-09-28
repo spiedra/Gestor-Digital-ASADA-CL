@@ -15,6 +15,12 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return View();
         }
 
+        [Route("Home/Task/Client/Index")]
+        public ActionResult Index1()
+        {
+            return View();
+        }
+
         // GET: TaskController/Details/5
         public ActionResult Details(int id)
         {

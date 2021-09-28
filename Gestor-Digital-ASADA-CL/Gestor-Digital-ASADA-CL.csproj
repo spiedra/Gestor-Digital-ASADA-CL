@@ -26,6 +26,7 @@
   <ItemGroup>
     <None Remove="Models\UserViewModel.cs~RF1e9839c.TMP" />
     <None Remove="Views\Home\Index1.cshtml~RF20189d2.TMP" />
+    <None Remove="Views\Task\Index1.cshtml~RF34af618.TMP" />
   </ItemGroup>
 
   <ItemGroup>
