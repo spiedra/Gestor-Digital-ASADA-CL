@@ -1,0 +1,165 @@
+﻿@{
+    ViewData["Title"] = "Gestor de recaudación diaría";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="mt-4 mb-2">
+    <h1 class="promo-table__title d-inline me-3">Gestor de recaudación diaría</h1>
+    <button id="btn__search--user" class="btn mb-3 d-inline btn__search"
+            data-bs-toggle="modal"
+            data-bs-target="#searchModal"
+            data-bs-placement="right"
+            title="Busqueda de usuarios">
+        <img src="~/assets/search_black_24dp.svg" alt="Icono de busqueda" />
+    </button>
+</div>
+<hr />
+<div>
+    <div class="row table-responsive">
+        <div class="col-12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Hidrantes</th>
+                        <th scope="col">Recibos</th>
+                        <th scope="col">IVA</th>
+                        <th scope="col">Efectivo</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyUserSearch">
+                    <tr>
+                        <td>00000000</td>
+                        <td>13</td>
+                        <td>13</td>
+                        <td>13</td>
+                        <td>22300</td>
+                        <td>43600</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                Modificar
+                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>00000000</td>
+                        <td>13</td>
+                        <td>13</td>
+                        <td>13</td>
+                        <td>22300</td>
+                        <td>43600</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                Modificar
+                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>00000000</td>
+                        <td>13</td>
+                        <td>13</td>
+                        <td>13</td>
+                        <td>22300</td>
+                        <td>43600</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                Modificar
+                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>00000000</td>
+                        <td>13</td>
+                        <td>13</td>
+                        <td>13</td>
+                        <td>22300</td>
+                        <td>43600</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                Modificar
+                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Busqueda de usuarios</h5>
+            </div>
+            <form class="was-validated">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="mb-3">
+                            <label for="inputName" class="form-label">Fecha inicial</label>
+                            <input id="inputName" class="form-control is-invalid" type="date" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputName" class="form-label">Fecha final</label>
+                            <input id="inputName" class="form-control is-invalid" type="date" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="btn-search" type="button" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modificación de información de recaudación diaria</h5>
+            </div>
+            <form class="row g-3 p-3 was-validated">
+                <div class="col-md-4">
+                    <label for="inputHydrant" class="form-label">Hidrantes</label>
+                    <input id="inputHydrant" class="form-control" type="number" placeholder="Cantidad de hidrantes" @*asp-for="name"*@ required>
+                    @*<span class="field-validation-error" asp-validation-for="name"></span>*@
+                </div>
+                <div class="col-md-4">
+                    <label for="inputInvoice" class="form-label">Recibos</label>
+                    <input id="inputInvoice" class="form-control" type="number" placeholder="Cantidad de recibos" @*asp-for="lastName"*@ required>
+                    @*<span class="field-validation-error" asp-validation-for="workerLastName"></span>*@
+                </div>
+                <div class="col-md-4">
+                    <label for="inputTax" class="form-label">Impuesto al Valor Agregado (IVA)</label>
+                    <input id="inputTax" class="form-control" type="number" min="0" step=".01" placeholder="Cantidad de IVA" @*asp-for="idCard"*@ required>
+                    @*<span class="field-validation-error" asp-validation-for="workerIdCard"></span>*@
+                </div>
+                <div class="col-12">
+                    <label for="inputCash" class="form-label">Efectivo</label>
+                    <input id="inputCash" class="form-control" type="number" min="0" step=".01" placeholder="Cantidad de efectivo" @*asp-for="userName"*@ required>
+                    @*<span class="field-validation-error" asp-validation-for="workerIdCard"></span>*@
+                </div>
+                <div class="col-12">
+                    <label for="inputTotal" class="form-label">Total</label>
+                    <input id="inputTotal" class="form-control" type="number" min="0" step=".01" placeholder="Total recaudado" required>
+                    @*<span class="field-validation-error" asp-validation-for="userName"></span>*@
+                </div>
+                <div class="col-12">
+                    <label for="inputDate" class="form-label">Fecha de recaudación</label>
+                    <input id="inputDate" class="form-control" type="date" required />
+                    @*<span class="field-validation-error" asp-validation-for="SpecialityType"></span>*@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="btn-search" type="button" class="btn btn-primary">Actualizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
