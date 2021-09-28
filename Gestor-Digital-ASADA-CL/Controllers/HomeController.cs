@@ -15,6 +15,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return View();
         }
 
+        [Route("Home/Client/Index")]
         public ActionResult Index1()
         {
             return View();

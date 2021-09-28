@@ -30,7 +30,6 @@ namespace Gestor_Digital_ASADA_CL.Controllers
 
         // POST: Index/Authentication
         [HttpPost]
-        [Route("Index/Authentication")]
         public ActionResult Authentication(UserViewModel UserViewModel)
         {
             if (ModelState.IsValid)
@@ -41,7 +40,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
                 }
                 else
                 {
-                    return Redirect("~/Home/Index1");
+                    return Redirect("~/Home/Client/Index");
                 }
             }
              return RedirectToAction(nameof(Index));
