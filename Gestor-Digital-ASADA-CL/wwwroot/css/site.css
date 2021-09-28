@@ -118,11 +118,15 @@ body {
     font-size: smaller;
 }
 
-.btn__search {
+.btn__search, .btn__refresh {
     background-color: rgba(204, 204, 204, 0.959) !important;
 }
 
     .btn__search:hover {
+        box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .btn__refresh:hover {
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5) !important;
     }
 
