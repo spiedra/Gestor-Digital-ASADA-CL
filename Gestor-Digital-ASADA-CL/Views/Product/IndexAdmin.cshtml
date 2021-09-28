@@ -1,7 +1,9 @@
 ﻿@{
-    ViewData["Title"] = "Menú principal";
-    Layout = "~/Views/Shared/_ClientSiteLayout.cshtml";
+    ViewData["Title"] = "Gestor de tareas";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
+
 <h2 class="mt-2">Inventario de productos ASADA</h2>
 <hr />
 
@@ -41,6 +43,12 @@
                 <button class="btn btn-primary" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
                     <i class="fas fa-hand-paper"></i>
                 </button>
+                <button class="btn btn-info" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-danger" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
+                    <i class="fas fa-trash"></i>
+                </button>
             </td>
         </tr>
         <tr>
@@ -54,6 +62,12 @@
                 <button class="btn btn-primary" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
                     <i class="fas fa-hand-paper"></i>
                 </button>
+                <button class="btn btn-info" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-danger" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
+                    <i class="fas fa-trash"></i>
+                </button>
             </td>
         </tr>
         <tr>
@@ -62,11 +76,18 @@
             <td>13 000</td>
             <td>12</td>
             <td>08/07/2021</td>
-            <td>Relleno relleno relleno
+            <td>
+                Relleno relleno relleno
             </td>
             <td>
                 <button class="btn btn-primary" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
                     <i class="fas fa-hand-paper"></i>
+                </button>
+                <button class="btn btn-info" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-danger" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
+                    <i class="fas fa-trash"></i>
                 </button>
             </td>
         </tr>

@@ -14,6 +14,10 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         {
             return View();
         }
+        public ActionResult IndexAdmin()
+        {
+            return View();
+        }
 
         [HttpPost]
         [Route("Product/RealizarReporte")]
