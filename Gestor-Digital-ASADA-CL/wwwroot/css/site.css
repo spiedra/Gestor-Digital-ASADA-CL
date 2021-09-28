@@ -160,14 +160,14 @@ form__registervaccination {
 }
 
 /* link animation*/
-.nav-link {
+.nav-link--task {
     display: inline-block;
     position: relative;
     color: #333;
     text-decoration: none;
 }
 
-    .nav-link:after {
+    .nav-link--task:after {
         content: "";
         display: block;
         margin: auto;
@@ -176,7 +176,7 @@ form__registervaccination {
         transition: all 0.8s;
     }
 
-    .nav-link:hover:after {
+    .nav-link--task:hover:after {
         width: 100%;
         background: #333;
     }
