@@ -39,6 +39,15 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         }
 
         [HttpPost]
+        [Route("Product/RegistrarProducto")]
+        public IActionResult RegistrarProducto()
+        {
+            ViewBag.ShowModalResponse = "True";
+            ViewBag.mensaje = "¡El producto se ha registrado con éxito!";
+            return View("IndexAdmin");
+        }
+
+        [HttpPost]
         [Route("Product/EditarProducto")]
         public IActionResult EditarProducto()
         {
