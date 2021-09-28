@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-12">
-        <h2>Agregar una actividad  <a href="#" class="btn btn-dark me-1"><i class="fas fa-search"></i></a></h2>
+        <h2>Agregar una actividad  <a data-bs-toggle="modal" data-bs-target="#modalBuscar" href="#" class="btn btn-dark me-1"><i class="fas fa-search"></i></a></h2>
         <form method="POST">
             <div class="form-group">
                 <label for="note">¿Qué hiciste?</label>
@@ -24,14 +24,13 @@
 <div class="row py-3">
     <div class="col-sm-6 my-2">
         <div class="actividad_t card shadow menu__card py-3">
-            <div class="card-body">
-
-                <h4 class="">Hoy firmé la carta de los pedidos de fin de mes que me pidió la junta</h4>
+            <div id="body" class="card-body">
+                <h4 id="detalle" class="">Hoy firmé la carta de los pedidos de fin de mes que me pidió la junta</h4>
                 <hr />
-                <h5 class="card-title">Escrito el: 15-09-2021</h5>
-                <div class="d-flex justify-content-center justify-content-xl-start flex-wrap">
-                    <a href="#" class="btn btn-warning btn-sm m-1">Editar</a>
-                    <a href="#" class="btn btn-danger btn-sm m-1">Borrar</a>
+                <h5 id="titulo_actividad" class="card-title">Escrito el: 15-09-2021</h5>
+                <div id="acciones" class="d-flex justify-content-center justify-content-xl-start flex-wrap">
+                    <a href="#" class="btn btn-warning btn-sm m-1" onclick="putOnModal(this); return false;" href="#" class="btn btn-warning btn-sm m-1" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</a>
+                    <a href="#" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#deleteModal">Borrar</a>
                 </div>
             </div>
         </div>
@@ -39,36 +38,100 @@
     <div class="col-sm-6 my-2">
         <div class="actividad_t card shadow menu__card py-3">
             <div class="card-body">
-                <h4 class="">hoy mis compañeros y yo asistimos a una reunión con la municipalidad por el caso B432</h4>
+                <h4 class="detalle">hoy mis compañeros y yo asistimos a una reunión con la municipalidad por el caso B432</h4>
                 <hr />
                 <h5 class="card-title">Escrito el: 12-09-2021</h5>
                 <div class="d-flex justify-content-center justify-content-xl-start flex-wrap">
-                    <a href="#" class="btn btn-warning btn-sm m-1">Editar</a>
-                    <a href="#" class="btn btn-danger btn-sm m-1">Borrar</a>
+                    <a href="#" class="btn btn-warning btn-sm m-1" onclick="putOnModal(this); return false;" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</a>
+                    <a href="#" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#deleteModal">Borrar</a>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<div class="modal" id="modalEditar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div style="background-color: #6DC7F6;" class="modal-header">
+                <h5 class="modal-title">Editar actividad</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" asp-controller="PersonalBinnacle" asp-action="Edit" class="mt-2 ml-2 p-3">
+                    <div class="form-group">
+                        <label for="taDetalles">Nota:</label>
+                        <textarea class="form-control" id="taDetalleModificar" style="resize:none;" rows="8"></textarea>
+                    </div>
+                    <button type="submit" data-bs-toggle="modal" data-bs-target="#modalMensaje" style="background-color: #6DC7F6;" class="btn btn-primary mt-2">Guardar cambios</button>
+                </form>
+            </div>
+            <div style="background-color: #6DC7F6;" class="modal-footer">
+                <button type="button" style="background-color: #313436;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalBuscar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div style="background-color: #6DC7F6;" class="modal-header">
+                <h5 class="modal-title">Buscar una actividad</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" class="mt-2 ml-2 p-3">
+                    <div class="input-group">
+                        <input type="search" class="form-control rounded" placeholder="Ingresa una palabra clave" aria-label="Search"
+                               aria-describedby="search-addon" />
+                        <button type="submit" class="btn-search btn btn-outline-primary">Buscar</button>
+                    </div>
+
+                </form>
+            </div>
+            <div style="background-color: #6DC7F6;" class="modal-footer">
+                <button type="button" style="background-color: #313436;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div style="background-color: #6DC7F6;" class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">¿Está seguro de eliminar esta actividad?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                La actividad será borrada permanentemente del sistema
+            </div>
+            <div class="modal-footer">
+                <form method="POST" asp-controller="PersonalBinnacle" asp-action="Delete">
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 
 
-
-
-
-
-
-
+<script src="~/js/PersonalBinnacle.js" asp-append-version="true"></script>
 
 @section scripts
 {
     <partial name="_ValidationScriptsPartial" />
     <script type="text/javascript">
-            $(document).ready(function () {
+
+        $(document).ready(function () {
             if ('@ViewBag.ShowModalResponse' === 'True') {
                createModalResponse("@ViewBag.mensaje");
             }
