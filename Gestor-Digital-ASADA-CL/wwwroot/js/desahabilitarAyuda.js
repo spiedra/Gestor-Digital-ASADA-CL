@@ -1,0 +1,2 @@
+﻿
+$(".bienvenida").css("display", "none");
