@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Gestor_Digital_ASADA_CL.Controllers
 {
-    public class PersonalBinnacle : Controller
+    public class PersonalBinnacleController : Controller
     {
         // GET: PersonalBinnacle
         public ActionResult Index()
