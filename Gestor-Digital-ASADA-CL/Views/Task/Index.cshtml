@@ -1,0 +1,138 @@
+﻿@{
+    ViewData["Title"] = "Gestor de tareas";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Gestor de tareas</h1>
+<hr />
+<div class="row g-3">
+    <div class="col-md-3 mb-3">
+        <nav class="card py-2 shadow">
+            <div class="container-fluid">
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Usuario" aria-label="Search">
+                    <button class="btn btn__search"
+                            title="Busqueda de usuarios">
+                        <img src="~/assets/search_black_24dp.svg" alt="Icono de busqueda" />
+                    </button>
+                </form>
+            </div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link noHover" aria-current="page" href="#">Roberto Jimenez</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link noHover" href="#">Raquel Flores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link noHover" href="#">Juan Carlos Sequeira</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link noHover" href="#">Randall Gomez</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link noHover" aria-current="page" href="#">Carlos Alberto Piedra</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link noHover" href="#">Julian Sanchez</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-9">
+        <div class="">
+            <h3 class="promo-table__title d-inline me-3">Usuario: Juan Carlos Sequeira Piedra</h3>
+            <button id="btn__refresh--user" class="btn mb-3 d-inline btn__refresh"
+                    title="Refrescar tabla">
+                <img src="~/assets/add_black_24dp.svg" alt="Icono de busqueda" />
+            </button>
+            <button id="btn__search--user" class="btn mb-3 d-inline btn__search"
+                    data-bs-toggle="modal"
+                    data-bs-target="#searchModal"
+                    data-bs-placement="right"
+                    title="Busqueda de usuarios">
+                <img src="~/assets/search_black_24dp.svg" alt="Icono de busqueda" />
+            </button>
+            <button id="btn__refresh--user" class="btn mb-3 d-inline btn__refresh"
+                    title="Refrescar tabla">
+                <img src="~/assets/refresh_black_24dp.svg" alt="Icono de busqueda" />
+            </button>
+        </div>
+            <div class="row table-responsive">
+                <div class="col-12">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Titulo</th>
+                                <th scope="col">Detalles</th>
+                                <th scope="col">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyTask">
+                            <tr>
+                                <td>1</td>
+                                <td>Visitar sector 14</td>
+                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. </td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                        Modificar
+                                        <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                    </button>
+                                    <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                        Eliminar
+                                        <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Visitar sector 14</td>
+                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. </td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                        Modificar
+                                        <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                    </button>
+                                    <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                        Eliminar
+                                        <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Visitar sector 14</td>
+                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. </td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                        Modificar
+                                        <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                    </button>
+                                    <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                        Eliminar
+                                        <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Visitar sector 14</td>
+                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. </td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                        Modificar
+                                        <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                    </button>
+                                    <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                        Eliminar
+                                        <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </div>
+</div>

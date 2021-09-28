@@ -18,7 +18,8 @@ a {
     border-color: #1861ac;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
@@ -45,7 +46,7 @@ html {
 }
 
 .box-shadow {
-    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
 }
 
 button.accept-policy {
@@ -63,11 +64,12 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background-color: #F0F1F2;
+    background-color: #f0f1f2;
 }
 
-.navbar, footer {
-    background-color: #6DC7F6;
+.navbar,
+footer {
+    background-color: #6dc7f6;
 }
 
 .footer {
@@ -80,7 +82,7 @@ body {
 
 .form__login {
     width: 95%;
-    background-color: #6DC7F6;
+    background-color: #6dc7f6;
     border-radius: 1em;
     padding-top: 2em;
     padding-bottom: 2em;
@@ -100,7 +102,8 @@ body {
     border-radius: 1em !important;
 }
 
-.form__register, form__registervaccination {
+.form__register,
+form__registervaccination {
     background-color: hsla(0, 0%, 95%, 0.065);
     box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.5);
     border-radius: 1em;
@@ -108,7 +111,7 @@ body {
 
 .nav-link:hover {
     background-color: #304556;
-    border-radius: .4em;
+    border-radius: 0.4em;
 }
 
 .btn__menu:hover {
@@ -120,7 +123,8 @@ body {
     font-size: smaller;
 }
 
-.btn__search, .btn__refresh {
+.btn__search,
+.btn__refresh {
     background-color: rgba(204, 204, 204, 0.959) !important;
 }
 
@@ -132,9 +136,9 @@ body {
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5) !important;
     }
 
-
 @media (min-width: 575.98px) and (max-width: 991.98px) {
-    .form__register, form__registervaccination {
+    .form__register,
+    form__registervaccination {
         width: 84%;
     }
 
@@ -144,7 +148,8 @@ body {
 }
 
 @media (min-width: 991.98px) {
-    .form__register, form__registervaccination {
+    .form__register,
+    form__registervaccination {
         width: 84%;
         max-width: 58em;
     }
@@ -152,4 +157,54 @@ body {
     .form__login {
         max-width: 40em;
     }
+}
+
+/* link animation*/
+.nav-link {
+    display: inline-block;
+    position: relative;
+    color: #333;
+    text-decoration: none;
+}
+
+    .nav-link:after {
+        content: "";
+        display: block;
+        margin: auto;
+        height: 2px;
+        width: 0px;
+        transition: all 0.8s;
+    }
+
+    .nav-link:hover:after {
+        width: 100%;
+        background: #333;
+    }
+
+.noHover {
+    background-color: unset !important;
+    color: unset !important;
+}
+
+/* main title animation*/
+
+.main-title {
+    display: inline-block;
+    position: relative;
+    color: #333;
+    text-decoration: none;
+}
+
+.main-title:after {
+    content: "";
+    display: block;
+    margin: auto;
+    height: 2px;
+    width: 0px;
+    transition: all .8s;
+}
+
+.main-title:hover:after {
+    width: 100%;
+    background: #333;
 }
