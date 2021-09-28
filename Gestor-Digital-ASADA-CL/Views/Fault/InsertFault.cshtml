@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Registro de avería";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h1>Registro de averías</h1>
+<hr />
+<form class="row g-3 p-1">
+    <div class="col-md-4">
+        <label for="inputFaultName" class="form-label">Nombre del abonado</label>
+        <input id="inputFaultName" class="form-control" type="text" placeholder="Ingrese el nombre del abonado">
+    </div>
+    <div class="col-md-4">
+        <label for="inputIdHouse" class="form-label">Número de casa</label>
+        <input id="inputIdHouse" class="form-control" type="number" placeholder="Ingrese el número de casa">
+    </div>
+    <div class="col-4">
+        <label for="inputName" class="form-label">Nombre del trabajador</label>
+        <input id="inputName" class="form-control" type="text" placeholder="Ingrese el nombre del trabajador">
+    </div>
+    <div class="col-4">
+        <label for="inputReportDate" class="form-label">Fecha de reporte</label>
+        <input id="inputReportDate" class="form-control" type="date" placeholder="Ingrese la fecha del reporte">
+    </div>
+    @*<div class="col-2">
+
+    </div>*@
+    <div class="col-4">
+        <label for="inputExecutionDate" class="form-label">Fecha de ejecución</label>
+        <input id="inputExecutionDate" class="form-control" type="date" placeholder="Ingrese la fecha de ejecución">
+    </div>
+    <div class="col-6">
+        <label for="inputDetails" class="form-label">Detalles del reporte</label>
+        <textarea class="form-control" id="note" rows="2" placeholder="Ingrese detalles del reporte"></textarea>
+    </div>
+    <div class="col-6">
+        <label for="inputWork" class="form-label">Trabajo ejecutado</label>
+        <textarea class="form-control" id="note" rows="2" placeholder="Ingrese el trabajo ejecutado"></textarea>
+    </div>
+    <div class="col-12 mb-2 mb-md-6">
+        <button type="submit" class="btn btn-dark">Registrar</button>
+    </div>
+</form>
