@@ -23,6 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Models\UserViewModel.cs~RF1e9839c.TMP" />
+    <None Remove="Views\Home\Index1.cshtml~RF20189d2.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\favicon.ico" />
   </ItemGroup>
 
