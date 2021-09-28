@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\desahabilitarAyuda.js" />
     <Content Remove="wwwroot\lib\toxicidad.png" />
   </ItemGroup>
 

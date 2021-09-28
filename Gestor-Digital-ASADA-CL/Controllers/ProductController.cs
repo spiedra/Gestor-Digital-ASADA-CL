@@ -15,6 +15,14 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return View();
         }
 
-        
+        [HttpPost]
+        [Route("Product/RealizarReporte")]
+        public IActionResult RealizarReporteInventario()
+        {
+            ViewBag.ShowModalResponse = "True";
+            ViewBag.mensaje = "¡Reporte de producto satisfactorio!";
+            return View("Index");
+        }
+
     }
 }
