@@ -1,2 +1,2 @@
-﻿
-$(".bienvenida").css("display", "none");
+﻿$(".bienvenida").css("display", "none");
+
