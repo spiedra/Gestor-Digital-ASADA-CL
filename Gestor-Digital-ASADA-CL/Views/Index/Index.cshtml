@@ -1,6 +1,7 @@
-﻿@{
+﻿@model UserViewModel
+@{
     ViewData["Title"] = "Inicio sesión";
-    Layout = "~/Views/Shared/_LayoutIndex.cshtml";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
 
 <div class="container__index container-fluid m-0 p-0">
@@ -10,13 +11,13 @@
         </div>
         <div class="container mt-2">
             <label class="mb-2">Nombre de usuario</label>
-            <input id="inNombreUsuario" class="form-control" placeholder="Ingrese su nombre de usuario" @*asp-for="userName"*@>
-            @*<span class="field-validation-error" asp-validation-for="IdCard"></span>*@
+            <input id="inNombreUsuario" class="form-control" placeholder="Ingrese su nombre de usuario" asp-for="UserName">
+            <span class="field-validation-error" asp-validation-for="UserName"></span>
         </div>
         <div class="container mt-2">
             <label class="mb-2">Contraseña</label>
-            <input id="inContraseña" type="password" class="form-control" placeholder="Ingrese su contraseña" @*asp-for="Password"*@>
-            @*<span class="field-validation-error" asp-validation-for="Password"></span>*@
+            <input id="inContraseña" type="password" class="form-control" placeholder="Ingrese su contraseña" asp-for="Password">
+            <span class="field-validation-error" asp-validation-for="Password"></span>
         </div>
         <div class="container d-flex justify-content-center my-3">
             <button id="btnIniciarSesion" type="submit" class="btn btn-dark">Iniciar Sesión</button>

@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Gestor de usuarios";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="mt-4 mb-2">
@@ -9,7 +10,7 @@
             data-bs-target="#searchModal"
             data-bs-placement="right"
             title="Busqueda de usuarios">
-        <img src="~/search_black_24dp.svg" alt="Icono de busqueda" />
+        <img src="~/assets/search_black_24dp.svg" alt="Icono de busqueda" />
     </button>
 </div>
 <hr />
@@ -37,11 +38,11 @@
                         <td>
                             <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
                                 Modificar
-                                <img src="~/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
                             </button>
                             <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
                                 Eliminar
-                                <img src="~/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
                             </button>
                         </td>
                     </tr>

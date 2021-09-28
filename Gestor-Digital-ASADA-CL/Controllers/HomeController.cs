@@ -15,6 +15,11 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return View();
         }
 
+        public ActionResult Index1()
+        {
+            return View();
+        }
+
         // GET: HomeController/Details/5
         public ActionResult Details(int id)
         {

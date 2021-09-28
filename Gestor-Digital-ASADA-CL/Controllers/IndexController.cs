@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Gestor_Digital_ASADA_CL.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -30,9 +31,20 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         // POST: Index/Authentication
         [HttpPost]
         [Route("Index/Authentication")]
-        public ActionResult Authentication()
+        public ActionResult Authentication(UserViewModel UserViewModel)
         {
-            return Redirect("~/Home/Index");
+            if (ModelState.IsValid)
+            {
+                if (UserViewModel.UserName == "admin" && UserViewModel.Password == "admin")
+                {
+                    return Redirect("~/Home/Index");
+                }
+                else
+                {
+                    return Redirect("~/Home/Index1");
+                }
+            }
+             return RedirectToAction(nameof(Index));
         }
 
         // POST: IndexController/Create
