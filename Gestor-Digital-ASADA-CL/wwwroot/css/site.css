@@ -67,7 +67,7 @@ body {
 }
 
 .navbar, footer {
-    background-color: #93BFBB;
+    background-color: #6DC7F6;
 }
 
 .footer {
@@ -80,7 +80,7 @@ body {
 
 .form__login {
     width: 95%;
-    background-color: #93BFBB;
+    background-color: #6DC7F6;
     border-radius: 1em;
     padding-top: 1em;
     padding-bottom: 1em;
