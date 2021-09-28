@@ -43,8 +43,11 @@
         <div class="">
             <h3 class="promo-table__title d-inline me-3">Usuario: Juan Carlos Sequeira Piedra</h3>
             <button id="btn__refresh--user" class="btn mb-3 d-inline btn__refresh"
-                    title="Refrescar tabla">
-                <img src="~/assets/add_black_24dp.svg" alt="Icono de busqueda" />
+                    data-bs-toggle="modal"
+                    data-bs-target="#addModal"
+                    data-bs-placement="right"
+                    title="Agregar tarea">
+                <img src="~/assets/add_black_24dp.svg" alt="Icono de agregar tarea" />
             </button>
             <button id="btn__search--user" class="btn mb-3 d-inline btn__search"
                     data-bs-toggle="modal"
@@ -58,81 +61,175 @@
                 <img src="~/assets/refresh_black_24dp.svg" alt="Icono de busqueda" />
             </button>
         </div>
-            <div class="row table-responsive">
-                <div class="col-12">
-                    <table class="table table-bordered table-striped table-hover">
-                        <thead class="table-dark">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Titulo</th>
-                                <th scope="col">Detalles</th>
-                                <th scope="col">Acción</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbodyTask">
-                            <tr>
-                                <td>1</td>
-                                <td>Visitar sector 14</td>
-                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. </td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
-                                        Modificar
-                                        <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                                    </button>
-                                    <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                        Eliminar
-                                        <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Visitar sector 14</td>
-                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. </td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
-                                        Modificar
-                                        <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                                    </button>
-                                    <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                        Eliminar
-                                        <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Visitar sector 14</td>
-                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. </td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
-                                        Modificar
-                                        <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                                    </button>
-                                    <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                        Eliminar
-                                        <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Visitar sector 14</td>
-                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. </td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
-                                        Modificar
-                                        <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                                    </button>
-                                    <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                        Eliminar
-                                        <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <div class="row table-responsive">
+            <div class="col-12">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Titulo</th>
+                            <th scope="col">Detalles</th>
+                            <th scope="col">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyTask">
+                        <tr>
+                            <td>1</td>
+                            <td>Visitar sector 14</td>
+                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. </td>
+                            <td>
+                                <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                    Modificar
+                                    <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                </button>
+                                <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                    Eliminar
+                                    <img src="~/assets/delete_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Visitar sector 14</td>
+                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. </td>
+                            <td>
+                                <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                    Modificar
+                                    <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                </button>
+                                <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                    Eliminar
+                                    <img src="~/assets/delete_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Visitar sector 14</td>
+                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. </td>
+                            <td>
+                                <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                    Modificar
+                                    <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                </button>
+                                <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                    Eliminar
+                                    <img src="~/assets/delete_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Visitar sector 14</td>
+                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. </td>
+                            <td>
+                                <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                    Modificar
+                                    <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                </button>
+                                <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                    Eliminar
+                                    <img src="~/assets/delete_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar tarea</h5>
+            </div>
+            <form class="was-validated">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="mb-3">
+                            <label for="inputTitle" class="form-label">Título</label>
+                            <input id="inputTitle" class="form-control is-invalid" type="text" placeholder="Ingrese el título de la tarea" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputDetail" class="form-label">Detalle</label>
+                            <input id="inputDetail" class="form-control is-invalid" type="text" placeholder="Ingrese el detalle de la tarea" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btn-search" type="button" class="btn btn-primary">Agregar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Busqueda de tareas</h5>
+            </div>
+            <form class="was-validated">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="mb-3">
+                            <label for="inputName" class="form-label">Título de tarea</label>
+                            <input id="inputName" class="form-control is-invalid" type="text" placeholder="Ingrese el título de la tarea" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btn-search" type="button" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modificar información de tarea</h5>
+            </div>
+            <form class="was-validated">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="mb-3">
+                            <label for="inputTitle" class="form-label">Título</label>
+                            <input id="inputTitle" class="form-control is-invalid" type="text" placeholder="Ingrese el título de la tarea" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputDetail" class="form-label">Detalle</label>
+                            <input id="inputDetail" class="form-control is-invalid" type="text" placeholder="Ingrese el detalle de la tarea" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btn-search" type="button" class="btn btn-primary">Agregar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">¿Está seguro de eliminar esta tarea?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                La tarea va a ser borrado permanentemente del sistema
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Confirmar eliminación</button>
+            </div>
+        </div>
     </div>
 </div>
