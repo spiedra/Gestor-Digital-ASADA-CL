@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Gestor_Digital_ASADA_CL.Controllers
 {
-    public class PersonalBinnacle : Controller
+    public class PersonalBinnacleController : Controller
     {
         // GET: PersonalBinnacle
         public ActionResult Index()
@@ -42,10 +42,13 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             }
         }
 
-        // GET: PersonalBinnacle/Edit/5
-        public ActionResult Edit(int id)
+        [HttpPost]
+        [Route("PersonalBinnacle/Edit")]
+        public ActionResult Edit()
         {
-            return View();
+            ViewBag.ShowModalResponse = "True";
+            ViewBag.mensaje = "Actividad modificada con éxito";
+            return View("Index");
         }
 
         // POST: PersonalBinnacle/Edit/5
@@ -63,10 +66,13 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             }
         }
 
-        // GET: PersonalBinnacle/Delete/5
-        public ActionResult Delete(int id)
+        [HttpPost]
+        [Route("PersonalBinnacle/Delete")]
+        public ActionResult Delete()
         {
-            return View();
+            ViewBag.ShowModalResponse = "True";
+            ViewBag.mensaje = "Actividad borrada con éxito";
+            return View("Index");
         }
 
         // POST: PersonalBinnacle/Delete/5
