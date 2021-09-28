@@ -1,5 +1,4 @@
-﻿using Gestor_Digital_ASADA_CL.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,45 +7,27 @@ using System.Threading.Tasks;
 
 namespace Gestor_Digital_ASADA_CL.Controllers
 {
-    public class IndexController : Controller
+    public class PersonalBinnacleController : Controller
     {
-        // GET: IndexController
+        // GET: PersonalBinnacle
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: IndexController/Details/5
+        // GET: PersonalBinnacle/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: IndexController/Create
+        // GET: PersonalBinnacle/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Index/Authentication
-        [HttpPost]
-        public ActionResult Authentication(UserViewModel UserViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                if (UserViewModel.UserName == "admin" && UserViewModel.Password == "admin")
-                {
-                    return Redirect("~/Home/Index");
-                }
-                else
-                {
-                    return Redirect("~/Home/Client/Index");
-                }
-            }
-             return RedirectToAction(nameof(Index));
-        }
-
-        // POST: IndexController/Create
+        // POST: PersonalBinnacle/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -61,13 +42,16 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             }
         }
 
-        // GET: IndexController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpPost]
+        [Route("PersonalBinnacle/Edit")]
+        public ActionResult Edit()
         {
-            return View();
+            ViewBag.ShowModalResponse = "True";
+            ViewBag.mensaje = "Actividad modificada con éxito";
+            return View("Index");
         }
 
-        // POST: IndexController/Edit/5
+        // POST: PersonalBinnacle/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -82,13 +66,16 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             }
         }
 
-        // GET: IndexController/Delete/5
-        public ActionResult Delete(int id)
+        [HttpPost]
+        [Route("PersonalBinnacle/Delete")]
+        public ActionResult Delete()
         {
-            return View();
+            ViewBag.ShowModalResponse = "True";
+            ViewBag.mensaje = "Actividad borrada con éxito";
+            return View("Index");
         }
 
-        // POST: IndexController/Delete/5
+        // POST: PersonalBinnacle/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

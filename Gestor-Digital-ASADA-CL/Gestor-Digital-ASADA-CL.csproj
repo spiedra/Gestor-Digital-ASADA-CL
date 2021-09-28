@@ -4,7 +4,34 @@
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Gestor_Digital_ASADA_CL</RootNamespace>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+    <ApplicationIcon>wwwroot\favicon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\NewFolder1\**" />
+    <Compile Remove="wwwroot\NewFolder2\**" />
+    <Content Remove="wwwroot\NewFolder1\**" />
+    <Content Remove="wwwroot\NewFolder2\**" />
+    <EmbeddedResource Remove="wwwroot\NewFolder1\**" />
+    <EmbeddedResource Remove="wwwroot\NewFolder2\**" />
+    <None Remove="wwwroot\NewFolder1\**" />
+    <None Remove="wwwroot\NewFolder2\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\js\desahabilitarAyuda.js" />
+    <Content Remove="wwwroot\lib\toxicidad.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Models\UserViewModel.cs~RF1e9839c.TMP" />
+    <None Remove="Views\Home\Index1.cshtml~RF20189d2.TMP" />
+    <None Remove="Views\Task\Index1.cshtml~RF34af618.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\favicon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.10" />

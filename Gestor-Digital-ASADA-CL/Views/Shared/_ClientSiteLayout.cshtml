@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ASADA Carmen Lyra</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/ayuda.css" />
+    <link rel="stylesheet" href="~/css/ColorsASADA.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-toggleable-sm navbar-light" style="background-color: #6DC7F6">
+            <a class="navbar-brand" style="font-size:25px" asp-area="" asp-controller="Home" asp-action="Index1">ASADA Carmen Lyra<img src="~/assets/home_black_36dp.svg" alt="Icono de menu principal" class="ms-2 mb-2" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="container">
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a id="mis_tareas" style="font-size:20px" class="nav-item nav-link m-2 " asp-controller="Task" asp-action="Index1">Mis tareas</a>
+                        <a id="inventario" style="font-size:20px" class="nav-item nav-link m-2 " asp-controller="Product" asp-action="Index">Inventario</a>
+                        <a id="cloros" style="font-size:20px" class="nav-item nav-link m-2 " href="#">Cloros residuales</a>
+                        <a id="mi_bitacora" style="font-size:20px" class="nav-item nav-link m-2" asp-controller="PersonalBinnacle" asp-action="Index">Mi bitácora</a>
+                    </div>
+                </div>
+                <a asp-controller="Index" asp-action="Index" class="btn btn-dark btn-sm m-1 m-xl-0">Luis Obando<img src="~/assets/logout_white_18dp.svg" alt="Icono de cerar sesión" class="ms-2 my-1" /></a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main id="pageMain" role="main">
+            @RenderBody()
+
+        </main>
+    </div>
+
+
+
+    <footer class="border-top footer text-muted" style="background-color: #6DC7F6">
+        <div class="container">
+            &copy; 2021 - ASADA Carmen Lyra- <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/Utility.js" asp-append-version="true"></script>
+    <script src="~/js/ayuda.js" asp-append-version="true"></script>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

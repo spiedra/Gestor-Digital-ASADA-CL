@@ -1,5 +1,4 @@
-﻿using Gestor_Digital_ASADA_CL.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,45 +7,27 @@ using System.Threading.Tasks;
 
 namespace Gestor_Digital_ASADA_CL.Controllers
 {
-    public class IndexController : Controller
+    public class UserController : Controller
     {
-        // GET: IndexController
+        // GET: UserController1
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: IndexController/Details/5
+        // GET: UserController1/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: IndexController/Create
+        // GET: UserController1/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Index/Authentication
-        [HttpPost]
-        public ActionResult Authentication(UserViewModel UserViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                if (UserViewModel.UserName == "admin" && UserViewModel.Password == "admin")
-                {
-                    return Redirect("~/Home/Index");
-                }
-                else
-                {
-                    return Redirect("~/Home/Client/Index");
-                }
-            }
-             return RedirectToAction(nameof(Index));
-        }
-
-        // POST: IndexController/Create
+        // POST: UserController1/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -61,13 +42,13 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             }
         }
 
-        // GET: IndexController/Edit/5
+        // GET: UserController1/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: IndexController/Edit/5
+        // POST: UserController1/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -82,13 +63,13 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             }
         }
 
-        // GET: IndexController/Delete/5
+        // GET: UserController1/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: IndexController/Delete/5
+        // POST: UserController1/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
