@@ -1,0 +1,258 @@
+﻿@{
+    ViewData["Title"] = "Gestor de usuarios";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="mt-4 mb-2">
+    <h1 class="promo-table__title d-inline me-3">Gestor de usuarios</h1>
+    <button id="btn__add--user" class="btn mb-3 d-inline btn__add"
+            data-bs-toggle="modal"
+            data-bs-target="#addModal"
+            data-bs-placement="right"
+            title="Agregar usuario">
+        <img src="~/assets/add_black_24dp.svg" alt="Icono de agregar" />
+    </button>
+    <button id="btn__search--user" class="btn mb-3 d-inline btn__search"
+            data-bs-toggle="modal"
+            data-bs-target="#searchModal"
+            data-bs-placement="right"
+            title="Busqueda de usuarios">
+        <img src="~/assets/search_black_24dp.svg" alt="Icono de busqueda" />
+    </button>
+    <button id="btn__refresh--user" class="btn mb-3 d-inline btn__refresh"
+            title="Refrescar tabla">
+        <img src="~/assets/refresh_black_24dp.svg" alt="Icono de busqueda" />
+    </button>
+</div>
+<hr />
+<div>
+    <div class="row table-responsive">
+        <div class="col-12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Cédula</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Nombre de usuario</th>
+                        <th scope="col">Contraseña</th>
+                        <th scope="col">Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyUserSearch">
+                    <tr>
+                        <td>00000000</td>
+                        <td>Juan Carlos</td>
+                        <td>Sequeira Piedra</td>
+                        <td>spiedra</td>
+                        <td>perroygato</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                Modificar
+                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                            <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                Eliminar
+                                <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>00000000</td>
+                        <td>Juan Carlos</td>
+                        <td>Sequeira Piedra</td>
+                        <td>spiedra</td>
+                        <td>perroygato</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                Modificar
+                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                            <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                Eliminar
+                                <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>00000000</td>
+                        <td>Juan Carlos</td>
+                        <td>Sequeira Piedra</td>
+                        <td>spiedra</td>
+                        <td>perroygato</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                Modificar
+                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                            <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                Eliminar
+                                <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>00000000</td>
+                        <td>Juan Carlos</td>
+                        <td>Sequeira Piedra</td>
+                        <td>spiedra</td>
+                        <td>perroygato</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                Modificar
+                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                            <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                Eliminar
+                                <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Busqueda de usuarios</h5>
+            </div>
+            <form class="was-validated">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="mb-3">
+                            <label for="inputName" class="form-label">Nombre del trabajador</label>
+                            <input id="inputName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre del trabajor" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="selectPuesto" class="form-label">Puesto</label>
+                            <select class="form-select" required aria-label="Lista puesto">
+                                <option value="">Seleccione algún puesto</option>
+                                <option value="1">One</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btn-search" type="button" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modificación de información de usuario</h5>
+            </div>
+            <form class="row g-3 p-3 was-validated">
+                <div class="col-md-4">
+                    <label for="inputName" class="form-label">Nombre del trabajor</label>
+                    <input id="inputName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre" @*asp-for="name"*@ required>
+                    @*<span class="field-validation-error" asp-validation-for="name"></span>*@
+                </div>
+                <div class="col-md-4">
+                    <label for="inputLastName" class="form-label">Apellido del trabajador</label>
+                    <input id="inputLastName" class="form-control is-invalid" type="text" placeholder="Ingrese el apellido" @*asp-for="lastName"*@ required>
+                    @*<span class="field-validation-error" asp-validation-for="workerLastName"></span>*@
+                </div>
+                <div class="col-md-4">
+                    <label for="inputIdCard" class="form-label">Cédula del trabajor</label>
+                    <input id="inputIdCard" class="form-control is-invalid" type="text" placeholder="Ingrese la cédula" @*asp-for="idCard"*@ required>
+                    @*<span class="field-validation-error" asp-validation-for="workerIdCard"></span>*@
+                </div>
+                <div class="col-12">
+                    <label for="inputUserName" class="form-label">Nombre de usuario del trabajor</label>
+                    <input id="inputUserName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre de usuario" @*asp-for="userName"*@ required>
+                    @*<span class="field-validation-error" asp-validation-for="workerIdCard"></span>*@
+                </div>
+                <div class="col-12">
+                    <label for="inputPassword" class="form-label">Contraseña del trabajor</label>
+                    <input id="inputPassword" class="form-control is-invalid" type="text" placeholder="Ingrese la contraseña" required>
+                    @*<span class="field-validation-error" asp-validation-for="userName"></span>*@
+                </div>
+                <div class="col-12">
+                    <label for="selectPuesto" class="form-label">Puesto</label>
+                    <select class="form-select" required aria-label="Lista puesto">
+                        <option value="">Seleccione algún puesto</option>
+                        <option value="1">One</option>
+                    </select>
+                    @*<span class="field-validation-error" asp-validation-for="SpecialityType"></span>*@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btn-search" type="button" class="btn btn-primary">Actualizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Registrar un nuevo usuario</h5>
+            </div>
+            <form class="row g-3 p-3 was-validated">
+                <div class="col-md-4">
+                    <label for="inputName" class="form-label">Nombre del trabajor</label>
+                    <input id="inputName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre" @*asp-for="name"*@ required>
+                    @*<span class="field-validation-error" asp-validation-for="name"></span>*@
+                </div>
+                <div class="col-md-4">
+                    <label for="inputLastName" class="form-label">Apellido del trabajador</label>
+                    <input id="inputLastName" class="form-control is-invalid" type="text" placeholder="Ingrese el apellido" @*asp-for="lastName"*@ required>
+                    @*<span class="field-validation-error" asp-validation-for="workerLastName"></span>*@
+                </div>
+                <div class="col-md-4">
+                    <label for="inputIdCard" class="form-label">Cédula del trabajor</label>
+                    <input id="inputIdCard" class="form-control is-invalid" type="text" placeholder="Ingrese la cédula" @*asp-for="idCard"*@ required>
+                    @*<span class="field-validation-error" asp-validation-for="workerIdCard"></span>*@
+                </div>
+                <div class="col-12">
+                    <label for="inputUserName" class="form-label">Nombre de usuario del trabajor</label>
+                    <input id="inputUserName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre de usuario" @*asp-for="userName"*@ required>
+                    @*<span class="field-validation-error" asp-validation-for="workerIdCard"></span>*@
+                </div>
+                <div class="col-12">
+                    <label for="inputPassword" class="form-label">Contraseña del trabajor</label>
+                    <input id="inputPassword" class="form-control is-invalid" type="text" placeholder="Ingrese la contraseña" required>
+                    @*<span class="field-validation-error" asp-validation-for="userName"></span>*@
+                </div>
+                <div class="col-12">
+                    <label for="selectPuesto" class="form-label">Puesto</label>
+                    <select class="form-select" required aria-label="Lista puesto">
+                        <option value="">Seleccione algún puesto</option>
+                        <option value="1">One</option>
+                    </select>
+                    @*<span class="field-validation-error" asp-validation-for="SpecialityType"></span>*@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btn-search" type="button" class="btn btn-primary">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">¿Está seguro de eliminar a este usuario?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                El usuario va a ser borrado permanentemente del sistema
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Confirmar eliminación</button>
+            </div>
+        </div>
+    </div>
+</div>

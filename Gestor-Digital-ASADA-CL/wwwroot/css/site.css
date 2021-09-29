@@ -124,7 +124,7 @@ form__registervaccination {
 }
 
 .btn__search,
-.btn__refresh {
+.btn__refresh, .btn__add {
     background-color: rgba(204, 204, 204, 0.959) !important;
 }
 
@@ -133,6 +133,10 @@ form__registervaccination {
     }
 
     .btn__refresh:hover {
+        box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .btn__add:hover {
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5) !important;
     }
 
