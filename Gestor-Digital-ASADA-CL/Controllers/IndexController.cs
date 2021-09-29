@@ -13,6 +13,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         // GET: IndexController
         public ActionResult Index()
         {
+            ViewBag.ServerResponse = false;
             return View();
         }
 
@@ -36,14 +37,16 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             {
                 if (UserViewModel.UserName == "admin" && UserViewModel.Password == "admin")
                 {
+
                     return Redirect("~/Home/Index");
                 }
-                else
+                else if (UserViewModel.UserName == "fontanero" && UserViewModel.Password == "fontanero")
                 {
                     return Redirect("~/Home/Client/Index");
                 }
             }
-             return RedirectToAction(nameof(Index));
+            ViewBag.ServerResponse = true;
+            return View("Index");
         }
 
         // POST: IndexController/Create

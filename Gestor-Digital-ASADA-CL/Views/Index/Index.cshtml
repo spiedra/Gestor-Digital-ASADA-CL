@@ -5,8 +5,8 @@
 }
 
 <div class="container__index container-fluid m-0 p-0">
-    <form class="container form__login needs-validation shadow"  method="post" asp-controller="Index" asp-action="Authentication" novalidate>
-            <h2 class="mb-4 text-center">Gestor Digital ASADA Carmen Lyra</h2>
+    <form class="container form__login needs-validation shadow" method="post" asp-controller="Index" asp-action="Authentication" novalidate>
+        <h2 class="mb-4 text-center">Gestor Digital ASADA Carmen Lyra</h2>
         <div class="container mt-2">
             <label class="mb-2">Nombre de usuario</label>
             <input id="inNombreUsuario" class="form-control" placeholder="Ingrese su nombre de usuario" asp-for="UserName">
@@ -26,11 +26,11 @@
 @section scripts
 {
     <partial name="_ValidationScriptsPartial" />
-    @*<script type="text/javascript">
+    <script type="text/javascript">
             $(document).ready(function () {
-            if ('@ViewBag.ShowModalResponse' === 'True') {
-               createModalResponse("User not found");
+            if ('@ViewBag.ServerResponse' === 'True') {
+                createModalResponse2("¡Nombre o contraseña incorrectos!");
             }
            });
-        </script>*@
+    </script>
 }
