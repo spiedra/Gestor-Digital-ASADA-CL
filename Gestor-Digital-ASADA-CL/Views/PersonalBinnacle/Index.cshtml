@@ -9,10 +9,13 @@
 <div class="row">
     <div class="col-12">
         <h2>Agregar una actividad  <a data-bs-toggle="modal" data-bs-target="#modalBuscar" href="#" class="btn btn-dark me-1"><i class="fas fa-search"></i></a></h2>
-        <form method="POST">
+        <form method="POST" class="needs-validation" novalidate>
             <div class="form-group">
                 <label for="note">¿Qué hiciste?</label>
-                <textarea class="form-control" id="note" rows="3"></textarea>
+                <textarea class="form-control" id="note" rows="3" required></textarea>
+                <div class="invalid-feedback">
+                    Anota algo primero
+                </div>
             </div>
             <div class="form-group">
                 <button type="submit" style="background-color: #6DC7F6;" class=" mt-2 btn btn-success">Anotar</button>
@@ -59,15 +62,19 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" asp-controller="PersonalBinnacle" asp-action="Edit" class="mt-2 ml-2 p-3">
+                <form method="POST" asp-controller="PersonalBinnacle" asp-action="Edit" class="mt-2 ml-2 p-3 needs-validation" novalidate>
                     <div class="form-group">
                         <label for="taDetalles">Nota:</label>
-                        <textarea class="form-control" id="taDetalleModificar" style="resize:none;" rows="8"></textarea>
+                        <textarea class="form-control" id="taDetalleModificar" style="resize:none;" rows="8" required></textarea>
+                        <div class="invalid-feedback">
+                            Anota algo primero
+                        </div>
                     </div>
                     <button type="submit" data-bs-toggle="modal" data-bs-target="#modalMensaje" style="background-color: #6DC7F6;" class="btn btn-primary mt-2">Guardar cambios</button>
+                    
                 </form>
             </div>
-            <div style="background-color: #6DC7F6;" class="modal-footer">
+            <div class="modal-footer">
                 <button type="button" style="background-color: #313436;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>
@@ -84,16 +91,18 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" class="mt-2 ml-2 p-3">
+                <form method="POST" class="mt-2 ml-2 p-3 needs-validation" novalidate>
                     <div class="input-group">
                         <input type="search" class="form-control rounded" placeholder="Ingresa una palabra clave" aria-label="Search"
-                               aria-describedby="search-addon" />
+                               aria-describedby="search-addon" required />
+                        <div class="invalid-feedback">
+                            Agrega una palabra clave
+                        </div>
                         <button type="submit" class="btn-search btn btn-outline-primary">Buscar</button>
                     </div>
-
                 </form>
             </div>
-            <div style="background-color: #6DC7F6;" class="modal-footer">
+            <div class="modal-footer">
                 <button type="button" style="background-color: #313436;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>
