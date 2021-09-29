@@ -1,0 +1,259 @@
+﻿@{
+    ViewData["Title"] = "Gestor de cloro residual";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="mt-4 mb-2">
+    <h1 class="promo-table__title d-inline me-3">Gestor de cloro residual</h1>
+    <button id="btn__insert--user" class="btn btn-dark mb-3 d-inline btn__search"
+            data-bs-toggle="modal"
+            data-bs-target="#insertModal"
+            data-bs-placement="right"
+            title="Registro de averías">
+        <img src="~/assets/add_black_24dp.svg" alt="Icono de insertar" />
+    </button>
+    <button id="btn__search--user" class="btn btn-dark mb-3 d-inline btn__search"
+            data-bs-toggle="modal"
+            data-bs-target="#searchModal"
+            data-bs-placement="right"
+            title="Busqueda de averías">
+        <img src="~/assets/search_black_24dp.svg" alt="Icono de busqueda" />
+    </button>
+    <button id="btn__refresh--user" class="btn btn-dark mb-3 d-inline btn__search"
+            title="Refrescar tabla">
+        <img src="~/assets/refresh_black_24dp.svg" alt="Icono de refresh" />
+    </button>
+</div>
+<hr />
+<div>
+    <div class="row table-responsive">
+        <div class="col-lg-auto">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Hora</th>
+                        <th scope="col">Porcentaje de cloro</th>
+                        <th scope="col">Número de casa</th>
+                        <th scope="col">Nombre del abonado</th>
+                        <th scope="col">Nombre del trabajador</th>
+                        <th scope="col">Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyUserSearch">
+                    <tr>
+                        <td>10/08/2021</td>
+                        <td>10:10</td>
+                        <td>10.5</td>
+                        <td>120</td>
+                        <td>Ana Rosales</td>
+                        <td>Alexis Fonseca</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                Modificar
+                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>28/08/2021</td>
+                        <td>02:40</td>
+                        <td>12.5</td>
+                        <td>233</td>
+                        <td>David Sequeira</td>
+                        <td>Juan Perez</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                Modificar
+                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>24/09/2021</td>
+                        <td>08:00</td>
+                        <td>11</td>
+                        <td>400</td>
+                        <td>Ariana Abadia</td>
+                        <td>Alexis Fonseca</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
+                                Modificar
+                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Búsqueda de cloro residual</h5>
+            </div>
+            <form class="needs-validation" novalidate>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="mb-3">
+                            <label for="inputName" class="form-label">Fecha inicial</label>
+                            <input id="inputName" class="form-control" type="date" required>
+                            <div class="invalid-feedback">
+                                Seleccione fecha
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputName" class="form-label">Fecha final</label>
+                            <input id="inputName" class="form-control " type="date" required>
+                            <div class="invalid-feedback">
+                                Seleccione fecha 
+                            </div>
+                        </div>
+
+                        @*<div class="mb-3">
+                        <label for="inputIdHouse" class="form-label">Número de casa</label>
+                        <input id="inputIdHouse" class="form-control is-invalid" type="text" placeholder="Ingrese el número de casa">
+                    </div>
+                </div>*@
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="btn-search" type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modificación de cloro residual</h5>
+            </div>
+            <form class="row g-3 p-3 needs-validation" novalidate>
+                <div class="col-md-6">
+                    <label for="inputDate" class="form-label">Fecha</label>
+                    <input id="inputDate" class="form-control" type="date" required>
+                    <div class="invalid-feedback">
+                        Ingrese fecha
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <label for="inputTime" class="form-label">Hora</label>
+                    <input id="inputTime" class="form-control" type="time" placeholder="Ingrese la hora" required>
+                    <div class="invalid-feedback">
+                        Ingrese hora
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPercent" class="form-label">Porcentaje de cloro</label>
+                    <input id="inputPercent" class="form-control" type="number" min="0" step=".01" placeholder="Ingrese el porcentaje" required>
+                    <div class="invalid-feedback">
+                        Ingrese porcentaje de cloro
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label for="inputIdHouse" class="form-label">Número de casa</label>
+                    <input id="inputIdHouse" class="form-control" type="number" placeholder="Ingrese el número" required>
+                    <div class="invalid-feedback">
+                       Ingrese número de casa
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label for="inputNameC" class="form-label">Nombre del abonado</label>
+                    <input id="inputNameC" class="form-control" type="text" placeholder="Ingrese el nombre" required>
+                    <div class="invalid-feedback">
+                        Ingrese nombre del abonado
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label for="inputDateE" class="form-label">Nombre del trabajador</label>
+                    <input id="inputDateE" class="form-control" type="text" placeholder="Ingrese el nombre" required>
+                    <div class="invalid-feedback">
+                        Ingrese nombre del trabajador
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="btn-search" type="submit" class="btn btn-primary">Actualizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="insertModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Registro de cloro residual</h5>
+            </div>
+            <form class="row g-3 p-3 needs-validation" novalidate>
+                <div class="col-md-6">
+                    <label for="inputDate" class="form-label">Fecha</label>
+                    <input id="inputDate" class="form-control" type="date" required>
+                    <div class="invalid-feedback">
+                        Ingrese la fecha
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <label for="inputTime" class="form-label">Hora</label>
+                    <input id="inputTime" class="form-control" type="time" placeholder="Ingrese la hora" required>
+                    <div class="invalid-feedback">
+                        Ingrese hora
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPercent" class="form-label">Porcentaje de cloro</label>
+                    <input id="inputPercent" class="form-control" type="number" min="0" step=".01" placeholder="Ingrese el porcentaje" required>
+                    <div class="invalid-feedback">
+                        Ingrese porcentaje
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label for="inputIdHouse" class="form-label">Número de casa</label>
+                    <input id="inputIdHouse" class="form-control" type="number" placeholder="Ingrese el número" required>
+                    <div class="invalid-feedback">
+                        Ingrese número de casa
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label for="inputNameC" class="form-label">Nombre del abonado</label>
+                    <input id="inputNameC" class="form-control" type="text" placeholder="Ingrese el nombre" required>
+                    <div class="invalid-feedback">
+                        Ingrese nombre del abonado
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label for="inputDateE" class="form-label">Nombre del trabajador</label>
+                    <input id="inputDateE" class="form-control" type="text" placeholder="Ingrese el nombre" required>
+                    <div class="invalid-feedback">
+                        Ingrese nombre del trabajador
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="btn-search" type="submit" class="btn btn-primary">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@*@section scripts
+    {
+        <partial name="_ValidationScriptsPartial" />
+        <script type="text/javascript">
+                $(document).ready(function () {
+                if ('@ViewBag.ShowModalResponse' === 'True') {
+                   createModalResponse("@ViewBag.mensaje");
+                }
+               });
+        </script>
+    }*@
+

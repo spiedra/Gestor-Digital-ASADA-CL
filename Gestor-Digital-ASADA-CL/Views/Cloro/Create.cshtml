@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Registro de cloro";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h1>Registro de medición del cloro residual</h1>
+<hr />
+<form class="row g-3 p-1">
+    <div class="col-md-4">
+        <label for="inputDate" class="form-label">Fecha</label>
+        <input id="inputDate" class="form-control" type="date">
+    </div>
+    <div class="col-md-4">
+        <label for="inputTime" class="form-label">Hora</label>
+        <input id="inputIdTime" class="form-control" type="time" placeholder="Ingrese la hora">
+    </div>
+    <div class="col-4">
+        <label for="inputPercent" class="form-label">Porcentaje de cloro</label>
+        <input id="inputPercent" class="form-control" type="number" min="0" step=".01" placeholder="Ingrese el porcentade cloro">
+    </div>
+    <div class="col-4">
+        <label for="inputIdHouse" class="form-label">Número de casa</label>
+        <input id="inputReportDate" class="form-control" type="text" placeholder="Ingrese el número de casa">
+    </div>
+    <div class="col-2">
+
+    </div>
+    <div class="col-4">
+        <label for="inputNameC" class="form-label">Nombre del abonado</label>
+        <input id="inputNameC" class="form-control" type="text" placeholder="Ingrese el nombre del abonado">
+    </div>
+    <div class="col-6">
+        <label for="inputNameE" class="form-label">Nombre del trabajador</label>
+        <input id="inputNameE" class="form-control" type="text" placeholder="Ingrese el nombre del trabajador">
+    </div>
+    <div class="col-12 mb-2 mb-md-6">
+        <button type="submit" class="btn btn-dark">Registrar</button>
+    </div>
+</form>
