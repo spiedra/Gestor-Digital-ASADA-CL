@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Gestor_Digital_ASADA_CL.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -29,44 +30,28 @@ namespace Gestor_Digital_ASADA_CL.Controllers
 
         // POST: UserController1/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(UserViewModel userViewModel)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            ViewBag.ShowModalResponse = true;
+            ViewBag.Message = "¡Usuario registrado correctamente!";
+            return View("Index");
         }
 
-        // GET: UserController1/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: UserController1/Edit/5
+        // POST: UserController1/Edit
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(UserViewModel userViewModel)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            ViewBag.ShowModalResponse = true;
+            ViewBag.Message = "¡La información del usuario ha sido actualizada correctamente!";
+            return View("Index");
         }
 
         // GET: UserController1/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
-            return View();
+            ViewBag.ShowModalResponse = true;
+            ViewBag.Message = "¡El usuario ha sido eliminado correctamente!";
+            return View("Index");
         }
 
         // POST: UserController1/Delete/5

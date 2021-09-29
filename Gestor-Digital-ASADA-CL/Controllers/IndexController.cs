@@ -33,19 +33,18 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         [HttpPost]
         public ActionResult Authentication(UserViewModel UserViewModel)
         {
-            if (ModelState.IsValid)
+            if (UserViewModel.UserName == "admin" && UserViewModel.Password == "admin")
             {
-                if (UserViewModel.UserName == "admin" && UserViewModel.Password == "admin")
-                {
 
-                    return Redirect("~/Home/Index");
-                }
-                else if (UserViewModel.UserName == "fontanero" && UserViewModel.Password == "fontanero")
-                {
-                    return Redirect("~/Home/Client/Index");
-                }
+                return Redirect("~/Home/Index");
             }
-            ViewBag.ServerResponse = true;
+            else if (UserViewModel.UserName == "fontanero" && UserViewModel.Password == "fontanero")
+            {
+                return Redirect("~/Home/Client/Index");
+            }
+
+            ViewBag.ShowModalResponse = true;
+            ViewBag.Message = "¡Nombre o contraseña incorrectos!";
             return View("Index");
         }
 

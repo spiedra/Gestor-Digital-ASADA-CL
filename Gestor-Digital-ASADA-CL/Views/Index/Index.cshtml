@@ -28,8 +28,8 @@
     <partial name="_ValidationScriptsPartial" />
     <script type="text/javascript">
             $(document).ready(function () {
-            if ('@ViewBag.ServerResponse' === 'True') {
-                createModalResponse2("¡Nombre o contraseña incorrectos!");
+            if ('@ViewBag.ShowModalResponse' === 'True') {
+                createModalResponse2("@ViewBag.Message");
             }
            });
     </script>
