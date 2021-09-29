@@ -8,91 +8,104 @@
 <hr />
 
 <div class="row">
-    <div class="col col-md-3">
-        <div class="input-group mt-3 p-3">
-            <form method="POST">
-                <input id="busqueda" name="busqueda" type="search" class="form-control rounded" placeholder="Nombre" aria-label="Search" aria-describedby="search-addon" />
-                <button type="submit" class="btn-search mt-3 btn btn-outline-primary mt-">buscar</button>
-                <a style="background-color: #6DC7F6;" class="mt-3 btn btn-success"> <i style="background-color: #6DC7F6;" class="fas fa-sync"></i> </a>
+    <div class="col col-md-6">
+        <div class="input-group mt-3 py-3">
+            <form method="POST" class="needs-validation" novalidate>
+                <div class="input-group">
+                    <input type="search" class="form-control rounded" placeholder="ingresa un nombre" aria-label="Search"
+                           aria-describedby="search-addon" required />
+                    <button type="submit" class="btn btn-outline-primary">buscar</button>
+                    <div class="invalid-feedback">
+                       ingresa el nombre de producto
+                    </div>
+                </div>
             </form>
+            <a style="background-color: #6DC7F6;" class=" btn btn-success"> <i style="background-color: #6DC7F6;" class="fas fa-sync"></i> </a>
         </div>
     </div>
 </div>
 
-<table id="table" class="table p-3 table-responsive">
-    <thead>
-        <tr>
-            <th>Código</th>
-            <th> Nombre</th>
-            <th>Valor unitario</th>
-            <th>Cantidad</th>
-            <th>Fecha de ingreso</th>
-            <th>Descripción</th>
-            <th>Solic. herramienta</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>123</td>
-            <td>Herramenta COTTER</td>
-            <td>13 000</td>
-            <td>4</td>
-            <td> 06/04/2021 8:32</td>
-            <td>Relleno relleno relleno</td>
-            <td>
-                <button class="btn btn-primary" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
-                    <i class="fas fa-hand-paper"></i>
-                </button>
-                <button class="btn btn-info" onclick="putOnModal(this); return false;" data-bs-toggle="modal" data-bs-target="#modalEditar">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="btn btn-danger" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td>443</td>
-            <td>Pala SuperFlex </td>
-            <td>18 000</td>
-            <td>19</td>
-            <td>12/04/2021 10:32</td>
-            <td>Relleno relleno relleno  </td>
-            <td>
-                <button class="btn btn-primary" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
-                    <i class="fas fa-hand-paper"></i>
-                </button>
-                <button class="btn btn-info" onclick="putOnModal(this); return false;" data-bs-toggle="modal" data-bs-target="#modalEditar">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="btn btn-danger" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td>123RT </td>
-            <td> Herramenta Plus-pln </td>
-            <td>13 000</td>
-            <td>12</td>
-            <td>08/07/2021 12:04</td>
-            <td>
-                Relleno relleno relleno
-            </td>
-            <td>
-                <button class="btn btn-primary" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
-                    <i class="fas fa-hand-paper"></i>
-                </button>
-                <button class="btn btn-info" onclick="putOnModal(this); return false;" data-bs-toggle="modal" data-bs-target="#modalEditar">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="btn btn-danger" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<button type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrar" class="mb-2 btn btn-primary">Agregar nuevo</button>
+<button type="button" data-bs-toggle="modal" data-bs-target="#modalVerInforme" class="mb-2 btn btn-primary">Ver reportes</button>
+
+<div class="row table-responsive">
+    <div class="col-12">
+        <table id="table" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th> Nombre</th>
+                    <th>Valor unitario</th>
+                    <th>Cantidad</th>
+                    <th>Fecha de ingreso</th>
+                    <th>Descripción</th>
+                    <th>Solic. herramienta</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>123</td>
+                    <td>Herramenta COTTER</td>
+                    <td>13 000</td>
+                    <td>0</td>
+                    <td> 06/04/2021 8:32</td>
+                    <td>Relleno relleno relleno</td>
+                    <td>
+                        <button class="btn btn-primary" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
+                            <i class="fas fa-hand-paper"></i>
+                        </button>
+                        <button class="btn btn-info" onclick="putOnModal(this); return false;" data-bs-toggle="modal" data-bs-target="#modalEditar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-danger" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>443</td>
+                    <td>Pala SuperFlex </td>
+                    <td>18 000</td>
+                    <td>19</td>
+                    <td>12/04/2021 10:32</td>
+                    <td>Relleno relleno relleno</td>
+                    <td>
+                        <button class="btn btn-primary" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
+                            <i class="fas fa-hand-paper"></i>
+                        </button>
+                        <button class="btn btn-info" onclick="putOnModal(this); return false;" data-bs-toggle="modal" data-bs-target="#modalEditar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-danger" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>123RT </td>
+                    <td> Herramenta Plus-pln </td>
+                    <td>13 000</td>
+                    <td>12</td>
+                    <td>08/07/2021 12:04</td>
+                    <td>
+                        Relleno relleno relleno
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
+                            <i class="fas fa-hand-paper"></i>
+                        </button>
+                        <button class="btn btn-info" onclick="putOnModal(this); return false;" data-bs-toggle="modal" data-bs-target="#modalEditar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-danger" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <div class="modal" id="modalTomar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -104,20 +117,26 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" asp-controller="Product" asp-action="RealizarReporteAdmin" class="mt-2 ml-2 p-3">
+                <form method="POST" asp-controller="Product" asp-action="RealizarReporteAdmin" class="mt-2 ml-2 p-3 needs-validation" novalidate>
                     <div class="form-group">
                         <label for="taDetalles">Detalles</label>
-                        <textarea class="form-control" id="taDetalles" style="resize:none; height:5em; width:20em;"></textarea>
+                        <textarea class="form-control" id="taDetalles" style="resize:none; height:5em; width:20em;" required></textarea>
+                        <div class="invalid-feedback">
+                            El detalle es obligatorio
+                        </div>
                     </div>
                     <div class="form-group mt-2">
                         <label for="cantidad">Tomaré la cantidad de: </label>
                         <input type="number" min="1" name="cantidad" value="" class="form-control" id="stock" placeholder="productos" required>
+                        <div class="invalid-feedback">
+                            Elige una cantidad
+                        </div>
                     </div>
                     <button type="submit" data-bs-toggle="modal" data-bs-target="#modalMensaje" style="background-color: #6DC7F6;" class="btn btn-primary mt-2">Reportar</button>
                 </form>
             </div>
             <h5 class="modal-data p-2">A nombre de: <span style="color: #6DC7F6;">Juan Carlos Sequeira</span></h5>
-            <div style="background-color: #6DC7F6;" class="modal-footer">
+            <div class="modal-footer">
                 <button type="button" style="background-color: #313436;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>
@@ -148,7 +167,7 @@
 
                     <div class="form-group">
                         <label for="cantidad">cantidad: </label>
-                        <input  min="1" class="form-control" id="cantidad" asp-for="Amount">
+                        <input min="1" class="form-control" id="cantidad" asp-for="Amount">
                         <span class="field-validation-error" asp-validation-for="Amount"></span>
                     </div>
 
@@ -170,7 +189,7 @@
                     <button type="submit" data-bs-toggle="modal" data-bs-target="#modalMensaje" style="background-color: #6DC7F6;" class="btn btn-primary mt-2">Guardar cambios</button>
                 </form>
             </div>
-            <div style="background-color: #6DC7F6;" class="modal-footer">
+            <div class="modal-footer">
                 <button type="button" style="background-color: #313436;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>
@@ -192,6 +211,115 @@
                     <button type="submit" class="btn btn-primary">Confirmar</button>
                 </form>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalRegistrar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div style="background-color: #6DC7F6;" class="modal-header">
+                <h5 class="modal-title">Registrar producto</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" asp-controller="Product" asp-action="RegistrarProducto" class="mt-2 ml-2 p-3">
+                    <div class="form-group">
+                        <label for="codigo">Código: </label>
+                        <input class="form-control" id="codigo" asp-for="Code">
+                        <span class="field-validation-error" asp-validation-for="Code"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="mt-2" for="nombre">Nombre: </label>
+                        <input class="mt-2 form-control" id="nombre" asp-for="Name">
+                        <span class="field-validation-error" asp-validation-for="Name"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cantidad">cantidad: </label>
+                        <input min="1" class="form-control" id="cantidad" asp-for="Amount">
+                        <span class="field-validation-error" asp-validation-for="Amount"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="valor">valor unitario: </label>
+                        <input class="form-control" id="valor" asp-for="UnitValue">
+                        <span class="field-validation-error" asp-validation-for="UnitValue"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha">Fecha de ingreso: </label>
+                        <input class="form-control" id="fecha" asp-for="InDate">
+                        <span class="field-validation-error" asp-validation-for="InDate"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción: </label>
+                        <textarea style="resize:none;" class="form-control" id="descripcion" asp-for="Description" rows="3"></textarea>
+                        <span class="field-validation-error" asp-validation-for="Description"></span>
+                    </div>
+                    <button type="submit" data-bs-toggle="modal" data-bs-target="#modalMensaje" style="background-color: #6DC7F6;" class="btn btn-primary mt-2">Agregar</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="background-color: #313436;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalVerInforme" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div style="background-color: #6DC7F6;" class="modal-header">
+                <h5 class="modal-title">Reporte de inventario</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row table-responsive">
+                    <div class="col-12">
+                        <table id="table" class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Código producto</th>
+                                    <th>Usuario</th>
+                                    <th>Cantidad</th>
+                                    <th>Detalles</th>
+                                    <th>Fecha de ingreso</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>123</td>
+                                    <td>Luis Obando</td>
+                                    <td>1</td>
+                                    <td>Se usará la herramienta en el proyecto 32D</td>
+                                    <td> 06/04/2021</td>
+                                </tr>
+                                <tr>
+                                    <td>321</td>
+                                    <td>Vianka Cedeño</td>
+                                    <td>3</td>
+                                    <td>Se usará la herramienta en el proyecto 21</td>
+                                    <td> 08/04/2021</td>
+                                </tr>
+                                <tr>
+                                    <td>789</td>
+                                    <td>Alberto campos</td>
+                                    <td>2</td>
+                                    <td>Se usará la herramienta en la averia #32</td>
+                                    <td> 12/08/2021</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="background-color: #313436;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
