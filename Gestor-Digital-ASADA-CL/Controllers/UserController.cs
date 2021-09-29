@@ -13,6 +13,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         // GET: UserController1
         public ActionResult Index()
         {
+            ViewBag.ShowModalResponse = false;
             return View();
         }
 

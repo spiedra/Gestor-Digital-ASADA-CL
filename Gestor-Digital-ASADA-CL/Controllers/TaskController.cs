@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Gestor_Digital_ASADA_CL.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         // GET: TaskController
         public ActionResult Index()
         {
+            ViewBag.ShowModalResponse = false;
             return View();
         }
 
@@ -30,49 +32,25 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         // GET: TaskController/Create
         public ActionResult Create()
         {
-            return View();
+            ViewBag.ShowModalResponse = true;
+            ViewBag.Message = "¡Tarea registrada correctamente!";
+            return View("Index");
         }
 
-        // POST: TaskController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        // POST: TaskController/Edit
+        public ActionResult Edit(TaskViewModel taskViewModel)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: TaskController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: TaskController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            ViewBag.ShowModalResponse = true;
+            ViewBag.Message = "¡La información de la tarea ha sido actualizada correctamente!";
+            return View("Index");
         }
 
         // GET: TaskController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
-            return View();
+            ViewBag.ShowModalResponse = true;
+            ViewBag.Message = "¡La tarea ha sido eliminado correctamente!";
+            return View("Index");
         }
 
         // POST: TaskController/Delete/5

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model TaskViewModel
+@{
     ViewData["Title"] = "Gestor de tareas";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
@@ -145,22 +146,24 @@
             <div class="modal-header">
                 <h5 class="modal-title">Agregar tarea</h5>
             </div>
-            <form class="was-validated">
+            <form class="was-validated" method="post" asp-controller="Task" asp-action="Create">
                 <div class="modal-body">
                     <div class="container">
                         <div class="mb-3">
                             <label for="inputTitle" class="form-label">Título</label>
-                            <input id="inputTitle" class="form-control is-invalid" type="text" placeholder="Ingrese el título de la tarea" required>
+                            <input id="inputTitle" class="form-control is-invalid" type="text" placeholder="Ingrese el título de la tarea" asp-for="Title" required>
+                            <span class="field-validation-error" asp-validation-for="Title"></span>
                         </div>
                         <div class="mb-3">
                             <label for="inputDetail" class="form-label">Detalle</label>
-                            <input id="inputDetail" class="form-control is-invalid" type="text" placeholder="Ingrese el detalle de la tarea" required>
+                            <input id="inputDetail" class="form-control is-invalid" type="text" placeholder="Ingrese el detalle de la tarea" asp-for="Detail" required>
+                            <span class="field-validation-error" asp-validation-for="Detail"></span>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button id="btn-search" type="button" class="btn btn-primary">Agregar</button>
+                    <button id="btn-search" type="submit" class="btn btn-primary">Agregar</button>
                 </div>
             </form>
         </div>
@@ -172,18 +175,19 @@
             <div class="modal-header">
                 <h5 class="modal-title">Busqueda de tareas</h5>
             </div>
-            <form class="was-validated">
+            <form class="was-validated" method="post" asp-controller="Task" asp-action="Detail">
                 <div class="modal-body">
                     <div class="container">
                         <div class="mb-3">
                             <label for="inputName" class="form-label">Título de tarea</label>
-                            <input id="inputName" class="form-control is-invalid" type="text" placeholder="Ingrese el título de la tarea" required>
+                            <input id="inputName" class="form-control is-invalid" type="text" placeholder="Ingrese el título de la tarea" asp-for="Title" required>
+                            <span class="field-validation-error" asp-validation-for="Title"></span>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button id="btn-search" type="button" class="btn btn-primary">Buscar</button>
+                    <button id="btn-search" type="submit" class="btn btn-primary">Buscar</button>
                 </div>
             </form>
         </div>
@@ -195,22 +199,24 @@
             <div class="modal-header">
                 <h5 class="modal-title">Modificar información de tarea</h5>
             </div>
-            <form class="was-validated">
+            <form class="was-validated" method="post" asp-controller="Task" asp-action="Edit">
                 <div class="modal-body">
                     <div class="container">
                         <div class="mb-3">
                             <label for="inputTitle" class="form-label">Título</label>
-                            <input id="inputTitle" class="form-control is-invalid" type="text" placeholder="Ingrese el título de la tarea" required>
+                            <input id="inputTitle" class="form-control is-invalid" type="text" placeholder="Ingrese el título de la tarea" asp-for="Title" required>
+                            <span class="field-validation-error" asp-validation-for="Title"></span>
                         </div>
                         <div class="mb-3">
                             <label for="inputDetail" class="form-label">Detalle</label>
-                            <input id="inputDetail" class="form-control is-invalid" type="text" placeholder="Ingrese el detalle de la tarea" required>
+                            <input id="inputDetail" class="form-control is-invalid" type="text" placeholder="Ingrese el detalle de la tarea" asp-for="Detail" required>
+                            <span class="field-validation-error" asp-validation-for="Detail"></span>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button id="btn-search" type="button" class="btn btn-primary">Agregar</button>
+                    <button id="btn-search" type="submit" class="btn btn-primary">Agregar</button>
                 </div>
             </form>
         </div>
@@ -223,13 +229,27 @@
                 <h5 class="modal-title" id="exampleModalLabel">¿Está seguro de eliminar esta tarea?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                La tarea va a ser borrado permanentemente del sistema
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Confirmar eliminación</button>
-            </div>
+            <form method="get" asp-controller="Task" asp-action="Delete">
+                <div class="modal-body">
+                    La tarea va a ser borrada permanentemente del sistema
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Confirmar eliminación</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+            $(document).ready(function () {
+            if ('@ViewBag.ShowModalResponse' === 'True') {
+                createModalResponse2("@ViewBag.Message");
+            }
+           });
+    </script>
+}

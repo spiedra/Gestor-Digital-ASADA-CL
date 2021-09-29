@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Gestor_Digital_ASADA_CL.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -30,16 +31,11 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         // POST: DailyCollection/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(DailyCollectionViewModel dailyCollectionViewModel)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            ViewBag.ShowModalResponse = true;
+            ViewBag.Message = "¡Recaudación diaria registrada correctamente!";
+            return View("Index");
         }
 
         // GET: DailyCollection/Edit/5
@@ -50,17 +46,11 @@ namespace Gestor_Digital_ASADA_CL.Controllers
 
         // POST: DailyCollection/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(DailyCollectionViewModel dailyCollectionViewModel)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            ViewBag.ShowModalResponse = true;
+            ViewBag.Message = "¡La información de la recaudación diaria ha sido actualizada correctamente!";
+            return View("Index");
         }
 
         // GET: DailyCollection/Delete/5
