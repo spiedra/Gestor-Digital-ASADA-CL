@@ -63,19 +63,27 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             }
         }
 
+        [Route("Fault/EditFaultAdmin")]
+        public ActionResult EditFault()
+        {
+            ViewBag.ShowModalResponse = "True";
+            ViewBag.mensaje = "Avería modificada con éxito";
+            return View("EditFault");        
+        }
+
         // GET: Fault/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
-        [HttpPost]
-        [Route("Fault/Delete")]
-        public ActionResult Delete()
-        {
-            ViewBag.ShowModalResponse = "True";
-            ViewBag.mensaje = "Avería eliminada con éxito";
-            return View("Index");
-        }
+        //[HttpPost]
+        //[Route("Fault/Delete")]
+        //public ActionResult Delete()
+        //{
+        //    ViewBag.ShowModalResponse = "True";
+        //    ViewBag.mensaje = "Avería eliminada con éxito";
+        //    return View("EditFault");
+        //}
 
         // POST: Fault/Delete/5
         [HttpPost]

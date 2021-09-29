@@ -110,8 +110,8 @@
             <form class="needs-validation" novalidate>
                 <div class="modal-body">
                     <div class="container">
-                        <div class="mb-3">
-                            <label for="selectSector" class="form-label">Sector</label>
+                     <div class="mb-3">
+                            <label for="selectSector" class="form-label" >Sector</label>
                             <select class="form-select" aria-label="Sectores" required>
                                 <option value="">Seleccione el sector</option>
                                 <option value="1">Comejen</option>
@@ -122,7 +122,7 @@
                                 <option value="6">Laureles</option>
                             </select>
                             <div class="invalid-feedback">
-                                Debe seleccionar un sector
+                                Debe seleccionar un sector 
                             </div>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
             <div class="modal-header">
                 <h5 class="modal-title">Modificación de avería</h5>
             </div>
-            <form method="POST" asp-controller="Fault" asp-action="EditFault" class="row g-3 p-3 needs-validation" novalidate>
+            <form class="row g-3 p-3 needs-validation" novalidate>
                 <div class="col-md-4">
                     <label for="inputName" class="form-label">Nombre del cliente</label>
                     <input id="inputName" class="form-control" type="text" placeholder="Nombre del cliente" required>

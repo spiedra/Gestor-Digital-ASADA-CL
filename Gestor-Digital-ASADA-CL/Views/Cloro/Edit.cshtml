@@ -94,26 +94,34 @@
             <div class="modal-header">
                 <h5 class="modal-title">Búsqueda de cloro residual</h5>
             </div>
-            <form class="was-validated">
+            <form class="needs-validation" novalidate>
                 <div class="modal-body">
                     <div class="container">
                         <div class="mb-3">
                             <label for="inputName" class="form-label">Fecha inicial</label>
-                            <input id="inputName" class="form-control is-invalid" type="date">
+                            <input id="inputName" class="form-control" type="date" required>
+                            <div class="invalid-feedback">
+                                Seleccione fecha
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="inputName" class="form-label">Fecha final</label>
-                            <input id="inputName" class="form-control is-invalid" type="date">
+                            <input id="inputName" class="form-control " type="date" required>
+                            <div class="invalid-feedback">
+                                Seleccione fecha 
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="inputIdHouse" class="form-label">Número de casa</label>
-                            <input id="inputIdHouse" class="form-control is-invalid" type="text" placeholder="Ingrese el número de casa">
-                        </div>
+
+                        @*<div class="mb-3">
+                        <label for="inputIdHouse" class="form-label">Número de casa</label>
+                        <input id="inputIdHouse" class="form-control is-invalid" type="text" placeholder="Ingrese el número de casa">
+                    </div>
+                </div>*@
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button id="btn-search" type="button" class="btn btn-primary">Buscar</button>
+                    <button id="btn-search" type="submit" class="btn btn-primary">Buscar</button>
                 </div>
             </form>
         </div>
@@ -125,37 +133,54 @@
             <div class="modal-header">
                 <h5 class="modal-title">Modificación de cloro residual</h5>
             </div>
-            <form class="row g-3 p-3 was-validated">
+            <form class="row g-3 p-3 needs-validation" novalidate>
                 <div class="col-md-6">
                     <label for="inputDate" class="form-label">Fecha</label>
                     <input id="inputDate" class="form-control" type="date" required>
+                    <div class="invalid-feedback">
+                        Ingrese fecha
+                    </div>
 
                 </div>
                 <div class="col-md-6">
                     <label for="inputTime" class="form-label">Hora</label>
                     <input id="inputTime" class="form-control" type="time" placeholder="Ingrese la hora" required>
+                    <div class="invalid-feedback">
+                        Ingrese hora
+                    </div>
 
                 </div>
                 <div class="col-md-6">
                     <label for="inputPercent" class="form-label">Porcentaje de cloro</label>
                     <input id="inputPercent" class="form-control" type="number" min="0" step=".01" placeholder="Ingrese el porcentaje" required>
-
+                    <div class="invalid-feedback">
+                        Ingrese porcentaje de cloro
+                    </div>
                 </div>
                 <div class="col-6">
                     <label for="inputIdHouse" class="form-label">Número de casa</label>
                     <input id="inputIdHouse" class="form-control" type="number" placeholder="Ingrese el número" required>
+                    <div class="invalid-feedback">
+                       Ingrese número de casa
+                    </div>
                 </div>
                 <div class="col-6">
                     <label for="inputNameC" class="form-label">Nombre del abonado</label>
                     <input id="inputNameC" class="form-control" type="text" placeholder="Ingrese el nombre" required>
+                    <div class="invalid-feedback">
+                        Ingrese nombre del abonado
+                    </div>
                 </div>
                 <div class="col-6">
                     <label for="inputDateE" class="form-label">Nombre del trabajador</label>
                     <input id="inputDateE" class="form-control" type="text" placeholder="Ingrese el nombre" required>
+                    <div class="invalid-feedback">
+                        Ingrese nombre del trabajador
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button id="btn-search" type="button" class="btn btn-primary">Actualizar</button>
+                    <button id="btn-search" type="submit" class="btn btn-primary">Actualizar</button>
                 </div>
             </form>
         </div>
@@ -167,43 +192,54 @@
             <div class="modal-header">
                 <h5 class="modal-title">Registro de cloro residual</h5>
             </div>
-            <form class="row g-3 p-3 was-validated">
+            <form class="row g-3 p-3 needs-validation" novalidate>
                 <div class="col-md-6">
                     <label for="inputDate" class="form-label">Fecha</label>
-                    <input id="inputDate" class="form-control" type="date" @*asp-for="Date"*@ required>
-                    @*<span class="field-validation-error" asp-validation-for="Date"></span>*@
+                    <input id="inputDate" class="form-control" type="date" required>
+                    <div class="invalid-feedback">
+                        Ingrese la fecha
+                    </div>
 
                 </div>
                 <div class="col-md-6">
                     <label for="inputTime" class="form-label">Hora</label>
                     <input id="inputTime" class="form-control" type="time" placeholder="Ingrese la hora" required>
-                    @*<span class="field-validation-error" asp-validation-for="Time"></span>*@
+                    <div class="invalid-feedback">
+                        Ingrese hora
+                    </div>
 
                 </div>
                 <div class="col-md-6">
                     <label for="inputPercent" class="form-label">Porcentaje de cloro</label>
                     <input id="inputPercent" class="form-control" type="number" min="0" step=".01" placeholder="Ingrese el porcentaje" required>
-                    @*<span class="field-validation-error" asp-validation-for="Percent"></span>*@
+                    <div class="invalid-feedback">
+                        Ingrese porcentaje
+                    </div>
                 </div>
                 <div class="col-6">
                     <label for="inputIdHouse" class="form-label">Número de casa</label>
                     <input id="inputIdHouse" class="form-control" type="number" placeholder="Ingrese el número" required>
-                    @*<span class="field-validation-error" asp-validation-for="IdHouse"></span>*@
+                    <div class="invalid-feedback">
+                        Ingrese número de casa
+                    </div>
                 </div>
                 <div class="col-6">
                     <label for="inputNameC" class="form-label">Nombre del abonado</label>
                     <input id="inputNameC" class="form-control" type="text" placeholder="Ingrese el nombre" required>
-                    @*<span class="field-validation-error" asp-validation-for="NameC"></span>*@
+                    <div class="invalid-feedback">
+                        Ingrese nombre del abonado
+                    </div>
                 </div>
                 <div class="col-6">
                     <label for="inputDateE" class="form-label">Nombre del trabajador</label>
                     <input id="inputDateE" class="form-control" type="text" placeholder="Ingrese el nombre" required>
-                    @*<span class="field-validation-error" asp-validation-for="NameE"></span>*@
-
+                    <div class="invalid-feedback">
+                        Ingrese nombre del trabajador
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button id="btn-search" type="button" class="btn btn-primary">Registrar</button>
+                    <button id="btn-search" type="submit" class="btn btn-primary">Registrar</button>
                 </div>
             </form>
         </div>

@@ -5,7 +5,7 @@
 }
 <h1>Registro de averías</h1>
 <hr />
-<form class="row g-3 p-1">
+<form class="row g-3 p-1" method="POST" asp-controller="Fault" asp-action="Insert">
     <div class="col-md-4">
         <label for="inputFaultName" class="form-label">Nombre del abonado</label>
         <input id="inputFaultName" class="form-control" type="text" placeholder="Ingrese el nombre del abonado" asp-for="Name">

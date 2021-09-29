@@ -132,19 +132,23 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Búsqueda de sector</h5>
+
             </div>
-            <form class="was-validated">
+            <form class="needs-validation" novalidate">
                 <div class="modal-body">
                     <div class="container">
                         <div class="md-6">
                             <label for="inputIdHouse" class="form-label">Nombre del sector</label>
-                            <input id="inputIdHouse" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre" required>
+                            <input id="inputIdHouse" class="form-control" type="text" placeholder="Ingrese el nombre" required>
+                            <div class="invalid-feedback">
+                                Ingresa el nombre del sector
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button id="btn-search" type="button" class="btn btn-primary">Buscar</button>
+                    <button id="btn-search" type="submit" class="btn btn-primary">Buscar</button>
                 </div>
             </form>
         </div>
@@ -156,15 +160,17 @@
             <div class="modal-header">
                 <h5 class="modal-title">Modificar sector</h5>
             </div>
-            <form class="row g-3 p-3 was-validated">
+            <form class="row g-3 p-3 needs-validation" novalidate>
                 <div class="col-md-6">
                     <label for="inputDate" class="form-label">Nombre del sector</label>
                     <input id="inputDate" class="form-control" type="text" required>
-
+                    <div class="invalid-feedback">
+                        Ingresa el nombre del sector
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button id="btn-search" type="button" class="btn btn-primary">Actualizar</button>
+                    <button id="btn-search" type="submit" class="btn btn-primary">Actualizar</button>
                 </div>
             </form>
         </div>
@@ -176,15 +182,17 @@
             <div class="modal-header">
                 <h5 class="modal-title">Registro de cloro residual</h5>
             </div>
-            <form class="row g-3 p-3 was-validated">
+            <form method="POST" asp-controller="Sector" asp-action="Insert" class="row g-3 p-3 needs-validation" novalidate>
                 <div class="col-md-6">
                     <label for="inputDate" class="form-label">Nombre del sector</label>
                     <input id="inputDate" class="form-control" type="text" required>
-
+                    <div class="invalid-feedback">
+                        Ingrese el nombre del sector
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button id="btn-search" type="button" class="btn btn-primary">Registrar</button>
+                    <button id="btn-search" type="submit" class="btn btn-primary">Registrar</button>
                 </div>
             </form>
         </div>
@@ -202,9 +210,21 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Eliminar</button>
+                <button type="submit" class="btn btn-primary">Eliminar</button>
             </div>
         </div>
     </div>
 </div>
 
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            if ('@ViewBag.ShowModalResponse' === 'True') {
+               createModalResponse("@ViewBag.mensaje");
+            }
+           });
+    </script>
+}
