@@ -45,11 +45,9 @@
         <div class="card shadow menu__card py-3">
             <div class="card-body">
                 <h5 class="card-title">Módulo administrador de bitácora personal</h5>
-                <p class="card-text">Administración de la bitácora personal</p>
+                <p class="card-text">Mi bitácora personal</p>
                 <div class="d-flex justify-content-center justify-content-xl-start flex-wrap">
-                    <a href="#" class="btn btn-primary btn-sm m-1">Registrar actividad</a>
-                    <a href="#" class="btn btn-primary btn-sm m-1">Modificar actividad</a>
-                    <a href="#" class="btn btn-primary btn-sm m-1">Eliminar actividad</a>
+                    <a asp-controller="PersonalBinnacle" asp-action="Index" class="btn btn-primary btn-sm m-1">Ingresar al módulo</a>
                 </div>
             </div>
         </div>
@@ -82,12 +80,8 @@
             <div class="card-body">
                 <h5 class="card-title">Módulo administrador de inventario</h5>
                 <p class="card-text">Control del inventario</p>
-                <div class="d-flex justify-content-center justify-content-xl-evenly align-content-center flex-wrap">
-                    <a href="#" class="btn btn-primary btn-sm m-1 m-xl-0">Registrar ítem</a>
-                    <a href="#" class="btn btn-primary btn-sm m-1 m-xl-0">Modificar ítems</a>
-                    <a href="#" class="btn btn-primary btn-sm m-1 m-xl-0">Eliminar ítem</a>
-                    <a href="#" class="btn btn-primary btn-sm m-1 m-xl-0">Solicitar ítem</a>
-                    <a href="#" class="btn btn-primary btn-sm m-1 m-xl-0">Reporte de inventario</a>
+                <div class="d-flex justify-content-center justify-content-xl-start flex-wrap">
+                    <a asp-controller="Product" asp-action="IndexAdmin" class="btn btn-primary btn-sm m-1">Ingresar al módulo</a>
                 </div>
             </div>
         </div>
