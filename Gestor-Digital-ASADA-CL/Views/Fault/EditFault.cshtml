@@ -206,10 +206,25 @@
                 El registro de la avería será borrado permanentemente del sistema.
             </div>
             <div class="modal-footer">
+                <form method="POST" asp-controller="Fault" asp-action="Delete">
+                    <button type="button" class="btn btn-primary">Eliminar</button>
+                </form>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Eliminar</button>
+
             </div>
         </div>
     </div>
 </div>
 
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            if ('@ViewBag.ShowModalResponse' === 'True') {
+               createModalResponse("@ViewBag.mensaje");
+            }
+           });
+    </script>
+}

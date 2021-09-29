@@ -62,13 +62,68 @@ namespace Gestor_Digital_ASADA_CL.Controllers
                 return View();
             }
         }
-        // GET: Cloro/EditUser/5
+
+        // GET: Cloro/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+       
+        // POST: Cloro/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        //------------ CLORO USUARIO ---------//
+        // GET: Cloro
+        public ActionResult IndexUser()
+        {
+            return View();
+        }
+
+        // GET: Cloro/Details/5
+        public ActionResult DetailsUser(int id)
+        {
+            return View();
+        }
+
+        // GET: Cloro/Create
+        public ActionResult CreateUser()
+        {
+            return View();
+        }
+
+        // POST: Cloro/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateUser(IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Cloro/Edit/5
         public ActionResult EditUser(int id)
         {
             return View();
         }
 
-        // POST: Cloro/EditUser/5
+        // POST: Cloro/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditUser(int id, IFormCollection collection)
@@ -84,15 +139,15 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         }
 
         // GET: Cloro/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteUser(int id)
         {
             return View();
         }
-
+       
         // POST: Cloro/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeleteUser(int id, IFormCollection collection)
         {
             try
             {

@@ -170,30 +170,35 @@
             <form class="row g-3 p-3 was-validated">
                 <div class="col-md-6">
                     <label for="inputDate" class="form-label">Fecha</label>
-                    <input id="inputDate" class="form-control" type="date" required>
+                    <input id="inputDate" class="form-control" type="date" @*asp-for="Date"*@ required>
+                    @*<span class="field-validation-error" asp-validation-for="Date"></span>*@
 
                 </div>
                 <div class="col-md-6">
                     <label for="inputTime" class="form-label">Hora</label>
                     <input id="inputTime" class="form-control" type="time" placeholder="Ingrese la hora" required>
+                    @*<span class="field-validation-error" asp-validation-for="Time"></span>*@
 
                 </div>
                 <div class="col-md-6">
                     <label for="inputPercent" class="form-label">Porcentaje de cloro</label>
                     <input id="inputPercent" class="form-control" type="number" min="0" step=".01" placeholder="Ingrese el porcentaje" required>
-
+                    @*<span class="field-validation-error" asp-validation-for="Percent"></span>*@
                 </div>
                 <div class="col-6">
                     <label for="inputIdHouse" class="form-label">Número de casa</label>
                     <input id="inputIdHouse" class="form-control" type="number" placeholder="Ingrese el número" required>
+                    @*<span class="field-validation-error" asp-validation-for="IdHouse"></span>*@
                 </div>
                 <div class="col-6">
                     <label for="inputNameC" class="form-label">Nombre del abonado</label>
                     <input id="inputNameC" class="form-control" type="text" placeholder="Ingrese el nombre" required>
+                    @*<span class="field-validation-error" asp-validation-for="NameC"></span>*@
                 </div>
                 <div class="col-6">
                     <label for="inputDateE" class="form-label">Nombre del trabajador</label>
                     <input id="inputDateE" class="form-control" type="text" placeholder="Ingrese el nombre" required>
+                    @*<span class="field-validation-error" asp-validation-for="NameE"></span>*@
 
                 </div>
                 <div class="modal-footer">
@@ -204,3 +209,15 @@
         </div>
     </div>
 </div>
+@*@section scripts
+    {
+        <partial name="_ValidationScriptsPartial" />
+        <script type="text/javascript">
+                $(document).ready(function () {
+                if ('@ViewBag.ShowModalResponse' === 'True') {
+                   createModalResponse("@ViewBag.mensaje");
+                }
+               });
+        </script>
+    }*@
+
