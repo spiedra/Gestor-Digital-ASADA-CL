@@ -16,7 +16,7 @@
                            aria-describedby="search-addon" required />
                     <button type="submit" class="btn btn-outline-primary">buscar</button>
                     <div class="invalid-feedback">
-                       ingresa el nombre de producto
+                        ingresa el nombre de producto
                     </div>
                 </div>
             </form>
@@ -43,65 +43,31 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>123</td>
-                    <td>Herramenta COTTER</td>
-                    <td>13 000</td>
-                    <td>0</td>
-                    <td> 06/04/2021 8:32</td>
-                    <td>Relleno relleno relleno</td>
-                    <td>
-                        <button class="btn btn-primary" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
-                            <i class="fas fa-hand-paper"></i>
-                        </button>
-                        <button class="btn btn-info" onclick="putOnModal(this); return false;" data-bs-toggle="modal" data-bs-target="#modalEditar">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-danger" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>443</td>
-                    <td>Pala SuperFlex </td>
-                    <td>18 000</td>
-                    <td>19</td>
-                    <td>12/04/2021 10:32</td>
-                    <td>Relleno relleno relleno</td>
-                    <td>
-                        <button class="btn btn-primary" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
-                            <i class="fas fa-hand-paper"></i>
-                        </button>
-                        <button class="btn btn-info" onclick="putOnModal(this); return false;" data-bs-toggle="modal" data-bs-target="#modalEditar">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-danger" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>123RT </td>
-                    <td> Herramenta Plus-pln </td>
-                    <td>13 000</td>
-                    <td>12</td>
-                    <td>08/07/2021 12:04</td>
-                    <td>
-                        Relleno relleno relleno
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
-                            <i class="fas fa-hand-paper"></i>
-                        </button>
-                        <button class="btn btn-info" onclick="putOnModal(this); return false;" data-bs-toggle="modal" data-bs-target="#modalEditar">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-danger" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
+                @if (ViewBag.products != null)
+                {
+                    @foreach (ProductViewModel temp in ViewBag.products)
+                    {
+                        <tr>
+                            <td>@temp.CodigoProducto</td>
+                            <td>@temp.NombreProducto</td>
+                            <td>@temp.ValorUnitario</td>
+                            <td>@temp.Cantidad</td>
+                            <td>@temp.FechaIngreso</td>
+                            <td>@temp.Descripcion</td>
+                            <td>
+                                <button class="btn btn-primary" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
+                                    <i class="fas fa-hand-paper"></i>
+                                </button>
+                                <button class="btn btn-info" onclick="putOnModal(this); return false;" data-bs-toggle="modal" data-bs-target="#modalEditar">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger" onclick="putOnModalDelete(this); return false;" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
             </tbody>
         </table>
     </div>
@@ -153,38 +119,38 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" asp-controller="Product" asp-action="EditarProducto" class="mt-2 ml-2 p-3">
+                <form method="post" asp-controller="Product" asp-action="EditarProducto" class="mt-2 ml-2 p-3">
                     <div class="form-group">
                         <label for="codigo">Código: </label>
-                        <input class="form-control" id="codigo" asp-for="Code">
-                        <span class="field-validation-error" asp-validation-for="Code"></span>
+                        <input readonly class="form-control" id="codigo" asp-for="CodigoProducto">
+                        <span class="field-validation-error" asp-validation-for="CodigoProducto"></span>
                     </div>
                     <div class="form-group">
                         <label class="mt-2" for="nombre">Nombre: </label>
-                        <input class="mt-2 form-control" id="nombre" asp-for="Name">
-                        <span class="field-validation-error" asp-validation-for="Name"></span>
+                        <input class="mt-2 form-control" id="nombre" asp-for="NombreProducto">
+                        <span class="field-validation-error" asp-validation-for="NombreProducto"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="cantidad">cantidad: </label>
-                        <input min="1" class="form-control" id="cantidad" asp-for="Amount">
-                        <span class="field-validation-error" asp-validation-for="Amount"></span>
+                        <input min="1" class="form-control" id="cantidad" asp-for="Cantidad">
+                        <span class="field-validation-error" asp-validation-for="Cantidad"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="valor">valor unitario: </label>
-                        <input class="form-control" id="valor" asp-for="UnitValue">
-                        <span class="field-validation-error" asp-validation-for="UnitValue"></span>
+                        <input class="form-control" id="valor" asp-for="ValorUnitario">
+                        <span class="field-validation-error" asp-validation-for="ValorUnitario"></span>
                     </div>
                     <div class="form-group">
                         <label for="fecha">Fecha de ingreso: </label>
-                        <input class="form-control" id="fecha" asp-for="InDate">
-                        <span class="field-validation-error" asp-validation-for="InDate"></span>
+                        <input class="form-control" id="fecha" asp-for="FechaIngreso">
+                        <span class="field-validation-error" asp-validation-for="FechaIngreso"></span>
                     </div>
                     <div class="form-group">
                         <label for="descripcion">Descripción: </label>
-                        <textarea style="resize:none;" class="form-control" id="descripcion" asp-for="Description" rows="3"></textarea>
-                        <span class="field-validation-error" asp-validation-for="Description"></span>
+                        <textarea style="resize:none;" class="form-control" id="descripcion" asp-for="Descripcion" rows="3"></textarea>
+                        <span class="field-validation-error" asp-validation-for="Descripcion"></span>
                     </div>
                     <button type="submit" data-bs-toggle="modal" data-bs-target="#modalMensaje" style="background-color: #6DC7F6;" class="btn btn-primary mt-2">Guardar cambios</button>
                 </form>
@@ -200,16 +166,17 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div style="background-color: #6DC7F6;" class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">¿Está seguro de eliminar este producto?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">¿Está seguro que desea eliminar este producto?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                El producto será borrado permanentemente del sistema
+                <form method="POST" asp-controller="Product" asp-action="BorrarProducto">
+                    <label for="codigoProducto">El producto de código: </label>
+                    <input readonly class="form-control" id="productCode" name="productCode">
+                    <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
+                </form>
             </div>
             <div class="modal-footer">
-                <form method="POST" asp-controller="Product" asp-action="BorrarProducto">
-                    <button type="submit" class="btn btn-primary">Confirmar</button>
-                </form>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>
@@ -229,35 +196,35 @@
                 <form method="POST" asp-controller="Product" asp-action="RegistrarProducto" class="mt-2 ml-2 p-3">
                     <div class="form-group">
                         <label for="codigo">Código: </label>
-                        <input class="form-control" id="codigo" asp-for="Code">
-                        <span class="field-validation-error" asp-validation-for="Code"></span>
+                        <input class="form-control" id="codigo" asp-for="CodigoProducto">
+                        <span class="field-validation-error" asp-validation-for="CodigoProducto"></span>
                     </div>
                     <div class="form-group">
                         <label class="mt-2" for="nombre">Nombre: </label>
-                        <input class="mt-2 form-control" id="nombre" asp-for="Name">
-                        <span class="field-validation-error" asp-validation-for="Name"></span>
+                        <input class="mt-2 form-control" id="nombre" asp-for="NombreProducto">
+                        <span class="field-validation-error" asp-validation-for="NombreProducto"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="cantidad">cantidad: </label>
-                        <input min="1" class="form-control" id="cantidad" asp-for="Amount">
-                        <span class="field-validation-error" asp-validation-for="Amount"></span>
+                        <input min="1" class="form-control" id="cantidad" asp-for="Cantidad">
+                        <span class="field-validation-error" asp-validation-for="Cantidad"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="valor">valor unitario: </label>
-                        <input class="form-control" id="valor" asp-for="UnitValue">
-                        <span class="field-validation-error" asp-validation-for="UnitValue"></span>
+                        <input class="form-control" id="valor" asp-for="ValorUnitario">
+                        <span class="field-validation-error" asp-validation-for="ValorUnitario"></span>
                     </div>
                     <div class="form-group">
                         <label for="fecha">Fecha de ingreso: </label>
-                        <input class="form-control" id="fecha" asp-for="InDate">
-                        <span class="field-validation-error" asp-validation-for="InDate"></span>
+                        <input class="form-control" id="fecha" asp-for="FechaIngreso">
+                        <span class="field-validation-error" asp-validation-for="FechaIngreso"></span>
                     </div>
                     <div class="form-group">
                         <label for="descripcion">Descripción: </label>
-                        <textarea style="resize:none;" class="form-control" id="descripcion" asp-for="Description" rows="3"></textarea>
-                        <span class="field-validation-error" asp-validation-for="Description"></span>
+                        <textarea style="resize:none;" class="form-control" id="descripcion" asp-for="Descripcion" rows="3"></textarea>
+                        <span class="field-validation-error" asp-validation-for="Descripcion"></span>
                     </div>
                     <button type="submit" data-bs-toggle="modal" data-bs-target="#modalMensaje" style="background-color: #6DC7F6;" class="btn btn-primary mt-2">Agregar</button>
                 </form>

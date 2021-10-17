@@ -13,7 +13,13 @@ function putOnModal(button) {
     $("#nombre").val(name);
     $("#valor").val(unit_value);
     $("#cantidad").val(amount);
-    //$("#fecha").val(date_in);
+    $("#fecha").val(date_in);
     //document.getElementById("fecha").value(new Date("07/03/2021 10:34"));
     $("#descripcion").text(description);
+}
+
+function putOnModalDelete(button) {
+    row = button.parentNode.parentNode;
+    code = row.cells[0].textContent;
+    $("#productCode").val(code);
 }
