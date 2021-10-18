@@ -86,6 +86,5 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
             return View("IndexAdmin");
         }
-
     }
 }

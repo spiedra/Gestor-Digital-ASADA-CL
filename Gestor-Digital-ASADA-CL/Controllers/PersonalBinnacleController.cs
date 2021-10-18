@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Gestor_Digital_ASADA_CL.Controllers
@@ -10,9 +11,20 @@ namespace Gestor_Digital_ASADA_CL.Controllers
     public class PersonalBinnacleController : Controller
     {
         // GET: PersonalBinnacle
+        public ActionResult Index1()
+        {
+
+            return View();
+        }
         public ActionResult Index()
         {
             return View();
+        }
+        public async Task<string> ObtenerActividades()
+        {
+            HttpClient httpClient = new HttpClient();
+            var response = await httpClient.GetAsync("https://localhost:44358/API/Producto/ObtenerProductos");
+            return await response.Content.ReadAsStringAsync();
         }
 
         // GET: PersonalBinnacle/Details/5

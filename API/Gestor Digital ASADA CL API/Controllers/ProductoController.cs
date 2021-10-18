@@ -46,7 +46,6 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
         public IActionResult Put(Producto p)
         {
             var original = db.Productos.Find(p.CodigoProducto);
-
             if (original != null)
             {
                 db.Entry(original).CurrentValues.SetValues(p);
@@ -54,6 +53,7 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             }
             return Ok("Producto modificado con éxito!");
         }
+
         [HttpDelete]
         [Route("/API/Producto/BorrarProducto/{codigo}")]
         public IActionResult Delete(string codigo)

@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Mi bitácora";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_ClientSiteLayout.cshtml";
 }
 
 <h2 class="mt-2">Mi bitácora personal</h2>
@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-12">
-        <a data-bs-toggle="modal" data-bs-target="#modalBuscar" href="#" class="btn btn-dark me-1"><i class="fas fa-search"></i></a>
+          <a data-bs-toggle="modal" data-bs-target="#modalBuscar" href="#" class="btn btn-dark me-1"><i class="fas fa-search"></i></a>
         <form method="POST" class="needs-validation" novalidate>
             <div class="form-group">
                 <label for="note">¿Qué hiciste?</label>
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <button type="submit" data-bs-toggle="modal" data-bs-target="#modalMensaje" style="background-color: #6DC7F6;" class="btn btn-primary mt-2">Guardar cambios</button>
-                    
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -144,3 +144,4 @@
            });
     </script>
 }
+
