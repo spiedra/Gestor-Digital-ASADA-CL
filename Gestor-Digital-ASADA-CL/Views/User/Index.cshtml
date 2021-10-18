@@ -125,16 +125,17 @@
                     <div class="container">
                         <div class="mb-3">
                             <label for="inputName" class="form-label">Nombre del trabajador</label>
-                            <input id="inputName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre del trabajor" asp-for="Name" required>
-                            <span class="field-validation-error" asp-validation-for="Name"></span>
+                            <input id="inputName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre del trabajor" asp-for="NombreUsuario" required>
+                            <span class="field-validation-error" asp-validation-for="NombreUsuario"></span>
                         </div>
                         <div class="mb-3">
                             <label for="selectPuesto" class="form-label">Puesto</label>
-                            <select class="form-select" aria-label="Lista puesto" asp-for="Job" required>
+                            <select class="form-select" aria-label="Lista puesto" asp-for="IdRole" required>
                                 <option value="">Seleccione algún puesto</option>
-                                <option value="1">One</option>
+                                <option value="1">Admin</option>
+                                <option value="2">Fontanero</option>
                             </select>
-                            <span class="field-validation-error" asp-validation-for="Job"></span>
+                            <span class="field-validation-error" asp-validation-for="IdRole"></span>
                         </div>
                     </div>
                 </div>
@@ -154,37 +155,38 @@
             </div>
             <form class="row g-3 p-3 was-validated" method="post" asp-controller="User" asp-action="Edit">
                 <div class="col-md-4">
-                    <label for="inputName" class="form-label">Nombre del trabajor</label>
-                    <input id="inputName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre" asp-for="Name" required>
-                    <span class="field-validation-error" asp-validation-for="Name"></span>
+                    <label for="inputName" class="form-label">Nombre</label>
+                    <input id="inputName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre" asp-for="Nombre" required>
+                    <span class="field-validation-error" asp-validation-for="Nombre"></span>
                 </div>
                 <div class="col-md-4">
-                    <label for="inputLastName" class="form-label">Apellido del trabajador</label>
-                    <input id="inputLastName" class="form-control is-invalid" type="text" placeholder="Ingrese el apellido" asp-for="LastName" required>
-                    <span class="field-validation-error" asp-validation-for="LastName"></span>
+                    <label for="inputLastName" class="form-label">Apellido</label>
+                    <input id="inputLastName" class="form-control is-invalid" type="text" placeholder="Ingrese el apellido" asp-for="Apellidos" required>
+                    <span class="field-validation-error" asp-validation-for="Apellidos"></span>
                 </div>
                 <div class="col-md-4">
                     <label for="inputIdCard" class="form-label">Cédula del trabajor</label>
-                    <input id="inputIdCard" class="form-control is-invalid" type="text" placeholder="Ingrese la cédula" asp-for="IdCard" required>
-                    <span class="field-validation-error" asp-validation-for="IdCard"></span>
+                    <input id="inputIdCard" class="form-control is-invalid" type="text" placeholder="Ingrese la cédula" asp-for="Cedula" required>
+                    <span class="field-validation-error" asp-validation-for="Cedula"></span>
                 </div>
                 <div class="col-12">
-                    <label for="inputUserName" class="form-label">Nombre de usuario del trabajor</label>
-                    <input id="inputUserName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre de usuario" asp-for="UserName" required>
-                    <span class="field-validation-error" asp-validation-for="UserName"></span>
+                    <label for="inputUserName" class="form-label">Nombre de usuario</label>
+                    <input id="inputUserName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre de usuario" asp-for="NombreUsuario" required>
+                    <span class="field-validation-error" asp-validation-for="NombreUsuario"></span>
                 </div>
                 <div class="col-12">
-                    <label for="inputPassword" class="form-label">Contraseña del trabajor</label>
-                    <input id="inputPassword" class="form-control is-invalid" type="text" placeholder="Ingrese la contraseña" asp-for="Password" required>
-                    <span class="field-validation-error" asp-validation-for="Password"></span>
+                    <label for="inputPassword" class="form-label">Contraseña</label>
+                    <input id="inputPassword" class="form-control is-invalid" type="text" placeholder="Ingrese la contraseña" asp-for="Contrasenia" required>
+                    <span class="field-validation-error" asp-validation-for="Contrasenia"></span>
                 </div>
                 <div class="col-12">
                     <label for="selectPuesto" class="form-label">Puesto</label>
-                    <select class="form-select" aria-label="Lista puesto" asp-for="Job" required>
+                    <select class="form-select" aria-label="Lista puesto" asp-for="IdRole" required>
                         <option value="">Seleccione algún puesto</option>
-                        <option value="1">One</option>
+                        <option value="1">Admin</option>
+                        <option value="2">Fontanero</option>
                     </select>
-                    <span class="field-validation-error" asp-validation-for="Job"></span>
+                    <span class="field-validation-error" asp-validation-for="IdRole"></span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -203,36 +205,37 @@
             <form class="row g-3 p-3 was-validated" method="post" asp-controller="User" asp-action="Create">
                 <div class="col-md-4">
                     <label for="inputName" class="form-label">Nombre del trabajor</label>
-                    <input id="inputName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre" asp-for="Name" required>
-                    <span class="field-validation-error" asp-validation-for="Name"></span>
+                    <input id="inputName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre" asp-for="Nombre" required>
+                    <span class="field-validation-error" asp-validation-for="Nombre"></span>
                 </div>
                 <div class="col-md-4">
                     <label for="inputLastName" class="form-label">Apellido del trabajador</label>
-                    <input id="inputLastName" class="form-control is-invalid" type="text" placeholder="Ingrese el apellido" asp-for="LastName" required>
-                    <span class="field-validation-error" asp-validation-for="LastName"></span>
+                    <input id="inputLastName" class="form-control is-invalid" type="text" placeholder="Ingrese el apellido" asp-for="Apellidos" required>
+                    <span class="field-validation-error" asp-validation-for="Apellidos"></span>
                 </div>
                 <div class="col-md-4">
                     <label for="inputIdCard" class="form-label">Cédula del trabajor</label>
-                    <input id="inputIdCard" class="form-control is-invalid" type="text" placeholder="Ingrese la cédula" asp-for="IdCard" required>
-                    <span class="field-validation-error" asp-validation-for="IdCard"></span>
+                    <input id="inputIdCard" class="form-control is-invalid" type="text" placeholder="Ingrese la cédula" asp-for="Cedula" required>
+                    <span class="field-validation-error" asp-validation-for="Cedula"></span>
                 </div>
                 <div class="col-12">
                     <label for="inputUserName" class="form-label">Nombre de usuario del trabajor</label>
-                    <input id="inputUserName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre de usuario" asp-for="UserName" required>
-                    <span class="field-validation-error" asp-validation-for="UserName"></span>
+                    <input id="inputUserName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre de usuario" asp-for="NombreUsuario" required>
+                    <span class="field-validation-error" asp-validation-for="NombreUsuario"></span>
                 </div>
                 <div class="col-12">
                     <label for="inputPassword" class="form-label">Contraseña del trabajor</label>
-                    <input id="inputPassword" class="form-control is-invalid" type="text" placeholder="Ingrese la contraseña" asp-for="Password" required>
-                    <span class="field-validation-error" asp-validation-for="Password"></span>
+                    <input id="inputPassword" class="form-control is-invalid" type="text" placeholder="Ingrese la contraseña" asp-for="Contrasenia" required>
+                    <span class="field-validation-error" asp-validation-for="Contrasenia"></span>
                 </div>
                 <div class="col-12">
                     <label for="selectPuesto" class="form-label">Puesto</label>
-                    <select class="form-select" aria-label="Lista puesto" asp-for="Job" required>
+                    <select class="form-select" aria-label="Lista puesto" asp-for="IdRole" required>
                         <option value="">Seleccione algún puesto</option>
-                        <option value="1">One</option>
+                        <option value="1">Admin</option>
+                        <option value="2">Fontanero</option>
                     </select>
-                    <span class="field-validation-error" asp-validation-for="Job"></span>
+                    <span class="field-validation-error" asp-validation-for="IdRole"></span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

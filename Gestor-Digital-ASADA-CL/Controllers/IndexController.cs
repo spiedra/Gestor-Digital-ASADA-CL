@@ -33,12 +33,12 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         [HttpPost]
         public ActionResult Authentication(UserViewModel UserViewModel)
         {
-            if (UserViewModel.UserName == "admin" && UserViewModel.Password == "admin")
+            if (UserViewModel.NombreUsuario == "admin" && UserViewModel.Contrasenia == "admin")
             {
 
                 return Redirect("~/Home/Index");
             }
-            else if (UserViewModel.UserName == "fontanero" && UserViewModel.Password == "fontanero")
+            else if (UserViewModel.Nombre == "fontanero" && UserViewModel.Contrasenia == "fontanero")
             {
                 return Redirect("~/Home/Client/Index");
             }

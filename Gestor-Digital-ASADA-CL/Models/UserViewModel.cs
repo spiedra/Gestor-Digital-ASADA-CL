@@ -4,23 +4,25 @@ namespace Gestor_Digital_ASADA_CL.Models
 {
     public class UserViewModel
     {
+        public int IdUsuario { get; set; }
+
         [Required(ErrorMessage = "El nombre de usuario es requerido")]
-        public string UserName { get; set; }
+        public string NombreUsuario { get; set; }
 
         [Required(ErrorMessage = "La contraseña es requerida")]
-        public string Password { get; set; }
+        public string Contrasenia { get; set; }
 
         [Required(ErrorMessage = "El nombre es requerido")]
-        public string Name { get; set; }
+        public string Nombre { get; set; }
 
         [Required(ErrorMessage = "El apellido es requerido")]
-        public string LastName { get; set; }
+        public string Apellidos { get; set; }
 
 
         [Required(ErrorMessage = "La cédula es requerida")]
-        public string IdCard { get; set; }
+        public string Cedula { get; set; }
 
         [Required(ErrorMessage = "El puesto es requerido")]
-        public string Job { get; set; }
+        public string IdRole { get; set; }
     }
 }
