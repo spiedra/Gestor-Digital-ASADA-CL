@@ -1,12 +1,12 @@
 ﻿using Gestor_Digital_ASADA_CL.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
@@ -17,6 +17,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
     public class IndexController : Controller
     {
         // GET: IndexController
+        private readonly UserManager<IdentityUser> _userManager;
         public ActionResult Index()
         {
             ViewBag.ServerResponse = false;
@@ -40,34 +41,30 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Authentication(User UserViewModel)
         {
+            //validar usuario en API
             HttpClient httpClient = new HttpClient();
             string user = "{ 'NombreUsuario': +'" + UserViewModel.NombreUsuario + "','Contrasenia':+'" + UserViewModel.Contrasenia + "'}";
-
-            //string json = new JavaScriptSerializer().Serialize(new
-            //{
-            //    Username = "myusername",
-            //    Password = "password"
-            //});
-
             StringContent content = new StringContent(user, Encoding.UTF8, "application/json");
-            var response = await httpClient.PostAsync("https://localhost:44358/API/Usuario/IniciarSesion/"+UserViewModel.NombreUsuario+"/"+UserViewModel.Contrasenia, content);
+            var response = await httpClient.PostAsync("https://localhost:44358/API/Usuario/IniciarSesion/" + UserViewModel.NombreUsuario + "/" + UserViewModel.Contrasenia, content);
             string action = await response.Content.ReadAsStringAsync();
 
+            //según la respuesta valida que tipo de usuario es, y crea una identidad (sesion) en el sistema.
+           
             switch (action)
             {
                 case "1":
-                    var claimsAdmin = new[] { new Claim(ClaimTypes.Name, UserViewModel.NombreUsuario),
-                    new Claim(ClaimTypes.Role, "Admin") };
-                    var identityAdmin = new ClaimsIdentity(claimsAdmin, CookieAuthenticationDefaults.AuthenticationScheme);
-                    HttpContext.User = new ClaimsPrincipal(identityAdmin);
+
+                    //creacion de claim de usuario
+
+                    await CreateUserSession(UserViewModel.NombreUsuario, "Admin");
+
 
                     return Redirect("~/Home/Index");
 
                 case "2":
-                    var claimsFontanero = new[] { new Claim(ClaimTypes.Name, UserViewModel.NombreUsuario),
-                    new Claim(ClaimTypes.Role, "Fontanero") };
-                    var identityFontanero = new ClaimsIdentity(claimsFontanero, CookieAuthenticationDefaults.AuthenticationScheme);
-                    HttpContext.User = new ClaimsPrincipal(identityFontanero);
+
+                    await CreateUserSession(UserViewModel.NombreUsuario, "Fontanero");
+
                     return Redirect("~/Home/Client/Index");
 
                 default:
@@ -75,6 +72,62 @@ namespace Gestor_Digital_ASADA_CL.Controllers
                     ViewBag.Message = action;
                     return View("Index");
             }
+        }
+
+        public async Task<bool> CreateUserSession(string NombreUsuario, string Role) {
+
+            List<Claim> claims;
+            AuthenticationProperties authProperties;
+            ClaimsIdentity claimsIdentity;
+
+            claims = new List<Claim>
+            {
+                 new Claim(ClaimTypes.Name,NombreUsuario ),
+                 new Claim(ClaimTypes.Role, Role),
+             };
+
+            //uso de cookies para la sesion
+
+            claimsIdentity = new ClaimsIdentity(
+            claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            //propiedades de la sesion
+
+            authProperties = new AuthenticationProperties
+            {
+                AllowRefresh = true,
+                // Refreshing the authentication session should be allowed.
+
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
+                // The time at which the authentication ticket expires.
+
+                IsPersistent = true,
+                // Whether the authentication session is persisted across 
+                // multiple requests. When used with cookies, controls
+                // whether the cookie's lifetime is absolute (matching the
+                // lifetime of the authentication ticket) or session-based.
+
+                //IssuedUtc = <DateTimeOffset>,
+                // The time at which the authentication ticket was issued.
+
+                //RedirectUri = <string>
+                // The full path or absolute URI to be used as an http 
+                // redirect response value.
+            };
+
+            //informe al contexto (todo el sistema) que hay un nuevo usuario
+            await HttpContext.SignInAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            new ClaimsPrincipal(claimsIdentity),
+            authProperties);
+
+            return true;
+        }
+
+        public IActionResult LogOut()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return View("Index");
         }
 
         // POST: IndexController/Create
