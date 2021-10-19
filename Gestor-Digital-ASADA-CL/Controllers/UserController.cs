@@ -31,7 +31,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
 
         // POST: UserController1/Create
         [HttpPost]
-        public ActionResult Create(UserViewModel userViewModel)
+        public ActionResult Create(User userViewModel)
         {
             ViewBag.ShowModalResponse = true;
             ViewBag.Message = "¡Usuario registrado correctamente!";
@@ -40,7 +40,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
 
         // POST: UserController1/Edit
         [HttpPost]
-        public ActionResult Edit(UserViewModel userViewModel)
+        public ActionResult Edit(User userViewModel)
         {
             ViewBag.ShowModalResponse = true;
             ViewBag.Message = "¡La información del usuario ha sido actualizada correctamente!";
