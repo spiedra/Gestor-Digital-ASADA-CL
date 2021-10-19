@@ -10,7 +10,7 @@ namespace Gestor_Digital_ASADA_CL_API.Models
         public Usuario()
         {
             AveriaTrabajadors = new HashSet<AveriaTrabajador>();
-            CloroResiduals = new HashSet<CloroResidual>();
+            CloroResiduals = new HashSet<Cloro>();
             RecaudacionDiaria = new HashSet<RecaudacionDiarium>();
             Tareas = new HashSet<Tarea>();
         }
@@ -26,7 +26,7 @@ namespace Gestor_Digital_ASADA_CL_API.Models
 
         public virtual Role IdRoleNavigation { get; set; }
         public virtual ICollection<AveriaTrabajador> AveriaTrabajadors { get; set; }
-        public virtual ICollection<CloroResidual> CloroResiduals { get; set; }
+        public virtual ICollection<Cloro> CloroResiduals { get; set; }
         public virtual ICollection<RecaudacionDiarium> RecaudacionDiaria { get; set; }
         public virtual ICollection<Tarea> Tareas { get; set; }
     }

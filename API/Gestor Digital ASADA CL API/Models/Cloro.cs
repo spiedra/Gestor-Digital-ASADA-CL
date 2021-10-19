@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Gestor_Digital_ASADA_CL_API.Models
 {
-    public partial class CloroResidual
+    public partial class Cloro
     {
         public int IdCloroResidual { get; set; }
         public int? IdUsuario { get; set; }

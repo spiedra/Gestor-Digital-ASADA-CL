@@ -1,162 +1,90 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Gestor_Digital_ASADA_CL.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Gestor_Digital_ASADA_CL.Controllers
 {
     public class Cloro : Controller
     {
-        // GET: Cloro
+        // GET: CloroController
         public ActionResult Index()
         {
             return View();
         }
-
-        // GET: Cloro/Details/5
-        public ActionResult Details(int id)
+        public IActionResult IndexAdmin()
         {
+            ViewBag.products = JsonConvert.DeserializeObject<List<CloroViewModel>>(ObtenerProductos().Result);
             return View();
         }
 
-        // GET: Cloro/Create
-        public ActionResult Create()
+        public async Task<string> ObtenerProductos()
         {
-            return View();
+            HttpClient httpClient = new HttpClient();
+            var response = await httpClient.GetAsync("https://localhost:44358/API/Producto/ObtenerProductos");
+            return await response.Content.ReadAsStringAsync();
         }
 
-        // POST: Cloro/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        [Route("Product/RealizarReporte")]
+        public IActionResult RealizarReporteInventario()
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            ViewBag.ShowModalResponse = "True";
+            ViewBag.mensaje = "¡Reporte de producto satisfactorio!";
+            return View("Index");
         }
 
-        // GET: Cloro/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Cloro/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        [Route("Product/RealizarReporteAdmin")]
+        public IActionResult RealizarReporteAdmin()
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            ViewBag.ShowModalResponse = "True";
+            ViewBag.mensaje = "¡Reporte de producto satisfactorio!";
+            return View("IndexAdmin");
         }
 
-        // GET: Cloro/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-       
-        // POST: Cloro/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [Route("Product/RegistrarProducto")]
+        public async Task<IActionResult> RegistrarProducto(ProductViewModel product)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        //------------ CLORO USUARIO ---------//
-        // GET: Cloro
-        public ActionResult IndexUser()
-        {
-            return View();
+            HttpClient httpClient = new HttpClient();
+            StringContent content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync("https://localhost:44358/API/Producto/RegistrarProducto", content);
+            ViewBag.ShowModalResponse = "True";
+            ViewBag.mensaje = await response.Content.ReadAsStringAsync();
+            ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
+            return View("IndexAdmin");
         }
 
-        // GET: Cloro/Details/5
-        public ActionResult DetailsUser(int id)
-        {
-            return View();
-        }
-
-        // GET: Cloro/Create
-        public ActionResult CreateUser()
-        {
-            return View();
-        }
-
-        // POST: Cloro/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateUser(IFormCollection collection)
+        [Route("EditarProducto")]
+        public async Task<IActionResult> EditarProducto(ProductViewModel product)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            HttpClient httpClient = new HttpClient();
+            StringContent content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
+            var response = await httpClient.PutAsync("https://localhost:44358/API/Producto/ModificarProducto", content);
+            ViewBag.ShowModalResponse = "True";
+            ViewBag.mensaje = await response.Content.ReadAsStringAsync();
+            ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
+            return View("IndexAdmin");
         }
 
-        // GET: Cloro/Edit/5
-        public ActionResult EditUser(int id)
-        {
-            return View();
-        }
-
-        // POST: Cloro/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditUser(int id, IFormCollection collection)
+        public async Task<IActionResult> BorrarProducto(string productCode)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Cloro/Delete/5
-        public ActionResult DeleteUser(int id)
-        {
-            return View();
-        }
-       
-        // POST: Cloro/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteUser(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            HttpClient httpClient = new HttpClient();
+            StringContent content = new StringContent(JsonConvert.SerializeObject(productCode), Encoding.UTF8, "application/json");
+            var response = await httpClient.DeleteAsync("https://localhost:44358/API/Producto/BorrarProducto/" + productCode);
+            ViewBag.ShowModalResponse = "True";
+            ViewBag.mensaje = await response.Content.ReadAsStringAsync();
+            ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
+            return View("IndexAdmin");
         }
     }
 }
