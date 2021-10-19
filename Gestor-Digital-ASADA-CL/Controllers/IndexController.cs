@@ -1,9 +1,15 @@
 ﻿using Gestor_Digital_ASADA_CL.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Gestor_Digital_ASADA_CL.Controllers
@@ -31,21 +37,44 @@ namespace Gestor_Digital_ASADA_CL.Controllers
 
         // POST: Index/Authentication
         [HttpPost]
-        public ActionResult Authentication(UserViewModel UserViewModel)
+        [AllowAnonymous]
+        public async Task<ActionResult> Authentication(User UserViewModel)
         {
-            if (UserViewModel.NombreUsuario == "admin" && UserViewModel.Contrasenia == "admin")
-            {
+            HttpClient httpClient = new HttpClient();
+            string user = "{ 'NombreUsuario': +'" + UserViewModel.NombreUsuario + "','Contrasenia':+'" + UserViewModel.Contrasenia + "'}";
 
-                return Redirect("~/Home/Index");
-            }
-            else if (UserViewModel.Nombre == "fontanero" && UserViewModel.Contrasenia == "fontanero")
-            {
-                return Redirect("~/Home/Client/Index");
-            }
+            //string json = new JavaScriptSerializer().Serialize(new
+            //{
+            //    Username = "myusername",
+            //    Password = "password"
+            //});
 
-            ViewBag.ShowModalResponse = true;
-            ViewBag.Message = "¡Nombre o contraseña incorrectos!";
-            return View("Index");
+            StringContent content = new StringContent(user, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync("https://localhost:44358/API/Usuario/IniciarSesion/"+UserViewModel.NombreUsuario+"/"+UserViewModel.Contrasenia, content);
+            string action = await response.Content.ReadAsStringAsync();
+
+            switch (action)
+            {
+                case "1":
+                    var claimsAdmin = new[] { new Claim(ClaimTypes.Name, UserViewModel.NombreUsuario),
+                    new Claim(ClaimTypes.Role, "Admin") };
+                    var identityAdmin = new ClaimsIdentity(claimsAdmin, CookieAuthenticationDefaults.AuthenticationScheme);
+                    HttpContext.User = new ClaimsPrincipal(identityAdmin);
+
+                    return Redirect("~/Home/Index");
+
+                case "2":
+                    var claimsFontanero = new[] { new Claim(ClaimTypes.Name, UserViewModel.NombreUsuario),
+                    new Claim(ClaimTypes.Role, "Fontanero") };
+                    var identityFontanero = new ClaimsIdentity(claimsFontanero, CookieAuthenticationDefaults.AuthenticationScheme);
+                    HttpContext.User = new ClaimsPrincipal(identityFontanero);
+                    return Redirect("~/Home/Client/Index");
+
+                default:
+                    ViewBag.ShowModalResponse = true;
+                    ViewBag.Message = action;
+                    return View("Index");
+            }
         }
 
         // POST: IndexController/Create
