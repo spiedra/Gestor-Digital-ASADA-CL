@@ -41,74 +41,29 @@
                     </tr>
                 </thead>
                 <tbody id="tbodyUserSearch">
-                    <tr>
-                        <td>00000000</td>
-                        <td>Juan Carlos</td>
-                        <td>Sequeira Piedra</td>
-                        <td>spiedra</td>
-                        <td>perroygato</td>
-                        <td>
-                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
-                                Modificar
-                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                            </button>
-                            <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                Eliminar
-                                <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>00000000</td>
-                        <td>Juan Carlos</td>
-                        <td>Sequeira Piedra</td>
-                        <td>spiedra</td>
-                        <td>perroygato</td>
-                        <td>
-                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
-                                Modificar
-                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                            </button>
-                            <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                Eliminar
-                                <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>00000000</td>
-                        <td>Juan Carlos</td>
-                        <td>Sequeira Piedra</td>
-                        <td>spiedra</td>
-                        <td>perroygato</td>
-                        <td>
-                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
-                                Modificar
-                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                            </button>
-                            <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                Eliminar
-                                <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>00000000</td>
-                        <td>Juan Carlos</td>
-                        <td>Sequeira Piedra</td>
-                        <td>spiedra</td>
-                        <td>perroygato</td>
-                        <td>
-                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
-                                Modificar
-                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                            </button>
-                            <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                Eliminar
-                                <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                            </button>
-                        </td>
-                    </tr>
+                    @if (ViewBag.users != null)
+                    {
+                        @foreach (UserViewModel u in ViewBag.users)
+                        {
+                            <tr>
+                                <td>@u.Cedula</td>
+                                <td>@u.Nombre</td>
+                                <td>@u.Apellidos</td>
+                                <td>@u.NombreUsuario</td>
+                                <td>@u.Contrasenia</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal" onclick="putUserOnModal(this); return false;">
+                                        Modificar
+                                        <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                    </button>
+                                    <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                        Eliminar
+                                        <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    }
                 </tbody>
             </table>
         </div>
@@ -124,8 +79,8 @@
                 <div class="modal-body">
                     <div class="container">
                         <div class="mb-3">
-                            <label for="inputName" class="form-label">Nombre del trabajador</label>
-                            <input id="inputName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre del trabajor" asp-for="NombreUsuario" required>
+                            <label for="" class="form-label">Nombre del trabajador</label>
+                            <input id="" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre del trabajor" asp-for="NombreUsuario" required>
                             <span class="field-validation-error" asp-validation-for="NombreUsuario"></span>
                         </div>
                         <div class="mb-3">

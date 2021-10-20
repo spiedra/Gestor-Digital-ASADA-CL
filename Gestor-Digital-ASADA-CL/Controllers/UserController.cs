@@ -1,9 +1,11 @@
 ﻿using Gestor_Digital_ASADA_CL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Gestor_Digital_ASADA_CL.Controllers
@@ -14,13 +16,16 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         public ActionResult Index()
         {
             ViewBag.ShowModalResponse = false;
+            ViewBag.users = JsonConvert.DeserializeObject<List<UserViewModel>>(Details().Result);
             return View();
         }
 
-        // GET: UserController1/Details/5
-        public ActionResult Details(int id)
+        // GET: UserController
+        public async Task<string> Details()
         {
-            return View();
+            HttpClient httpClient = new();
+            var response = await httpClient.GetAsync("https://localhost:44358/API/Usuario/ObtenerUsuarios");
+            return await response.Content.ReadAsStringAsync();
         }
 
         // GET: UserController1/Create
