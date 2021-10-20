@@ -2,12 +2,15 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Gestor_Digital_ASADA_CL_API.Controllers
 {
-    public class UsuarioController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class UsuarioController : ControllerBase
     {
         GestorDigitalASADACLAYDContext db;
         public UsuarioController(GestorDigitalASADACLAYDContext db)
@@ -15,10 +18,11 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             this.db = db;
         }
 
-        [HttpPost]
-        public IActionResult IniciarSesión()
+        [HttpGet] 
+        [Route("/API/Usuario/ObtenerUsuarios")]
+        public IActionResult Get()
         {
-
+            return Ok(db.Usuarios.ToList());
         }
     }
 }
