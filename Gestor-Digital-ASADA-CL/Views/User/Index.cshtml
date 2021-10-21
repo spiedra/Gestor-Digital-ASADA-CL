@@ -1,4 +1,4 @@
-﻿@model UserViewModel
+﻿@model User
 @{
     ViewData["Title"] = "Gestor de usuarios";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -37,31 +37,36 @@
                         <th scope="col">Apellido</th>
                         <th scope="col">Nombre de usuario</th>
                         <th scope="col">Contraseña</th>
+                        <th scope="col">Puesto</th>
                         <th scope="col">Acción</th>
                     </tr>
                 </thead>
                 <tbody id="tbodyUserSearch">
                     @if (ViewBag.users != null)
                     {
-                        @foreach (UserViewModel u in ViewBag.users)
+                        @foreach (User u in ViewBag.users)
                         {
-                            <tr>
-                                <td>@u.Cedula</td>
-                                <td>@u.Nombre</td>
-                                <td>@u.Apellidos</td>
-                                <td>@u.NombreUsuario</td>
-                                <td>@u.Contrasenia</td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal" onclick="putUserOnModal(this); return false;">
-                                        Modificar
-                                        <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                                    </button>
-                                    <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                        Eliminar
-                                        <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                                    </button>
-                                </td>
-                            </tr>
+                    <tr>
+                        <td>@u.Cedula</td>
+                        <td>@u.Nombre</td>
+                        <td>@u.Apellidos</td>
+                        <td>@u.NombreUsuario</td>
+                        <td>@u.Contrasenia</td>
+                        @if (ViewBag.Role != null)
+                        {
+                            <td>@ViewBag.Role.TipoRole</td>
+                        }
+                        <td>
+                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal" onclick="putUserOnModal(this); return false;">
+                                Modificar
+                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                            <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                Eliminar
+                                <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                        </td>
+                    </tr>
                         }
                     }
                 </tbody>

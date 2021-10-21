@@ -16,7 +16,8 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         public ActionResult Index()
         {
             ViewBag.ShowModalResponse = false;
-            ViewBag.users = JsonConvert.DeserializeObject<List<UserViewModel>>(Details().Result);
+            ViewBag.users = JsonConvert.DeserializeObject<List<User>>(Details().Result);
+            ViewBag.Role = JsonConvert.DeserializeObject<RoleViewModel>(GetRoleById(1).Result);
             return View();
         }
 
@@ -36,7 +37,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
 
         // POST: UserController1/Create
         [HttpPost]
-        public ActionResult Create(UserViewModel userViewModel)
+        public ActionResult Create(User userViewModel)
         {
             ViewBag.ShowModalResponse = true;
             ViewBag.Message = "¡Usuario registrado correctamente!";
@@ -45,7 +46,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
 
         // POST: UserController1/Edit
         [HttpPost]
-        public ActionResult Edit(UserViewModel userViewModel)
+        public ActionResult Edit(User userViewModel)
         {
             ViewBag.ShowModalResponse = true;
             ViewBag.Message = "¡La información del usuario ha sido actualizada correctamente!";
@@ -73,6 +74,13 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             {
                 return View();
             }
+        }
+
+        private async Task<string> GetRoleById(int idRole)
+        {
+            HttpClient httpClient = new();
+            var response = await httpClient.GetAsync("https://localhost:44358/API/Role/GetRoleById/"+idRole);
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }

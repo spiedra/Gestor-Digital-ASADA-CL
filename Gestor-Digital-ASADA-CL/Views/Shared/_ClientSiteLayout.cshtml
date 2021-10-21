@@ -27,7 +27,7 @@
                         <a id="mi_bitacora" style="font-size:20px" class="nav-item nav-link m-2" asp-controller="PersonalBinnacle" asp-action="Index1">Mi bitácora</a>
                     </div>
                 </div>
-                <a asp-controller="Index" asp-action="Index" class="btn btn-dark btn-sm m-1 m-xl-0">Luis Obando<img src="~/assets/logout_white_18dp.svg" alt="Icono de cerar sesión" class="ms-2 my-1" /></a>
+                <a asp-controller="Index" asp-action="LogOut" class="btn btn-dark btn-sm m-1 m-xl-0">@this.Context.User.Identity.Name<img src="~/assets/logout_white_18dp.svg" alt="Icono de cerar sesión" class="ms-2 my-1" /></a>
             </div>
         </nav>
     </header>

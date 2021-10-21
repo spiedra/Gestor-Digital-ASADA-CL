@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,14 +8,17 @@ using System.Threading.Tasks;
 
 namespace Gestor_Digital_ASADA_CL.Controllers
 {
+    //[Authorize]
     public class HomeController : Controller
     {
         // GET: HomeController
+      
         public ActionResult Index()
         {
             return View();
         }
 
+        
         [Route("Home/Client/Index")]
         public ActionResult Index1()
         {

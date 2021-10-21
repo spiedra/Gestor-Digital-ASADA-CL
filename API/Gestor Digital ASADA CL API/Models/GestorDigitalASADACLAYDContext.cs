@@ -27,7 +27,7 @@ namespace Gestor_Digital_ASADA_CL_API.Models
         public virtual DbSet<AveriaTrabajador> AveriaTrabajadors { get; set; }
         public virtual DbSet<Averium> Averia { get; set; }
         public virtual DbSet<BitacoraPersonal> BitacoraPersonals { get; set; }
-        public virtual DbSet<CloroResidual> CloroResiduals { get; set; }
+        public virtual DbSet<Cloro> CloroResiduals { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
         public virtual DbSet<RecaudacionDiarium> RecaudacionDiaria { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
@@ -156,7 +156,7 @@ namespace Gestor_Digital_ASADA_CL_API.Models
                     .HasConstraintName("fk_id_usuario_bitacora");
             });
 
-            modelBuilder.Entity<CloroResidual>(entity =>
+            modelBuilder.Entity<Cloro>(entity =>
             {
                 entity.HasKey(e => e.IdCloroResidual)
                     .HasName("PK__CLORO_RE__97B168580227FA00");
