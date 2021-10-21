@@ -1,4 +1,4 @@
-﻿const { data } = require("jquery");
+﻿////const { data } = require("jquery");
 
 function putOnModal(button) {
     row = button.parentNode.parentNode;
@@ -22,4 +22,11 @@ function putOnModalDelete(button) {
     row = button.parentNode.parentNode;
     code = row.cells[0].textContent;
     $("#productCode").val(code);
+}
+
+function putOnModalReport(button) {
+    row = button.parentNode.parentNode;
+    code = row.cells[0].textContent;
+    document.getElementById("productoSolicitado").innerHTML = "Toma de producto: "+row.cells[1].textContent;
+    $("#productoS").val(code);
 }

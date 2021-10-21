@@ -1,7 +1,6 @@
 ﻿using System;
-using Gestor_Digital_ASADA_CL_API.Helpers;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
@@ -9,7 +8,6 @@ namespace Gestor_Digital_ASADA_CL_API.Models
 {
     public partial class GestorDigitalASADACLAYDContext : DbContext
     {
-        private readonly string _connectionString;
         //public GestorDigitalASADACLAYDContext()
         //{
         //}
@@ -18,11 +16,6 @@ namespace Gestor_Digital_ASADA_CL_API.Models
             : base(options)
         {
         }
-
-        //public GestorDigitalASADACLAYDContext(DbConnectionInfo dbConnectionInfo)
-        //{
-        //    _connectionString = dbConnectionInfo.MyContext;
-        //}
 
         public virtual DbSet<AveriaTrabajador> AveriaTrabajadors { get; set; }
         public virtual DbSet<Averium> Averia { get; set; }
@@ -36,13 +29,14 @@ namespace Gestor_Digital_ASADA_CL_API.Models
         //public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<UsuarioProducto> UsuarioProductos { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    //if (!optionsBuilder.IsConfigured)
-        //    //{
-        //    //    //optionsBuilder.UseSqlServer("Data Source=163.178.107.10;Initial Catalog=GestorDigitalASADACL-AYD;Persist Security Info=True;User ID=laboratorios;Password=KmZpo.2796;Pooling=False");
-        //    //}
-        //}
+//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//        {
+//            if (!optionsBuilder.IsConfigured)
+//            {
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+//                optionsBuilder.UseSqlServer("Data Source=163.178.107.10;Initial Catalog=GestorDigitalASADACL-AYD;Persist Security Info=True;User ID=laboratorios;Password=KmZpo.2796;Pooling=False");
+//            }
+//        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -432,9 +426,12 @@ namespace Gestor_Digital_ASADA_CL_API.Models
 
             modelBuilder.Entity<UsuarioProducto>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.IdSolicitud)
+                    .HasName("PK__USUARIO___F090D5845F3C24E3");
 
                 entity.ToTable("USUARIO_PRODUCTO", "ADMIN");
+
+                entity.Property(e => e.IdSolicitud).HasColumnName("ID_SOLICITUD");
 
                 entity.Property(e => e.Cantidad).HasColumnName("CANTIDAD");
 
@@ -460,13 +457,13 @@ namespace Gestor_Digital_ASADA_CL_API.Models
                     .HasDefaultValueSql("((0))");
 
                 entity.HasOne(d => d.CodigoProductoNavigation)
-                    .WithMany()
+                    .WithMany(p => p.UsuarioProductos)
                     .HasForeignKey(d => d.CodigoProducto)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_cod_producto_usuario");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
-                    .WithMany()
+                    .WithMany(p => p.UsuarioProductos)
                     .HasForeignKey(d => d.IdUsuario)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_id_usuario_producto");

@@ -19,6 +19,7 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
         [Route("/API/Usuario/IniciarSesion/{NombreUsuario}/{Contrasenia}")]
         public IActionResult Login(string NombreUsuario, string Contrasenia)
         {
+
             //return Ok(NombreUsuario+ Contrasenia);
 
             bool UserExists = db.Usuarios.ToList().Exists(
