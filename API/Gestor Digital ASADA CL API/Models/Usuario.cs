@@ -13,6 +13,7 @@ namespace Gestor_Digital_ASADA_CL_API.Models
             CloroResiduals = new HashSet<CloroResidual>();
             RecaudacionDiaria = new HashSet<RecaudacionDiarium>();
             Tareas = new HashSet<Tarea>();
+            UsuarioProductos = new HashSet<UsuarioProducto>();
         }
 
         public int IdUsuario { get; set; }
@@ -29,5 +30,6 @@ namespace Gestor_Digital_ASADA_CL_API.Models
         public virtual ICollection<CloroResidual> CloroResiduals { get; set; }
         public virtual ICollection<RecaudacionDiarium> RecaudacionDiaria { get; set; }
         public virtual ICollection<Tarea> Tareas { get; set; }
+        public virtual ICollection<UsuarioProducto> UsuarioProductos { get; set; }
     }
 }

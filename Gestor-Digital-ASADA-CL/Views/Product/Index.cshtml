@@ -2,20 +2,45 @@
     ViewData["Title"] = "Menú principal";
     Layout = "~/Views/Shared/_ClientSiteLayout.cshtml";
 }
-<h2 class="mt-2">Inventario de productos ASADA</h2>
+
+@model Gestor_Digital_ASADA_CL.Models.ProductViewModel
+
+
+<h2 class="mt-2">Inventario de productos</h2>
 <hr />
 
 <div class="row">
     <div class="col col-md-3">
         <div class="input-group mt-3 p-3">
-            <form method="POST" class="needs-validation" novalidate>
-                <input id="busqueda" name="busqueda" type="search" class="form-control rounded" placeholder="Nombre" aria-label="Search" aria-describedby="search-addon" required/>
+            <form method="get" asp-controller="Product" asp-action="BuscarProducto" class="needs-validation" novalidate>
+                <input id="producto" name="producto" type="search" class="form-control rounded" placeholder="Nombre ó c-código" aria-label="Search" aria-describedby="search-addon" required />
+                <div class="invalid-feedback">
+                    Llene el campo de búsqueda!
+                </div>
                 <button type="submit" class="btn-search mt-3 btn btn-outline-primary mt-">buscar</button>
-                <a style="background-color: #6DC7F6;" class="mt-3 btn btn-success"> <i style="background-color: #6DC7F6;" class="fas fa-sync"></i> </a>
+                <a style="background-color: #6DC7F6;" asp-controller="Product" asp-action="Index" class="mt-3 btn btn-success"> <i style="background-color: #6DC7F6;" class="fas fa-sync"></i> </a>
             </form>
         </div>
     </div>
 </div>
+
+@if (ViewBag.resultadoBusqueda != null)
+{
+    @if (ViewBag.cantidadResultado != null)
+    {
+        <div class="alert alert-success ">
+            <button type="button" class="btn close" data-bs-dismiss="alert">&times;</button>
+            <strong>Se han encontrado @ViewBag.cantidadResultado resultado(s) sobre '@ViewBag.productoBuscar'</strong>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning ">
+            <button type="button" class="btn close" data-bs-dismiss="alert">&times;</button>
+            <strong>No se han encontrado resultado(s) sobre '@ViewBag.productoBuscar'</strong>
+        </div>
+    }
+}
 
 <div class="row table-responsive">
     <div class="col-12">
@@ -32,47 +57,25 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>123</td>
-                    <td>Herramenta COTTER</td>
-                    <td>13 000</td>
-                    <td>4</td>
-                    <td> 06/04/2021</td>
-                    <td>Relleno relleno relleno</td>
-                    <td>
-                        <button class="btn btn-primary" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
-                            <i class="fas fa-hand-paper"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>443</td>
-                    <td>Pala SuperFlex </td>
-                    <td>18 000</td>
-                    <td>19</td>
-                    <td>12/04/2021</td>
-                    <td>Relleno relleno relleno  </td>
-                    <td>
-                        <button class="btn btn-primary" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
-                            <i class="fas fa-hand-paper"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>123RT </td>
-                    <td> Herramenta Plus-pln </td>
-                    <td>13 000</td>
-                    <td>12</td>
-                    <td>08/07/2021</td>
-                    <td>
-                        Relleno relleno relleno
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
-                            <i class="fas fa-hand-paper"></i>
-                        </button>
-                    </td>
-                </tr>
+                @if (ViewBag.products != null)
+                {
+                    @foreach (ProductViewModel temp in ViewBag.products)
+                    {
+                        <tr>
+                            <td>@temp.CodigoProducto</td>
+                            <td>@temp.NombreProducto</td>
+                            <td>@temp.ValorUnitario</td>
+                            <td>@temp.Cantidad</td>
+                            <td>@temp.FechaIngreso</td>
+                            <td>@temp.Descripcion</td>
+                            <td>
+                                <button class="btn btn-primary" onclick="putOnModalReport(this); return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
+                                    <i class="fas fa-hand-paper"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
             </tbody>
         </table>
     </div>
@@ -82,37 +85,43 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div style="background-color: #6DC7F6;" class="modal-header">
-                <h5 class="modal-title">Reportar solicitud de: <span>herramienta COTTER</span></h5>
+                <h5 id="productoSolicitado" class="modal-title"></h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form method="POST" asp-controller="Product" asp-action="RealizarReporte" class="mt-2 ml-2 p-3 needs-validation" novalidate>
+                    <h5 class="modal-data mt-1">Yo: <span style="color: #6DC7F6;">@this.Context.User.Identity.Name</span></h5>
                     <div class="form-group">
-                        <label for="taDetalles">Detalles</label>
-                        <textarea class="form-control" id="taDetalles" style="resize:none; height:5em; width:20em;" required></textarea>
-                        <div class="invalid-feedback">
-                            El detalle es obligatorio
-                        </div>
+                        <label for="taDetalles">Reporto solicitud de:</label>
+                        <input readonly type="text" name="productoS" class="form-control" id="productoS" required>
                     </div>
                     <div class="form-group mt-2">
                         <label for="itStocl">Tomaré la cantidad de: </label>
-                        <input type="number" min="1" name="stock" value="" class="form-control" id="stock" placeholder="productos" required>
+                        <input type="number" min="1" name="cantidad" value="" class="form-control" id="stock" placeholder="productos" required>
                         <div class="invalid-feedback">
                             Elige una cantidad
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="taDetalles">Para la cual:</label>
+                        <textarea class="form-control" id="detalles" name="detalles" style="resize:none; height:5em; width:20em;" placeholder="detalles" required></textarea>
+                        <div class="invalid-feedback">
+                            El detalle es obligatorio
                         </div>
                     </div>
                     <button type="submit" data-bs-toggle="modal" data-bs-target="#modalMensaje" style="background-color: #6DC7F6;" class="btn btn-primary mt-2">Reportar</button>
                 </form>
             </div>
-            <h5 class="modal-data p-2">A nombre de: <span style="color: #6DC7F6;">Luis Obando</span></h5>
             <div style="background-color: #6DC7F6;" class="modal-footer">
                 <button type="button" style="background-color: #313436;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
 </div>
+
+<script src="~/js/Product.js" asp-append-version="true"></script>
 
 @section scripts
 {

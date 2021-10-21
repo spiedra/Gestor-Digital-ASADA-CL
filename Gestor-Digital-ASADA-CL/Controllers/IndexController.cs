@@ -17,7 +17,6 @@ namespace Gestor_Digital_ASADA_CL.Controllers
     public class IndexController : Controller
     {
         // GET: IndexController
-        private readonly UserManager<IdentityUser> _userManager;
         public ActionResult Index()
         {
             ViewBag.ServerResponse = false;
@@ -48,6 +47,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             var response = await httpClient.PostAsync("https://localhost:44358/API/Usuario/IniciarSesion/" + UserViewModel.NombreUsuario + "/" + UserViewModel.Contrasenia, content);
             string action = await response.Content.ReadAsStringAsync();
 
+
             //según la respuesta valida que tipo de usuario es, y crea una identidad (sesion) en el sistema.
            
             switch (action)
@@ -55,16 +55,12 @@ namespace Gestor_Digital_ASADA_CL.Controllers
                 case "1":
 
                     //creacion de claim de usuario
-
                     await CreateUserSession(UserViewModel.NombreUsuario, "Admin");
-
-
                     return Redirect("~/Home/Index");
 
                 case "2":
 
                     await CreateUserSession(UserViewModel.NombreUsuario, "Fontanero");
-
                     return Redirect("~/Home/Client/Index");
 
                 default:
