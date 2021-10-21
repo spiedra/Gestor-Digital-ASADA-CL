@@ -1,4 +1,5 @@
 ﻿using Gestor_Digital_ASADA_CL.Models;
+using Gestor_Digital_ASADA_CL.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -16,6 +17,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         // GET: ProductController
         public ActionResult Index()
         {
+            ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
             return View();
         }
         public IActionResult IndexAdmin()
@@ -31,22 +33,75 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return await response.Content.ReadAsStringAsync();
         }
 
-        [HttpPost]
-        [Route("Product/RealizarReporte")]
-        public IActionResult RealizarReporteInventario()
+        [HttpGet]
+        public IActionResult BuscarProducto(string producto)
         {
-            ViewBag.ShowModalResponse = "True";
-            ViewBag.mensaje = "¡Reporte de producto satisfactorio!";
+            var accion = producto.Split("-");
+            var productos= JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
+            List<ProductViewModel> resultados;
+            ViewBag.resultadoBusqueda = true;
+
+            //validar la búsqueda
+            if (accion[0].ToLower().Equals("c"))
+            {
+                ViewBag.productoBuscar = accion[1];
+                resultados= BuscarPorCódigo(productos,accion[1]);
+            }
+            else
+            {
+                ViewBag.productoBuscar = producto;
+                resultados = BuscarPorNombre(productos, producto);
+            }
+            //informar al usuario sobre la búsqueda
+            if (resultados.Count != 0)
+            {
+                ViewBag.products = resultados;
+                ViewBag.cantidadResultado = resultados.Count;
+            }
+
+            //direccion
+            if (HttpContext.User.IsInRole("Admin"))
+            {
+                return View("IndexAdmin");
+            }
             return View("Index");
         }
 
         [HttpPost]
-        [Route("Product/RealizarReporteAdmin")]
-        public IActionResult RealizarReporteAdmin()
+        [Route("Product/RealizarReporte")]
+        public async Task<IActionResult> SolicitarProducto(string productoS, int cantidad, string detalles)
         {
+            SolicitudProducto solicitud = new SolicitudProducto
+            {
+                CodigoProducto = productoS,
+                Cantidad = cantidad,
+                Detalles = detalles,
+                NombreUsuario=HttpContext.User.Identity.Name
+                
+            };
+
+            HttpClient httpClient = new HttpClient();
+            StringContent content = new StringContent(JsonConvert.SerializeObject(solicitud), Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync("https://localhost:44358/API/Producto/SolicitarProducto", content);
             ViewBag.ShowModalResponse = "True";
-            ViewBag.mensaje = "¡Reporte de producto satisfactorio!";
-            return View("IndexAdmin");
+            ViewBag.mensaje = await response.Content.ReadAsStringAsync();
+            ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
+
+            //direccion
+            if (HttpContext.User.IsInRole("Admin"))
+            {
+                return View("IndexAdmin");
+            }
+            return View("Index");
+        }
+
+        public List<ProductViewModel> BuscarPorCódigo(List<ProductViewModel> productos,string codigo)
+        {
+            return productos.Where(p => p.CodigoProducto.ToLower().Contains(codigo.ToLower())).ToList();
+        }
+        public List<ProductViewModel> BuscarPorNombre(List<ProductViewModel> productos, string nombre)
+        {
+            return productos.Where(p => p.NombreProducto.ToLower().Contains(nombre.ToLower())).ToList();
         }
 
         [HttpPost]
@@ -80,7 +135,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         {
             HttpClient httpClient = new HttpClient();
             StringContent content = new StringContent(JsonConvert.SerializeObject(productCode), Encoding.UTF8, "application/json");
-            var response = await httpClient.DeleteAsync("https://localhost:44358/API/Producto/BorrarProducto/"+productCode);
+            var response = await httpClient.DeleteAsync("https://localhost:44358/API/Producto/BorrarProducto/" + productCode);
             ViewBag.ShowModalResponse = "True";
             ViewBag.mensaje = await response.Content.ReadAsStringAsync();
             ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);

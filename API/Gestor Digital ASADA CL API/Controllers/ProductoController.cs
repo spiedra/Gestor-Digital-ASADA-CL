@@ -1,4 +1,5 @@
 ﻿using Gestor_Digital_ASADA_CL_API.Models;
+using Gestor_Digital_ASADA_CL_API.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -63,5 +64,28 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             db.SaveChanges();
             return Ok("Producto eliminado con éxito!");
         }
+
+        [HttpPost]
+        [Route("/API/Producto/SolicitarProducto")]
+        public IActionResult SolicitarProducto(SolicitudProducto solicitud)
+        {
+            //fecha
+            DateTime myDateTime = DateTime.Now;
+            string sqlFormattedDate = myDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
+
+            UsuarioProducto up = new UsuarioProducto
+            {
+                CodigoProducto = solicitud.CodigoProducto,
+                Cantidad = solicitud.Cantidad,
+                FechaSolicitud = myDateTime,
+                Detalles = solicitud.Detalles,
+                IdUsuario = db.Usuarios.ToList().First(u => u.NombreUsuario.Equals(solicitud.NombreUsuario)).IdUsuario
+            };
+
+            db.UsuarioProductos.Add(up);
+            db.SaveChanges();
+            return Ok("Reporte de producto realizado!");
+        }
+
     }
 }

@@ -7,6 +7,11 @@ namespace Gestor_Digital_ASADA_CL_API.Models
 {
     public partial class Producto
     {
+        public Producto()
+        {
+            UsuarioProductos = new HashSet<UsuarioProducto>();
+        }
+
         public string CodigoProducto { get; set; }
         public string NombreProducto { get; set; }
         public string ValorUnitario { get; set; }
@@ -14,5 +19,7 @@ namespace Gestor_Digital_ASADA_CL_API.Models
         public DateTime? FechaIngreso { get; set; }
         public string Descripcion { get; set; }
         public bool? IsDelete { get; set; }
+
+        public virtual ICollection<UsuarioProducto> UsuarioProductos { get; set; }
     }
 }

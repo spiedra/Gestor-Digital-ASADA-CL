@@ -22,5 +22,11 @@ namespace Gestor_Digital_ASADA_CL.Models
 
         [Required(ErrorMessage = "El nombre del cliente es requerido")]
         public string NameE { get; set; }
+<<<<<<< HEAD
+=======
+        //[Required(ErrorMessage = "El nombre del trabajador es requerido")]
+
+
+>>>>>>> 7e56127cbcabb0aca2163a54e6f05f58293bddf4
     }
 }

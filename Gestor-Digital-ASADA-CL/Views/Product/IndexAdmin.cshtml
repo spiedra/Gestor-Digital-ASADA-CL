@@ -4,19 +4,19 @@
 }
 @model Gestor_Digital_ASADA_CL.Models.ProductViewModel
 
-<h2 class="mt-2">Inventario de productos ASADA</h2>
+<h2 class="mt-2">Inventario de productos</h2>
 <hr />
 
 <div class="row">
     <div class="col col-md-6">
         <div class="input-group mt-3 py-3">
-            <form method="POST" class="needs-validation" novalidate>
+            <form method="get" asp-controller="Product" asp-action="BuscarProducto" class="needs-validation" novalidate>
                 <div class="input-group">
-                    <input type="search" class="form-control rounded" placeholder="ingresa un nombre" aria-label="Search"
+                    <input type="search" name="producto" id="producto" class="form-control rounded" placeholder="Producto" aria-label="Search"
                            aria-describedby="search-addon" required />
                     <button type="submit" class="btn btn-outline-primary">buscar</button>
                     <div class="invalid-feedback">
-                        ingresa el nombre de producto
+                        Ingresa un valor para buscar
                     </div>
                 </div>
             </form>
@@ -55,7 +55,7 @@
                             <td>@temp.FechaIngreso</td>
                             <td>@temp.Descripcion</td>
                             <td>
-                                <button class="btn btn-primary" onclick=" return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
+                                <button class="btn btn-primary" onclick="putOnModalReport(this); return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
                                     <i class="fas fa-hand-paper"></i>
                                 </button>
                                 <button class="btn btn-info" onclick="putOnModal(this); return false;" data-bs-toggle="modal" data-bs-target="#modalEditar">
@@ -77,32 +77,36 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div style="background-color: #6DC7F6;" class="modal-header">
-                <h5 class="modal-title">Reportar solicitud de: <span>herramienta COTTER</span></h5>
+                <h5 class="modal-title">Toma de herramienta</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" asp-controller="Product" asp-action="RealizarReporteAdmin" class="mt-2 ml-2 p-3 needs-validation" novalidate>
+                <form method="POST" asp-controller="Product" asp-action="RealizarReporte" class="mt-2 ml-2 p-3 needs-validation" novalidate>
+                    <h5 class="modal-data mt-1">Yo: <span style="color: #6DC7F6;">@this.Context.User.Identity.Name</span></h5>
                     <div class="form-group">
-                        <label for="taDetalles">Detalles</label>
-                        <textarea class="form-control" id="taDetalles" style="resize:none; height:5em; width:20em;" required></textarea>
-                        <div class="invalid-feedback">
-                            El detalle es obligatorio
-                        </div>
+                        <label for="taDetalles">Reporto solicitud de:</label>
+                        <input readonly type="text" name="productoS" class="form-control" id="productoS" required>
                     </div>
                     <div class="form-group mt-2">
-                        <label for="cantidad">Tomaré la cantidad de: </label>
-                        <input type="number" min="1" name="cantidad" value="" class="form-control" id="stock" placeholder="productos" required>
+                        <label for="itStocl">Tomaré la cantidad de: </label>
+                        <input type="number" min="1" name="stock" value="" class="form-control" id="stock" placeholder="productos" required>
                         <div class="invalid-feedback">
                             Elige una cantidad
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="taDetalles">Para la cual:</label>
+                        <textarea class="form-control" id="taDetalles" style="resize:none; height:5em; width:20em;" placeholder="detalles" required></textarea>
+                        <div class="invalid-feedback">
+                            El detalle es obligatorio
                         </div>
                     </div>
                     <button type="submit" data-bs-toggle="modal" data-bs-target="#modalMensaje" style="background-color: #6DC7F6;" class="btn btn-primary mt-2">Reportar</button>
                 </form>
             </div>
-            <h5 class="modal-data p-2">A nombre de: <span style="color: #6DC7F6;">Juan Carlos Sequeira</span></h5>
-            <div class="modal-footer">
+            <div style="background-color: #6DC7F6;" class="modal-footer">
                 <button type="button" style="background-color: #313436;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>

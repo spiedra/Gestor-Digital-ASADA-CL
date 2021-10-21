@@ -1,4 +1,4 @@
-﻿function putOnModal(object) {
+﻿function putOnModalActivity(object) {
     var activity = object.parentNode;
     while (activity.id != "detalle") {
         activity = activity.previousSibling;

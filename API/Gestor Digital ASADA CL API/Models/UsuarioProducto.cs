@@ -7,6 +7,7 @@ namespace Gestor_Digital_ASADA_CL_API.Models
 {
     public partial class UsuarioProducto
     {
+        public int IdSolicitud { get; set; }
         public string CodigoProducto { get; set; }
         public int IdUsuario { get; set; }
         public int Cantidad { get; set; }

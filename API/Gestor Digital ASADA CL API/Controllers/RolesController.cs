@@ -21,7 +21,7 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
         }
 
         [HttpGet]
-        [Route("/API/Role/GetRoleById/{id}")]
+        [Route("/API/Role/GetRoleById/{idH}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
