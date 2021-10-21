@@ -26,7 +26,7 @@ namespace Gestor_Digital_ASADA_CL_API.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Sector> Sectors { get; set; }
         public virtual DbSet<Tarea> Tareas { get; set; }
-        //public virtual DbSet<Usuario> Usuarios { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<UsuarioProducto> UsuarioProductos { get; set; }
 
 //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

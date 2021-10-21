@@ -31,8 +31,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return await response.Content.ReadAsStringAsync();
         }
 
-        [HttpPost]
-        [Route("Product/RealizarReporte")]
+        
         public IActionResult RealizarReporteInventario()
         {
             ViewBag.ShowModalResponse = "True";
@@ -40,8 +39,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return View("Index");
         }
 
-        [HttpPost]
-        [Route("Product/RealizarReporteAdmin")]
+       
         public IActionResult RealizarReporteAdmin()
         {
             ViewBag.ShowModalResponse = "True";
@@ -49,8 +47,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return View("IndexAdmin");
         }
 
-        [HttpPost]
-        [Route("Product/RegistrarProducto")]
+       
         public async Task<IActionResult> RegistrarProducto(ProductViewModel product)
         {
             HttpClient httpClient = new HttpClient();
@@ -62,8 +59,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return View("IndexAdmin");
         }
 
-        [HttpPost]
-        [Route("EditarProducto")]
+        
         public async Task<IActionResult> EditarProducto(ProductViewModel product)
         {
             HttpClient httpClient = new HttpClient();
@@ -75,7 +71,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return View("IndexAdmin");
         }
 
-        [HttpPost]
+      
         public async Task<IActionResult> BorrarProducto(string productCode)
         {
             HttpClient httpClient = new HttpClient();

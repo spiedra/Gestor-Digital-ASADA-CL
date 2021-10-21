@@ -105,15 +105,6 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         }
 
         [HttpPost]
-        [Route("Product/RealizarReporteAdmin")]
-        public IActionResult RealizarReporteAdmin()
-        {
-            ViewBag.ShowModalResponse = "True";
-            ViewBag.mensaje = "¡Reporte de producto satisfactorio!";
-            return View("IndexAdmin");
-        }
-
-        [HttpPost]
         [Route("Product/RegistrarProducto")]
         public async Task<IActionResult> RegistrarProducto(ProductViewModel product)
         {
