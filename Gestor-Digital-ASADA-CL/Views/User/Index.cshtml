@@ -22,7 +22,7 @@
         <img src="~/assets/search_black_24dp.svg" alt="Icono de busqueda" />
     </button>
     <button id="btn__refresh--user" class="btn mb-3 d-inline btn__refresh"
-            title="Refrescar tabla">
+            title="Refrescar tabla" onclick="refreshPage(); return false">
         <img src="~/assets/refresh_black_24dp.svg" alt="Icono de busqueda" />
     </button>
 </div>
@@ -33,6 +33,7 @@
             <table class="table table-bordered table-striped table-hover">
                 <thead class="table-dark">
                     <tr>
+                        <th scope="col">#</th>
                         <th scope="col">Cédula</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellido</th>
@@ -42,12 +43,13 @@
                         <th scope="col">Acción</th>
                     </tr>
                 </thead>
-                <tbody id="tbodyUserSearch">
-                    @if (ViewBag.users != null)
+                <tbody id="tbodyUser">
+                    @if (ViewBag.Users != null)
                     {
-                        @foreach (User u in ViewBag.users)
+                        @foreach (User u in ViewBag.Users)
                         {
                     <tr>
+                        <td>@u.IdUsuario</td>
                         <td>@u.Cedula</td>
                         <td>@u.Nombre</td>
                         <td>@u.Apellidos</td>
@@ -114,7 +116,8 @@
             <div class="modal-header">
                 <h5 class="modal-title">Modificar información del usuario</h5>
             </div>
-            <form class="row g-3 p-3 was-validated" method="post" asp-controller="User" asp-action="Edit">
+            <form id="formEditUserModal" class="row g-3 p-3 was-validated" method="post" asp-controller="User" asp-action="Edit">
+                <input id="inputIdUser" class="form-control is-invalid" type="hidden" asp-for="IdUsuario" />
                 <div class="col-md-4">
                     <label for="inputName" class="form-label">Nombre</label>
                     <input id="inputName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre" asp-for="Nombre" required>
@@ -142,12 +145,12 @@
                 </div>
                 <div class="col-12">
                     <label id="jobLabelId" for="selectPuesto" class="form-label">Puesto</label>
-                    <select id="selectJobsEditModal" class="form-select" aria-label="Lista puesto" asp-for="IdRole" required></select>
-                    <span class="field-validation-error" asp-validation-for="IdRole"></span>
+                    <select id="selectJobsEditModal" class="form-select" aria-label="Lista puesto" asp-for="RoleName" required></select>
+                    <span class="field-validation-error" asp-validation-for="RoleName"></span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button id="btnEdit" type="submit" class="btn btn-primary">Actualizar</button>
+                    <button id="btnEdit" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Actualizar</button>
                 </div>
             </form>
         </div>

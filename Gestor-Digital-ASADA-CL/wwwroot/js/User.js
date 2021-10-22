@@ -1,13 +1,16 @@
-﻿const putUserOnEditModal = (buttonContext) => {
+﻿var idUsuario;
+
+const putUserOnEditModal = (buttonContext) => {
     row = buttonContext.parentNode.parentNode;
-    const currentJobName = row.cells[5].textContent;
+    const currentJobName = row.cells[6].textContent;
     const selectJobs = $('#selectJobsEditModal');
 
-    $("#inputIdCard").val(row.cells[0].textContent);
-    $("#inputName").val(row.cells[1].textContent);
-    $("#inputLastName").val(row.cells[2].textContent);
-    $("#inputUserName").val(row.cells[3].textContent);
-    $("#inputPassword").val(row.cells[4].textContent);
+    $("#inputIdUser").val(row.cells[0].textContent);
+    $("#inputIdCard").val(row.cells[1].textContent);
+    $("#inputName").val(row.cells[2].textContent);
+    $("#inputLastName").val(row.cells[3].textContent);
+    $("#inputUserName").val(row.cells[4].textContent);
+    $("#inputPassword").val(row.cells[5].textContent);
 
     $.ajax({
         url: '/User/GetRolesByAjax',
@@ -17,9 +20,9 @@
             selectJobs.empty();
             response.forEach(element => {
                 if (element.tipoRole === currentJobName) {
-                    selectJobs.append('<option class="select_opcion" selected>' + element.tipoRole + '</option>');
+                    selectJobs.append('<option id=' + element.idRole + ' class="select_opcion" selected>' + element.tipoRole + '</option>');
                 } else {
-                    selectJobs.append('<option class="select_opcion">' + element.tipoRole + '</option>');
+                    selectJobs.append('<option id=' + element.idRole + ' class="select_opcion">' + element.tipoRole + '</option>');
                 }
             });
         }
@@ -48,5 +51,9 @@ const putUserFullNameOnDeleteModal = (buttonContext) => {
     row = buttonContext.parentNode.parentNode;
 
     msgContainerDeleteModal.empty();
-    msgContainerDeleteModal.append('El usuario <p class="fw-bold d-inline">' + row.cells[1].textContent + ' ' + row.cells[2].textContent + '</p> va a ser borrado permanentemente del sistema')
+    msgContainerDeleteModal.append('El usuario <p class="fw-bold d-inline">' + row.cells[2].textContent + ' ' + row.cells[3].textContent + '</p> va a ser borrado permanentemente del sistema')
 };
+
+const refreshPage = () => {
+    location.reload();
+}

@@ -22,8 +22,10 @@ namespace Gestor_Digital_ASADA_CL.Models
         [Required(ErrorMessage = "La contraseña es requerida")]
         public string Contrasenia { get; set; }
 
-        [Required(ErrorMessage = "El puesto es requerido")]
         public int IdRole { get; set; }
+
+        [Required(ErrorMessage = "El puesto es requerido")]
+        public string RoleName { get; set; }
 
         public bool? IsDelete { get; set; }
 

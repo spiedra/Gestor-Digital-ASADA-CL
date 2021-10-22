@@ -23,6 +23,7 @@ namespace Gestor_Digital_ASADA_CL_API.Models
         public string NombreUsuario { get; set; }
         public string Contrasenia { get; set; }
         public int IdRole { get; set; }
+
         public bool? IsDelete { get; set; }
 
         public virtual Role IdRoleNavigation { get; set; }

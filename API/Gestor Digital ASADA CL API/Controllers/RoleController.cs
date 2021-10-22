@@ -11,11 +11,11 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class RolesController : ControllerBase
+    public class RoleController : ControllerBase
     {
         private readonly GestorDigitalASADACLAYDContext _context;
 
-        public RolesController(GestorDigitalASADACLAYDContext context)
+        public RoleController(GestorDigitalASADACLAYDContext context)
         {
             _context = context;
         }
@@ -37,6 +37,25 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             }
 
             return Ok(role);
+        }
+
+        [HttpGet]
+        [Route("/API/Role/GetRoleIdByName/{name}")]
+        public async Task<IActionResult> Details(string name)
+        {
+            if (name == null)
+            {
+                return NotFound();
+            }
+
+            var role = await _context.Roles
+                .FirstOrDefaultAsync(m => m.TipoRole == name);
+            if (role == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(role.IdRole);
         }
 
         [HttpGet]

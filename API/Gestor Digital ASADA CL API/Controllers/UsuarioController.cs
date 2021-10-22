@@ -25,6 +25,23 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             return Ok(await db.Usuarios.ToListAsync());
         }
 
+        [HttpPut]
+        [Route("/API/Usuario/ModificarUsuario")]
+        public async Task<IActionResult> Edit(Usuario usuario)
+        {
+            var original = db.Usuarios.Find(usuario.IdUsuario);
+            if (original != null)
+            {
+                db.Entry(original).CurrentValues.SetValues(usuario);
+                await db.SaveChangesAsync();
+                return Ok("Usuario registrado con éxito");
+            }
+            else
+            {
+                return Ok("Ha ocurrido un error al modificar al usuario. Inténtelo de nuevo");
+            }
+        }
+
         [HttpPost]
         [Route("/API/Usuario/IniciarSesion/{NombreUsuario}/{Contrasenia}")]
         public IActionResult Login(string NombreUsuario, string Contrasenia)
