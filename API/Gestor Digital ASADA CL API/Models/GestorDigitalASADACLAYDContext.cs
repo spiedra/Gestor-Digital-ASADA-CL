@@ -119,7 +119,7 @@ namespace Gestor_Digital_ASADA_CL_API.Models
 
             modelBuilder.Entity<BitacoraPersonal>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(b=>b.IdBitacora);
 
                 entity.ToTable("BITACORA_PERSONAL", "ADMIN");
 

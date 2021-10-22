@@ -28,6 +28,26 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             return Ok(db.Productos.ToList());
         }
 
+        [HttpGet]
+        [Route("/API/Producto/ObtenerReportes")]
+        public IActionResult GetReportes()
+        {
+            List<SolicitudProducto> solicitudes = new List<SolicitudProducto>();
+            foreach (UsuarioProducto up in db.UsuarioProductos.ToList())
+            {
+                solicitudes.Add(new SolicitudProducto
+                {
+                    CodigoProducto = up.CodigoProducto,
+                    Detalles = up.Detalles,
+                    Cantidad = up.Cantidad,
+                    Fecha=up.FechaSolicitud,
+                    NombreUsuario = db.Usuarios.Find(up.IdUsuario).NombreUsuario
+                }
+                    );
+            }
+            return Ok(solicitudes);
+        }
+
         [HttpPost]
         [Route("/API/Producto/RegistrarProducto")]
         public IActionResult Post([FromBody] Producto p)
@@ -60,7 +80,7 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
         public IActionResult Delete(string codigo)
         {
             var product = db.Productos.Find(codigo);
-            db.Remove(product);
+            db.Productos.Remove(product);
             db.SaveChanges();
             return Ok("Producto eliminado con éxito!");
         }
@@ -72,6 +92,7 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             //fecha
             DateTime myDateTime = DateTime.Now;
             string sqlFormattedDate = myDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            db.Productos.Find(solicitud.CodigoProducto).Cantidad -= solicitud.Cantidad;
 
             UsuarioProducto up = new UsuarioProducto
             {
