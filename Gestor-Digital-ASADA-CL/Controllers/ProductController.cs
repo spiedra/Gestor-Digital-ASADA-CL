@@ -1,5 +1,4 @@
 ﻿using Gestor_Digital_ASADA_CL.Models;
-using Gestor_Digital_ASADA_CL.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -22,6 +21,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         }
         public IActionResult IndexAdmin()
         {
+            ViewBag.reportes= JsonConvert.DeserializeObject<List<SolicitudProducto>>(ObtenerReportes().Result);
             ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
             return View();
         }
@@ -30,6 +30,13 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         {
             HttpClient httpClient = new HttpClient();
             var response = await httpClient.GetAsync("https://localhost:44358/API/Producto/ObtenerProductos");
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> ObtenerReportes()
+        {
+            HttpClient httpClient = new HttpClient();
+            var response = await httpClient.GetAsync("https://localhost:44358/API/Producto/ObtenerReportes");
             return await response.Content.ReadAsStringAsync();
         }
 
@@ -71,20 +78,28 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         [Route("Product/RealizarReporte")]
         public async Task<IActionResult> SolicitarProducto(string productoS, int cantidad, string detalles)
         {
+            var producto = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result).Find(
+                p => p.CodigoProducto.Equals(productoS));
+
+            if (producto.Cantidad>=cantidad) {
             SolicitudProducto solicitud = new SolicitudProducto
             {
                 CodigoProducto = productoS,
                 Cantidad = cantidad,
                 Detalles = detalles,
                 NombreUsuario=HttpContext.User.Identity.Name
-                
             };
 
             HttpClient httpClient = new HttpClient();
             StringContent content = new StringContent(JsonConvert.SerializeObject(solicitud), Encoding.UTF8, "application/json");
             var response = await httpClient.PostAsync("https://localhost:44358/API/Producto/SolicitarProducto", content);
-            ViewBag.ShowModalResponse = "True";
             ViewBag.mensaje = await response.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                ViewBag.mensaje = "Error. La cantidad solicitada excede la disponible!";
+            }
+            ViewBag.ShowModalResponse = "True";
             ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
 
             //direccion

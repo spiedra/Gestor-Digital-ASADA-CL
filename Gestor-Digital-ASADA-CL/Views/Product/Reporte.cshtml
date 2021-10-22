@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Ver Reporte";
+  
+}
+
+<div class="row table-responsive">
+    <div class="col-12">
+        <table id="table" class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Código producto</th>
+                    <th>Usuario</th>
+                    <th>Cantidad</th>
+                    <th>Detalles</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (SolicitudProducto reporte in ViewBag.reportes)
+                {
+                <tr>
+                    <td></td>
+                    <td>Luis Obando</td>
+                    <td>1</td>
+                    <td>Se usará la herramienta en el proyecto 32D</td>
+                    <td> 06/04/2021</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

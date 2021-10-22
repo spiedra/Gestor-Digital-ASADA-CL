@@ -26,7 +26,11 @@ function putOnModalDelete(button) {
 
 function putOnModalReport(button) {
     row = button.parentNode.parentNode;
-    code = row.cells[0].textContent;
-    document.getElementById("productoSolicitado").innerHTML = "Toma de producto: "+row.cells[1].textContent;
-    $("#productoS").val(code);
+    if (parseInt(row.cells[3].textContent) == 0) {
+        createModalResponse("No hay cantidad disponible.");
+    } else {
+        code = row.cells[0].textContent;
+        document.getElementById("productoSolicitado").innerHTML = "Toma de producto: " + row.cells[1].textContent;
+        $("#productoS").val(code);
+    }
 }
