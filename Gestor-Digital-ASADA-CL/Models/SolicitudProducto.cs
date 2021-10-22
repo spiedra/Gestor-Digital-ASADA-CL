@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gestor_Digital_ASADA_CL.Utility
+namespace Gestor_Digital_ASADA_CL.Models
 {
     public class SolicitudProducto
     {
@@ -11,5 +11,6 @@ namespace Gestor_Digital_ASADA_CL.Utility
         public string CodigoProducto { get; set; }
         public int Cantidad { get; set; }
         public string Detalles { get; set; }
+        public DateTime Fecha { get; set; }
     }
 }

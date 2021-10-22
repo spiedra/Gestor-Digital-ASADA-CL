@@ -9,24 +9,42 @@
 
 <div class="row">
     <div class="col col-md-6">
-        <div class="input-group mt-3 py-3">
+        <div class="input-group mt-3">
             <form method="get" asp-controller="Product" asp-action="BuscarProducto" class="needs-validation" novalidate>
                 <div class="input-group">
-                    <input type="search" name="producto" id="producto" class="form-control rounded" placeholder="Producto" aria-label="Search"
+                    <input type="search" name="producto" id="producto" class="form-control rounded" placeholder="nombre ó c-código" aria-label="Search"
                            aria-describedby="search-addon" required />
-                    <button type="submit" class="btn btn-outline-primary">buscar</button>
                     <div class="invalid-feedback">
                         Ingresa un valor para buscar
                     </div>
+                    <button type="submit" class="btn btn-outline-primary ms-1">buscar</button>
+                    <a style="background-color: #6DC7F6;" asp-controller="Product" asp-action="IndexAdmin" class=" btn btn-success ms-1"> <i style="background-color: #6DC7F6;" class="fas fa-sync"></i> </a>
                 </div>
-            </form>
-            <a style="background-color: #6DC7F6;" class=" btn btn-success"> <i style="background-color: #6DC7F6;" class="fas fa-sync"></i> </a>
+            </form>  
         </div>
     </div>
 </div>
 
-<button type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrar" class="mb-2 btn btn-primary">Agregar nuevo</button>
-<button type="button" data-bs-toggle="modal" data-bs-target="#modalVerInforme" class="mb-2 btn btn-primary">Ver reportes</button>
+<button type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrar" class="mb-2 mt-2 btn btn-primary">Agregar nuevo</button>
+<button type="button" data-bs-toggle="modal" data-bs-target="#modalVerInforme" class="mb-2 mt-2 ms-lg-auto btn btn-primary">Ver reportes</button>
+
+@if (ViewBag.resultadoBusqueda != null)
+{
+    @if (ViewBag.cantidadResultado != null)
+    {
+        <div class="alert alert-success ">
+            <button type="button" class="btn close" data-bs-dismiss="alert">&times;</button>
+            <strong>Se han encontrado @ViewBag.cantidadResultado resultado(s) sobre '@ViewBag.productoBuscar'</strong>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning ">
+            <button type="button" class="btn close" data-bs-dismiss="alert">&times;</button>
+            <strong>No se han encontrado resultado(s) sobre '@ViewBag.productoBuscar'</strong>
+        </div>
+    }
+}
 
 <div class="row table-responsive">
     <div class="col-12">
@@ -77,7 +95,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div style="background-color: #6DC7F6;" class="modal-header">
-                <h5 class="modal-title">Toma de herramienta</h5>
+                <h5 id="productoSolicitado" class="modal-title"></h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -91,14 +109,14 @@
                     </div>
                     <div class="form-group mt-2">
                         <label for="itStocl">Tomaré la cantidad de: </label>
-                        <input type="number" min="1" name="stock" value="" class="form-control" id="stock" placeholder="productos" required>
+                        <input type="number" min="1" name="cantidad" value="" class="form-control" id="stock" placeholder="productos" required>
                         <div class="invalid-feedback">
                             Elige una cantidad
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="taDetalles">Para la cual:</label>
-                        <textarea class="form-control" id="taDetalles" style="resize:none; height:5em; width:20em;" placeholder="detalles" required></textarea>
+                        <textarea class="form-control" id="detalles" name="detalles" style="resize:none; height:5em; width:20em;" placeholder="detalles" required></textarea>
                         <div class="invalid-feedback">
                             El detalle es obligatorio
                         </div>
@@ -118,15 +136,12 @@
         <div class="modal-content">
             <div style="background-color: #6DC7F6;" class="modal-header">
                 <h5 class="modal-title">Editar producto: <span>123</span></h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <form method="post" asp-controller="Product" asp-action="EditarProducto" class="mt-2 ml-2 p-3">
                     <div class="form-group">
                         <label for="codigo">Código: </label>
-                        <input readonly class="form-control" id="codigo" asp-for="CodigoProducto">
+                        <input style="border:0; background-color:#ffffff; outline:none" asp-for="CodigoProducto" readonly id="productCode" name="productCode">
                         <span class="field-validation-error" asp-validation-for="CodigoProducto"></span>
                     </div>
                     <div class="form-group">
@@ -171,18 +186,18 @@
         <div class="modal-content">
             <div style="background-color: #6DC7F6;" class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">¿Está seguro que desea eliminar este producto?</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form method="POST" asp-controller="Product" asp-action="BorrarProducto">
                     <label for="codigoProducto">El producto de código: </label>
-                    <input readonly class="form-control" id="productCode" name="productCode">
-                    <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
+                    <input style="border:0; background-color:#ffffff; outline:none" readonly id="productCode" name="productCode">
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>         
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            </div>
+            
         </div>
     </div>
 </div>
@@ -192,9 +207,6 @@
         <div class="modal-content">
             <div style="background-color: #6DC7F6;" class="modal-header">
                 <h5 class="modal-title">Registrar producto</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <form method="POST" asp-controller="Product" asp-action="RegistrarProducto" class="mt-2 ml-2 p-3">
@@ -245,48 +257,39 @@
         <div class="modal-content">
             <div style="background-color: #6DC7F6;" class="modal-header">
                 <h5 class="modal-title">Reporte de inventario</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <div class="row table-responsive">
                     <div class="col-12">
-                        <table id="table" class="table table-bordered table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Código producto</th>
-                                    <th>Usuario</th>
-                                    <th>Cantidad</th>
-                                    <th>Detalles</th>
-                                    <th>Fecha de ingreso</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>123</td>
-                                    <td>Luis Obando</td>
-                                    <td>1</td>
-                                    <td>Se usará la herramienta en el proyecto 32D</td>
-                                    <td> 06/04/2021</td>
-                                </tr>
-                                <tr>
-                                    <td>321</td>
-                                    <td>Vianka Cedeño</td>
-                                    <td>3</td>
-                                    <td>Se usará la herramienta en el proyecto 21</td>
-                                    <td> 08/04/2021</td>
-                                </tr>
-                                <tr>
-                                    <td>789</td>
-                                    <td>Alberto campos</td>
-                                    <td>2</td>
-                                    <td>Se usará la herramienta en la averia #32</td>
-                                    <td> 12/08/2021</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        @if (ViewBag.reportes != null)
+                        {
+                            <table id="table" class="table table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Código producto</th>
+                                        <th>Usuario</th>
+                                        <th>Cantidad</th>
+                                        <th>Detalles</th>
+                                        <th>Fecha</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (SolicitudProducto reporte in ViewBag.reportes)
+                                    {
+                                        <tr>
+                                            <td>@reporte.CodigoProducto</td>
+                                            <td> @reporte.NombreUsuario</td>
+                                            <td>@reporte.Cantidad</td>
+                                            <td>@reporte.Detalles</td>
+                                            <td>@reporte.Fecha</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }else{
+                            <h5>No hay reportes realizados</h5>
+                        }
+                        </div>
                 </div>
             </div>
             <div class="modal-footer">

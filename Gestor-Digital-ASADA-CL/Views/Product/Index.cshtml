@@ -10,15 +10,18 @@
 <hr />
 
 <div class="row">
-    <div class="col col-md-3">
-        <div class="input-group mt-3 p-3">
+    <div class="col col-md-6">
+        <div class="input-group mt-3">
             <form method="get" asp-controller="Product" asp-action="BuscarProducto" class="needs-validation" novalidate>
-                <input id="producto" name="producto" type="search" class="form-control rounded" placeholder="Nombre ó c-código" aria-label="Search" aria-describedby="search-addon" required />
-                <div class="invalid-feedback">
-                    Llene el campo de búsqueda!
+                <div class="input-group">
+                    <input type="search" name="producto" id="producto" class="form-control rounded" placeholder="nombre ó c-código" aria-label="Search"
+                           aria-describedby="search-addon" required />
+                    <div class="invalid-feedback">
+                        Ingresa un valor para buscar
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary ms-1">buscar</button>
+                    <a style="background-color: #6DC7F6;" asp-controller="Product" asp-action="Index" class=" btn btn-success ms-1"> <i style="background-color: #6DC7F6;" class="fas fa-sync"></i> </a>
                 </div>
-                <button type="submit" class="btn-search mt-3 btn btn-outline-primary mt-">buscar</button>
-                <a style="background-color: #6DC7F6;" asp-controller="Product" asp-action="Index" class="mt-3 btn btn-success"> <i style="background-color: #6DC7F6;" class="fas fa-sync"></i> </a>
             </form>
         </div>
     </div>
@@ -43,7 +46,7 @@
 }
 
 <div class="row table-responsive">
-    <div class="col-12">
+    <div class="col-12 mt-3">
         <table id="table" class="table table-hover">
             <thead>
                 <tr>

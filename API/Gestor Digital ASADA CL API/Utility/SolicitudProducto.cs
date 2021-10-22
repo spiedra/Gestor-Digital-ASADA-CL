@@ -11,6 +11,7 @@ namespace Gestor_Digital_ASADA_CL_API.Utility
         public string CodigoProducto { get; set; }
         public int Cantidad { get; set; }
         public string Detalles { get; set; }
+        public DateTime Fecha { get; set; }
 
     }
 }
