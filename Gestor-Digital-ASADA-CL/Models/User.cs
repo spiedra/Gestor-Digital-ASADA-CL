@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gestor_Digital_ASADA_CL.Models
 {
@@ -22,8 +23,10 @@ namespace Gestor_Digital_ASADA_CL.Models
         public string Contrasenia { get; set; }
 
         [Required(ErrorMessage = "El puesto es requerido")]
-        public string IdRole { get; set; }
+        public int IdRole { get; set; }
 
         public bool? IsDelete { get; set; }
+
+        public IEnumerable<RoleViewModel> Roles { get; set; }
     }
 }

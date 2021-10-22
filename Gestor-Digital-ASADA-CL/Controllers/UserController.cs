@@ -17,7 +17,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         {
             ViewBag.ShowModalResponse = false;
             ViewBag.users = JsonConvert.DeserializeObject<List<User>>(Details().Result);
-            ViewBag.Role = JsonConvert.DeserializeObject<RoleViewModel>(GetRoleById(1).Result);
+            ViewBag.Roles = JsonConvert.DeserializeObject<List<RoleViewModel>>(GetRoles().Result);
             return View();
         }
 
@@ -79,8 +79,21 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         private async Task<string> GetRoleById(int idRole)
         {
             HttpClient httpClient = new();
-            var response = await httpClient.GetAsync("https://localhost:44358/API/Role/GetRoleById/"+idRole);
+            var response = await httpClient.GetAsync("https://localhost:44358/API/Role/GetRoleById/" + idRole);
             return await response.Content.ReadAsStringAsync();
+        }
+
+        private async Task<string> GetRoles()
+        {
+            HttpClient httpClient = new();
+            var response = await httpClient.GetAsync("https://localhost:44358/API/Role/GetRoles");
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        [HttpGet]
+        public JsonResult GetRolesByAjax()
+        {
+            return Json(JsonConvert.DeserializeObject<List<RoleViewModel>>(GetRoles().Result));
         }
     }
 }

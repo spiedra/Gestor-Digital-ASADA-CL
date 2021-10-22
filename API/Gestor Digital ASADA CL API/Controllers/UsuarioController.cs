@@ -1,5 +1,6 @@
 ﻿using Gestor_Digital_ASADA_CL_API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,9 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
 
         [HttpGet]
         [Route("/API/Usuario/ObtenerUsuarios")]
-        public IActionResult Get()
+        public async Task<IActionResult> Details()
         {
-            return Ok(db.Usuarios.ToList());
+            return Ok(await db.Usuarios.ToListAsync());
         }
 
         [HttpPost]

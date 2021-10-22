@@ -21,7 +21,7 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
         }
 
         [HttpGet]
-        [Route("/API/Role/GetRoleById/{idH}")]
+        [Route("/API/Role/GetRoleById/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,6 +37,13 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             }
 
             return Ok(role);
+        }
+
+        [HttpGet]
+        [Route("/API/Role/GetRoles")]
+        public async Task<IActionResult> Details()
+        {
+            return Ok(await _context.Roles.ToListAsync());
         }
     }
 }

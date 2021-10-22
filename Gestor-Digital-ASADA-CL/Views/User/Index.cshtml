@@ -52,9 +52,9 @@
                         <td>@u.Apellidos</td>
                         <td>@u.NombreUsuario</td>
                         <td>@u.Contrasenia</td>
-                        @if (ViewBag.Role != null)
+                        @foreach (var item in ((IEnumerable<dynamic>)ViewBag.Roles).Where(x => x.IdRole == u.IdRole))
                         {
-                            <td>@ViewBag.Role.TipoRole</td>
+                            <td>@item.TipoRole</td>
                         }
                         <td>
                             <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal" onclick="putUserOnModal(this); return false;">
@@ -140,11 +140,11 @@
                     <span class="field-validation-error" asp-validation-for="Contrasenia"></span>
                 </div>
                 <div class="col-12">
-                    <label for="selectPuesto" class="form-label">Puesto</label>
-                    <select class="form-select" aria-label="Lista puesto" asp-for="IdRole" required>
-                        <option value="">Seleccione algún puesto</option>
-                        <option value="1">Admin</option>
-                        <option value="2">Fontanero</option>
+                    <label id="jobLabelId" for="selectPuesto" class="form-label"></label>
+                    <select id="selectJobs" class="form-select" aria-label="Lista puesto" asp-for="IdRole" required>
+                        @*<option value="">Seleccione algún puesto</option>*@
+                        @*<option value="1">Admin</option>
+                        <option value="2">Fontanero</option>*@
                     </select>
                     <span class="field-validation-error" asp-validation-for="IdRole"></span>
                 </div>
@@ -191,9 +191,9 @@
                 <div class="col-12">
                     <label for="selectPuesto" class="form-label">Puesto</label>
                     <select class="form-select" aria-label="Lista puesto" asp-for="IdRole" required>
-                        <option value="">Seleccione algún puesto</option>
+                        @*<option value="">Seleccione algún puesto</option>
                         <option value="1">Admin</option>
-                        <option value="2">Fontanero</option>
+                        <option value="2">Fontanero</option>*@
                     </select>
                     <span class="field-validation-error" asp-validation-for="IdRole"></span>
                 </div>
