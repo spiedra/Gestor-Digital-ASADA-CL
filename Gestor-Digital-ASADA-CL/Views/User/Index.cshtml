@@ -190,12 +190,8 @@
                 </div>
                 <div class="col-12">
                     <label for="selectPuesto" class="form-label">Puesto</label>
-                    <select id="selectJobsAddModal" class="form-select" aria-label="Lista puesto" asp-for="IdRole" required>
-                        @*<option value="">Seleccione algún puesto</option>
-                        <option value="1">Admin</option>
-                        <option value="2">Fontanero</option>*@
-                    </select>
-                    <span class="field-validation-error" asp-validation-for="IdRole"></span>
+                    <select id="selectJobsAddModal" class="form-select" aria-label="Lista puesto" asp-for="RoleName" required></select>
+                    <span class="field-validation-error" asp-validation-for="RoleName"></span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -212,7 +208,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">¿Está seguro de eliminar a este usuario?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="get" asp-controller="User" asp-action="Delete">
+            <form id="formDeleteUser" method="post" asp-controller="User" asp-action="Delete">
                 <div id="msgContainerDeleteModal" class="modal-body"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

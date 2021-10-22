@@ -46,6 +46,14 @@ const putRolesOnAddModal = () => {
     });
 };
 
+const createInputHiddenOnDeleteUserModal = (buttonContext) => {
+    row = buttonContext.parentNode.parentNode;
+    $('<input>').attr({
+        type: 'hidden',
+        value: 
+    }).appendTo('form');
+};
+
 const putUserFullNameOnDeleteModal = (buttonContext) => {
     const msgContainerDeleteModal = $('#msgContainerDeleteModal');
     row = buttonContext.parentNode.parentNode;

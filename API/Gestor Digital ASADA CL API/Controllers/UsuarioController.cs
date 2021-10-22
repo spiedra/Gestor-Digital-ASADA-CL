@@ -42,6 +42,36 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             }
         }
 
+
+        [HttpPost]
+        [Route("/API/Usuario/RegistrarUsuario")]
+        public async Task<IActionResult> Post(Usuario usuario)
+        {
+            if (db.Usuarios.ToList().Exists(i => i.Cedula.ToString().ToLower().Equals(usuario.Cedula.ToString().ToLower())))
+            {
+                return Ok("Cédula existente en el sistema. Inténtelo de nuevo");
+            }
+            db.Usuarios.Add(usuario);
+            await db.SaveChangesAsync();
+            return Ok("Usuario registrado con éxito");
+        }
+
+        [HttpDelete]
+        [Route("/API/Usuario/EliminarUsuario/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var userFinded = db.Usuarios.Find(id);
+            if (userFinded != null) {
+                db.Remove(userFinded);
+                await db.SaveChangesAsync();
+                return Ok("Usuario eliminado con éxito!");
+            }
+            else
+            {
+                return Ok("Error al eliminar el usuario. Inténtelo de nuevo");
+            }
+        }
+
         [HttpPost]
         [Route("/API/Usuario/IniciarSesion/{NombreUsuario}/{Contrasenia}")]
         public IActionResult Login(string NombreUsuario, string Contrasenia)

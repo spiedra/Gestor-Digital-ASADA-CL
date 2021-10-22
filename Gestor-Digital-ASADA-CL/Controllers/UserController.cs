@@ -41,21 +41,24 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return View();
         }
 
-        // POST: UserController1/Create
         [HttpPost]
-        public ActionResult Create(User userViewModel)
+        public async Task<IActionResult> Create(User user)
         {
-            ViewBag.ShowModalResponse = true;
-            ViewBag.Message = "¡Usuario registrado correctamente!";
-            return View("Index");
+            HttpClient httpClient = new();
+            user.IdRole = Int32.Parse(await GetRoleIdByName(user.RoleName));
+            var response = await httpClient.PostAsync("https://localhost:44358/API/Usuario/RegistrarUsuario", new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json"));
+            TempData["isShow"] = true;
+            TempData["message"] = await response.Content.ReadAsStringAsync();
+            return RedirectToAction("Index");
         }
 
-        // GET: UserController1/Delete/5
-        public ActionResult Delete()
+        public async Task<IActionResult> Delete(int id)
         {
-            ViewBag.ShowModalResponse = true;
-            ViewBag.Message = "¡El usuario ha sido eliminado correctamente!";
-            return View("Index");
+            HttpClient httpClient = new();
+            var response = await httpClient.PostAsync("https://localhost:44358/API/Usuario/EliminarUsuario", new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json"));
+            TempData["isShow"] = true;
+            TempData["message"] = await response.Content.ReadAsStringAsync();
+            return RedirectToAction("Index");
         }
 
         // POST: UserController1/Delete/5
