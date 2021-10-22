@@ -50,8 +50,9 @@ const createInputHiddenOnDeleteUserModal = (buttonContext) => {
     row = buttonContext.parentNode.parentNode;
     $('<input>').attr({
         type: 'hidden',
-        value: 
-    }).appendTo('form');
+        name: 'idUser',
+        value: row.cells[0].textContent
+    }).appendTo('#msgContainerDeleteModal');
 };
 
 const putUserFullNameOnDeleteModal = (buttonContext) => {
@@ -59,6 +60,7 @@ const putUserFullNameOnDeleteModal = (buttonContext) => {
     row = buttonContext.parentNode.parentNode;
 
     msgContainerDeleteModal.empty();
+    createInputHiddenOnDeleteUserModal(buttonContext);
     msgContainerDeleteModal.append('El usuario <p class="fw-bold d-inline">' + row.cells[2].textContent + ' ' + row.cells[3].textContent + '</p> va a ser borrado permanentemente del sistema')
 };
 

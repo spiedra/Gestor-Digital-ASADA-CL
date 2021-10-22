@@ -52,28 +52,14 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> Delete(int id)
+        [HttpPost]
+        public async Task<IActionResult> Delete(int idUser)
         {
             HttpClient httpClient = new();
-            var response = await httpClient.PostAsync("https://localhost:44358/API/Usuario/EliminarUsuario", new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json"));
+            var response = await httpClient.DeleteAsync("https://localhost:44358/API/Usuario/EliminarUsuario/"+idUser);
             TempData["isShow"] = true;
             TempData["message"] = await response.Content.ReadAsStringAsync();
             return RedirectToAction("Index");
-        }
-
-        // POST: UserController1/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         [HttpPost]

@@ -61,7 +61,8 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var userFinded = db.Usuarios.Find(id);
-            if (userFinded != null) {
+            if (userFinded != null)
+            {
                 db.Remove(userFinded);
                 await db.SaveChangesAsync();
                 return Ok("Usuario eliminado con éxito!");
