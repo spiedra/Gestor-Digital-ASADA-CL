@@ -1,7 +1,7 @@
-﻿const putUserOnModal = (button) => {
-    row = button.parentNode.parentNode;
+﻿const putUserOnEditModal = (buttonContext) => {
+    row = buttonContext.parentNode.parentNode;
     const currentJobName = row.cells[5].textContent;
-    const selectJobs = $('#selectJobs');
+    const selectJobs = $('#selectJobsEditModal');
 
     $("#inputIdCard").val(row.cells[0].textContent);
     $("#inputName").val(row.cells[1].textContent);
@@ -24,4 +24,29 @@
             });
         }
     });
-}
+};
+
+const putRolesOnAddModal = () => {
+    const selectJobsNamesAddModal = $("#selectJobsAddModal");
+
+    $.ajax({
+        url: '/User/GetRolesByAjax',
+        type: 'get',
+        dataType: 'json',
+        success: function (response) {
+            selectJobsNamesAddModal.empty();
+            selectJobsNamesAddModal.prepend('<option class="select_opcion" value="" selected>Seleccione algún puesto</option>');
+            response.forEach(element => {
+                selectJobsNamesAddModal.append('<option class="select_opcion">' + element.tipoRole + '</option>');
+            });
+        }
+    });
+};
+
+const putUserFullNameOnDeleteModal = (buttonContext) => {
+    const msgContainerDeleteModal = $('#msgContainerDeleteModal');
+    row = buttonContext.parentNode.parentNode;
+
+    msgContainerDeleteModal.empty();
+    msgContainerDeleteModal.append('El usuario <p class="fw-bold d-inline">' + row.cells[1].textContent + ' ' + row.cells[2].textContent + '</p> va a ser borrado permanentemente del sistema')
+};

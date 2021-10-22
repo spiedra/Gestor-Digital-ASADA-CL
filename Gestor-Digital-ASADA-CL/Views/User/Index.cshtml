@@ -10,7 +10,8 @@
             data-bs-toggle="modal"
             data-bs-target="#addModal"
             data-bs-placement="right"
-            title="Agregar usuario">
+            title="Agregar usuario"
+            onclick="putRolesOnAddModal(); return false;">
         <img src="~/assets/add_black_24dp.svg" alt="Icono de agregar" />
     </button>
     <button id="btn__search--user" class="btn mb-3 d-inline btn__search"
@@ -57,11 +58,11 @@
                             <td>@item.TipoRole</td>
                         }
                         <td>
-                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal" onclick="putUserOnModal(this); return false;">
+                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal" onclick="putUserOnEditModal(this); return false;">
                                 Modificar
                                 <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
                             </button>
-                            <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="putUserFullNameOnDeleteModal(this); return false">
                                 Eliminar
                                 <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
                             </button>
@@ -140,12 +141,8 @@
                     <span class="field-validation-error" asp-validation-for="Contrasenia"></span>
                 </div>
                 <div class="col-12">
-                    <label id="jobLabelId" for="selectPuesto" class="form-label"></label>
-                    <select id="selectJobs" class="form-select" aria-label="Lista puesto" asp-for="IdRole" required>
-                        @*<option value="">Seleccione algún puesto</option>*@
-                        @*<option value="1">Admin</option>
-                        <option value="2">Fontanero</option>*@
-                    </select>
+                    <label id="jobLabelId" for="selectPuesto" class="form-label">Puesto</label>
+                    <select id="selectJobsEditModal" class="form-select" aria-label="Lista puesto" asp-for="IdRole" required></select>
                     <span class="field-validation-error" asp-validation-for="IdRole"></span>
                 </div>
                 <div class="modal-footer">
@@ -190,7 +187,7 @@
                 </div>
                 <div class="col-12">
                     <label for="selectPuesto" class="form-label">Puesto</label>
-                    <select class="form-select" aria-label="Lista puesto" asp-for="IdRole" required>
+                    <select id="selectJobsAddModal" class="form-select" aria-label="Lista puesto" asp-for="IdRole" required>
                         @*<option value="">Seleccione algún puesto</option>
                         <option value="1">Admin</option>
                         <option value="2">Fontanero</option>*@
@@ -213,9 +210,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="get" asp-controller="User" asp-action="Delete">
-                <div class="modal-body">
-                    El usuario va a ser borrado permanentemente del sistema
-                </div>
+                <div id="msgContainerDeleteModal" class="modal-body"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Confirmar eliminación</button>
