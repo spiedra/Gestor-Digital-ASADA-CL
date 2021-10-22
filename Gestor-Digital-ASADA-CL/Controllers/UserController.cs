@@ -16,14 +16,9 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         // GET: UserController1
         public ActionResult Index()
         {
-            ViewBag.users = JsonConvert.DeserializeObject<List<User>>(Details().Result);
+            DynamicUserSending();
             ViewBag.Roles = JsonConvert.DeserializeObject<List<RoleViewModel>>(GetRoles().Result);
-
-            if (TempData["isShow"] != null && TempData["message"] != null) {
-                ViewBag.ShowModalResponse = TempData["isShow"];
-                ViewBag.Message = TempData["message"];
-            }
-
+            DynamicMessageSending();
             return View();
         }
 
@@ -33,6 +28,13 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             HttpClient httpClient = new();
             var response = await httpClient.GetAsync("https://localhost:44358/API/Usuario/ObtenerUsuarios");
             return await response.Content.ReadAsStringAsync();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(User user)
+        {
+            TempData["name"] = user.Nombre;
+            return RedirectToAction("Index");
         }
 
         // GET: UserController1/Create
@@ -56,7 +58,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         public async Task<IActionResult> Delete(int idUser)
         {
             HttpClient httpClient = new();
-            var response = await httpClient.DeleteAsync("https://localhost:44358/API/Usuario/EliminarUsuario/"+idUser);
+            var response = await httpClient.DeleteAsync("https://localhost:44358/API/Usuario/EliminarUsuario/" + idUser);
             TempData["isShow"] = true;
             TempData["message"] = await response.Content.ReadAsStringAsync();
             return RedirectToAction("Index");
@@ -104,6 +106,36 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         public JsonResult GetRolesByAjax()
         {
             return Json(JsonConvert.DeserializeObject<List<RoleViewModel>>(GetRoles().Result));
+        }
+
+        private void DynamicUserSending()
+        {
+            if (TempData["name"] != null)
+            {
+                List<User> users = JsonConvert.DeserializeObject<List<User>>(Details().Result).Where(u => u.Nombre.ToLower().Contains(((string)TempData["name"]).ToLower())).ToList();
+                if (users.Count != 0)
+                {
+                    ViewBag.Users = users;
+                }
+                else
+                {
+                    ViewBag.ShowModalResponse = true;
+                    ViewBag.Message = "Usuario no encontrado. Inténtelo de nuevo";
+                }
+            }
+            else
+            {
+                ViewBag.Users = JsonConvert.DeserializeObject<List<User>>(Details().Result);
+            }
+        }
+
+        private void DynamicMessageSending()
+        {
+            if (TempData["isShow"] != null && TempData["message"] != null)
+            {
+                ViewBag.ShowModalResponse = TempData["isShow"];
+                ViewBag.Message = TempData["message"];
+            }
         }
     }
 }

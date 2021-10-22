@@ -30,7 +30,7 @@ const putUserOnEditModal = (buttonContext) => {
 };
 
 const putRolesOnAddModal = () => {
-    const selectJobsNamesAddModal = $("#selectJobsAddModal");
+    const selectJobsNamesAddModal = $(".selectJobNames");
 
     $.ajax({
         url: '/User/GetRolesByAjax',
