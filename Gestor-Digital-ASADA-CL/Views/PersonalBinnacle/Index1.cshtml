@@ -3,16 +3,18 @@
     Layout = "~/Views/Shared/_ClientSiteLayout.cshtml";
 }
 
+@model Gestor_Digital_ASADA_CL.Models.BitacoraViewModel
+
 <h2 class="mt-2">Mi bitácora personal</h2>
 <hr />
 
 <div class="row">
     <div class="col-12">
-          <a data-bs-toggle="modal" data-bs-target="#modalBuscar" href="#" class="btn btn-dark me-1"><i class="fas fa-search"></i></a>
-        <form method="POST" class="needs-validation" novalidate>
+        <a data-bs-toggle="modal" data-bs-target="#modalBuscar" href="#" class="btn btn-dark me-1"><i class="fas fa-search"></i></a>
+        <form method="POST" asp-controller="PersonalBinnacle" asp-action="RegistrarActividad" class="needs-validation" novalidate>
             <div class="form-group">
                 <label for="note">¿Qué hiciste?</label>
-                <textarea class="form-control" id="note" rows="3" required></textarea>
+                <textarea asp-for="Detalle" class="form-control" id="note" rows="3" required></textarea>
                 <div class="invalid-feedback">
                     Anota algo primero
                 </div>
@@ -24,33 +26,41 @@
     </div>
 </div>
 
+@if (ViewBag.EstadoActividad != null)
+{
+    @if (ViewBag.EstadoActividad != null)
+    {
+        <div class="alert alert-success mt-1">
+            <button type="button" class="btn close" data-bs-dismiss="alert">&times;</button>
+            <strong>@ViewBag.EstadoActividad</strong>
+        </div>
+    }
+}
+
 <div class="row py-3">
-    <div class="col-sm-6 my-2">
-        <div class="actividad_t card shadow menu__card py-3">
-            <div id="body" class="card-body">
-                <h4 id="detalle" class="">Hoy firmé la carta de los pedidos de fin de mes que me pidió la junta</h4>
-                <hr />
-                <h5 id="titulo_actividad" class="card-title">Escrito el: 15-09-2021</h5>
-                <div id="acciones" class="d-flex justify-content-center justify-content-xl-start flex-wrap">
-                    <a href="#" class="btn btn-warning btn-sm m-1" onclick="putOnModal(this); return false;" href="#" class="btn btn-warning btn-sm m-1" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</a>
-                    <a href="#" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#deleteModal">Borrar</a>
+    @if (ViewBag.actividades != null)
+    {
+
+        @foreach (BitacoraViewModel bitacora in ViewBag.actividades)
+        {
+            <div class="col-sm-4 my-2">
+                <div class="actividad_t card shadow menu__card py-3">
+                    <div id="body" class="card-body">
+                        <h3 id="idBitacora">#@bitacora.IdBitacora</h3>
+                        <h5 id="detalle" class="">
+                            @bitacora.Detalle
+                        </h5>
+                        <hr />
+                        <h5 id="titulo_actividad" class="card-title">@bitacora.Fecha</h5>
+                        <div id="acciones" class="d-flex justify-content-center justify-content-xl-start flex-wrap">
+                            <a class="btn btn-warning btn-sm m-1" onclick="putOnModalActivity(this); return false;" class="btn btn-warning btn-sm m-1" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</a>
+                            <a class="btn btn-danger btn-sm m-1" onclick="putOnModalDelete(this); return false;" data-bs-toggle="modal" data-bs-target="#deleteModal">Borrar</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-sm-6 my-2">
-        <div class="actividad_t card shadow menu__card py-3">
-            <div class="card-body">
-                <h4 class="detalle">hoy mis compañeros y yo asistimos a una reunión con la municipalidad por el caso B432</h4>
-                <hr />
-                <h5 class="card-title">Escrito el: 12-09-2021</h5>
-                <div class="d-flex justify-content-center justify-content-xl-start flex-wrap">
-                    <a href="#" class="btn btn-warning btn-sm m-1" onclick="putOnModal(this); return false;" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</a>
-                    <a href="#" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#deleteModal">Borrar</a>
-                </div>
-            </div>
-        </div>
-    </div>
+        }
+    }
 </div>
 <div class="modal" id="modalEditar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -62,10 +72,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" asp-controller="PersonalBinnacle" asp-action="Edit" class="mt-2 ml-2 p-3 needs-validation" novalidate>
+                <form method="POST" asp-controller="PersonalBinnacle" asp-action="ModificarActividad" class="mt-2 ml-2 p-3 needs-validation" novalidate>
                     <div class="form-group">
-                        <label for="taDetalles">Nota:</label>
-                        <textarea class="form-control" id="taDetalleModificar" style="resize:none;" rows="8" required></textarea>
+                        <label for="idb">Nota: #</label>
+                        <input id="idb" style="border:0; background-color:#ffffff; outline:none" readonly asp-for="IdBitacora">
+                        <textarea class="form-control" id="taDetalleModificar" style="resize:none;" rows="8" asp-for="Detalle" required></textarea>
                         <div class="invalid-feedback">
                             Anota algo primero
                         </div>
@@ -118,14 +129,16 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                La actividad será borrada permanentemente del sistema
             </div>
-            <div class="modal-footer">
-                <form method="POST" asp-controller="PersonalBinnacle" asp-action="Delete">
+            <form method="POST" asp-controller="PersonalBinnacle" asp-action="BorrarActividad">
+                <label for="idb">La actividad: </label>
+                <input type="number" id="idDelete" style="border:0; background-color:#ffffff; outline:none" readonly name="idBitacora">
+                <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Confirmar</button>
-                </form>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+
         </div>
     </div>
 </div>
