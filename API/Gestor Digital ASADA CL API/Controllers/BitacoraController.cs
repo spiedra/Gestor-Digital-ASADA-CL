@@ -49,7 +49,7 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             bitacora.Detalle = bitacoraPersonal.Detalle;
             bitacora.Fecha = DateTime.Now;
             db.SaveChanges();
-            return Ok("Actividad modificada!");
+            return Ok("Actividad #"+bitacoraPersonal.IdBitacora+" modificada!");
         }
         [HttpDelete]
         [Route("/API/Bitacora/BorrarActividad/{id}")]

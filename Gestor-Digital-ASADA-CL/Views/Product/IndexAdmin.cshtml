@@ -135,13 +135,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div style="background-color: #6DC7F6;" class="modal-header">
-                <h5 class="modal-title">Editar producto: <span>123</span></h5>
+                <h5 class="modal-title">Editar producto</h5>
             </div>
             <div class="modal-body">
                 <form method="post" asp-controller="Product" asp-action="EditarProducto" class="mt-2 ml-2 p-3">
                     <div class="form-group">
                         <label for="codigo">Código: </label>
-                        <input style="border:0; background-color:#ffffff; outline:none" asp-for="CodigoProducto" readonly id="productCode" name="productCode">
+                        <input style="border:0; background-color:#ffffff; outline:none" asp-for="CodigoProducto" readonly id="codigo">
                         <span class="field-validation-error" asp-validation-for="CodigoProducto"></span>
                     </div>
                     <div class="form-group">
