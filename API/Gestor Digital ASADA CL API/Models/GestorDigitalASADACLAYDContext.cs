@@ -8,10 +8,6 @@ namespace Gestor_Digital_ASADA_CL_API.Models
 {
     public partial class GestorDigitalASADACLAYDContext : DbContext
     {
-        //public GestorDigitalASADACLAYDContext()
-        //{
-        //}
-
         public GestorDigitalASADACLAYDContext(DbContextOptions<GestorDigitalASADACLAYDContext> options)
             : base(options)
         {
@@ -22,21 +18,12 @@ namespace Gestor_Digital_ASADA_CL_API.Models
         public virtual DbSet<BitacoraPersonal> BitacoraPersonals { get; set; }
         public virtual DbSet<Cloro> CloroResiduals { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
-        public virtual DbSet<RecaudacionDiarium> RecaudacionDiaria { get; set; }
+        public virtual DbSet<RecaudacionDiaria> RecaudacionDiaria { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Sector> Sectors { get; set; }
         public virtual DbSet<Tarea> Tareas { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<UsuarioProducto> UsuarioProductos { get; set; }
-
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//                optionsBuilder.UseSqlServer("Data Source=163.178.107.10;Initial Catalog=GestorDigitalASADACL-AYD;Persist Security Info=True;User ID=laboratorios;Password=KmZpo.2796;Pooling=False");
-//            }
-//        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -119,7 +106,7 @@ namespace Gestor_Digital_ASADA_CL_API.Models
 
             modelBuilder.Entity<BitacoraPersonal>(entity =>
             {
-                entity.HasKey(b=>b.IdBitacora);
+                entity.HasKey(b => b.IdBitacora);
 
                 entity.ToTable("BITACORA_PERSONAL", "ADMIN");
 
@@ -234,7 +221,7 @@ namespace Gestor_Digital_ASADA_CL_API.Models
                     .HasColumnName("VALOR_UNITARIO");
             });
 
-            modelBuilder.Entity<RecaudacionDiarium>(entity =>
+            modelBuilder.Entity<RecaudacionDiaria>(entity =>
             {
                 entity.HasKey(e => e.IdRecaudacion)
                     .HasName("PK__RECAUDAC__6B76070572F0CDA9");

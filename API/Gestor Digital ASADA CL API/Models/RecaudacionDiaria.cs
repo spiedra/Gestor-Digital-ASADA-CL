@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Gestor_Digital_ASADA_CL_API.Models
 {
-    public partial class RecaudacionDiarium
+    public partial class RecaudacionDiaria
     {
         public int IdRecaudacion { get; set; }
         public int IdUsuario { get; set; }
@@ -18,7 +18,6 @@ namespace Gestor_Digital_ASADA_CL_API.Models
         public string TotalRecaudado { get; set; }
         public int? CantidadRecibos { get; set; }
         public bool? IsDelete { get; set; }
-
         public virtual Usuario IdUsuarioNavigation { get; set; }
     }
 }

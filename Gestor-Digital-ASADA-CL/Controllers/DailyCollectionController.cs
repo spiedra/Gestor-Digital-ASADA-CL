@@ -1,25 +1,29 @@
 ﻿using Gestor_Digital_ASADA_CL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Gestor_Digital_ASADA_CL.Controllers
 {
-    public class DailyCollection : Controller
+    public class DailyCollectionController : Controller
     {
-        // GET: DailyCollection
         public ActionResult Index()
         {
+            ViewBag.Collections = JsonConvert.DeserializeObject<List<DailyCollectionViewModel>>(Details().Result);
             return View();
         }
 
-        // GET: DailyCollection/Details/5
-        public ActionResult Details(int id)
+        public async Task<string> Details()
         {
-            return View();
+            HttpClient httpClient = new();
+            var response = await httpClient.GetAsync("https://localhost:44358/API/Producto/ObtenerRecaudacionesDiarias");
+            return await response.Content.ReadAsStringAsync();
         }
 
         // GET: DailyCollection/Create

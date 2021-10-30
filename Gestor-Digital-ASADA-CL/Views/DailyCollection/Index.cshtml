@@ -33,22 +33,32 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Hidrantes</th>
-                        <th scope="col">Recibos</th>
-                        <th scope="col">IVA</th>
-                        <th scope="col">Efectivo</th>
-                        <th scope="col">Total</th>
+                        <th scope="col">Fecha de recaudación</th>
+                        <th scope="col">Cantidad efectivo</th>
+                        <th scope="col">Cantidad tarjeta</th>
+                        <th scope="col">Cantidad SINPE</th>
+                        <th scope="col">Cantidad IVA</th>
+                        <th scope="col">Cantidad hidrantes</th>
+                        <th scope="col">Cantidad recibos</th>
+                        <th scope="col">Total recaudado</th>
                         <th scope="col">Acción</th>
                     </tr>
                 </thead>
-                <tbody id="tbodyUserSearch">
+                <tbody id="tbodyDailyCollection">
+                    @if (ViewBag.Collections != null)
+                    {
+                        @foreach (DailyCollectionViewModel dailyCollection in ViewBag.Collections)
+                        {
                     <tr>
-                        <td>00000000</td>
-                        <td>13</td>
-                        <td>13</td>
-                        <td>13</td>
-                        <td>22300</td>
-                        <td>43600</td>
+                        <td>@dailyCollection.IdRecaudacion</td>
+                        <td>@dailyCollection.FechaRecaudacion</td>
+                        <td>@dailyCollection.CantidadEfectivo</td>
+                        <td>@dailyCollection.CantidadTarjeta</td>
+                        <td>@dailyCollection.CantidadSinpe</td>
+                        <td>@dailyCollection.CantidadIva</td>
+                        <td>@dailyCollection.CuentaHidrantes</td>
+                        <td>@dailyCollection.CantidadRecibos</td>
+                        <td>@dailyCollection.TotalRecaudado</td>
                         <td>
                             <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
                                 Modificar
@@ -56,48 +66,12 @@
                             </button>
                         </td>
                     </tr>
-                    <tr>
-                        <td>00000000</td>
-                        <td>13</td>
-                        <td>13</td>
-                        <td>13</td>
-                        <td>22300</td>
-                        <td>43600</td>
-                        <td>
-                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
-                                Modificar
-                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>00000000</td>
-                        <td>13</td>
-                        <td>13</td>
-                        <td>13</td>
-                        <td>22300</td>
-                        <td>43600</td>
-                        <td>
-                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
-                                Modificar
-                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>00000000</td>
-                        <td>13</td>
-                        <td>13</td>
-                        <td>13</td>
-                        <td>22300</td>
-                        <td>43600</td>
-                        <td>
-                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
-                                Modificar
-                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                            </button>
-                        </td>
-                    </tr>
+                        }
+                    }
+                    else
+                    {
+                        <p>No hay</p>
+                    }
                 </tbody>
             </table>
         </div>
@@ -114,13 +88,13 @@
                     <div class="container">
                         <div class="mb-3">
                             <label for="inputName" class="form-label">Fecha inicial</label>
-                            <input id="inputName" class="form-control is-invalid" type="date" asp-for="Date" required>
-                            <span class="field-validation-error" asp-validation-for="Date"></span>
+                            <input id="inputName" class="form-control is-invalid" type="date" asp-for="FechaRecaudacion" required>
+                            <span class="field-validation-error" asp-validation-for="FechaRecaudacion"></span>
                         </div>
                         <div class="mb-3">
                             <label for="inputName" class="form-label">Fecha final</label>
-                            <input id="inputName" class="form-control is-invalid" type="date" asp-for="Date" required>
-                            <span class="field-validation-error" asp-validation-for="Date"></span>
+                            <input id="inputName" class="form-control is-invalid" type="date" asp-for="FechaRecaudacion" required>
+                            <span class="field-validation-error" asp-validation-for="FechaRecaudacion"></span>
                         </div>
                     </div>
                 </div>
@@ -141,33 +115,33 @@
             <form class="row g-3 p-3 was-validated" method="post" asp-controller="DailyCollection" asp-action="Edit">
                 <div class="col-md-4">
                     <label for="inputHydrant" class="form-label">Hidrantes</label>
-                    <input id="inputHydrant" class="form-control" type="number" placeholder="Cantidad de hidrantes" asp-for="Hydrant" required>
-                    <span class="field-validation-error" asp-validation-for="Hydrant"></span>
+                    <input id="inputHydrant" class="form-control" type="number" placeholder="Cantidad de hidrantes" asp-for="CuentaHidrantes" required>
+                    <span class="field-validation-error" asp-validation-for="CuentaHidrantes"></span>
                 </div>
                 <div class="col-md-4">
                     <label for="inputInvoice" class="form-label">Recibos</label>
-                    <input id="inputInvoice" class="form-control" type="number" placeholder="Cantidad de recibos" asp-for="Invoce" required>
-                    <span class="field-validation-error" asp-validation-for="Invoce"></span>
+                    <input id="inputInvoice" class="form-control" type="number" placeholder="Cantidad de recibos" asp-for="CantidadRecibos" required>
+                    <span class="field-validation-error" asp-validation-for="CantidadRecibos"></span>
                 </div>
                 <div class="col-md-4">
                     <label for="inputTax" class="form-label">Impuesto al Valor Agregado (IVA)</label>
-                    <input id="inputTax" class="form-control" type="number" min="0" step=".01" placeholder="Cantidad de IVA" asp-for="Tax" required>
-                    <span class="field-validation-error" asp-validation-for="Tax"></span>
+                    <input id="inputTax" class="form-control" type="number" min="0" step=".01" placeholder="Cantidad de IVA" asp-for="CantidadIva" required>
+                    <span class="field-validation-error" asp-validation-for="CantidadIva"></span>
                 </div>
                 <div class="col-12">
                     <label for="inputCash" class="form-label">Efectivo</label>
-                    <input id="inputCash" class="form-control" type="number" min="0" step=".01" placeholder="Cantidad de efectivo" asp-for="Cash" required>
-                    <span class="field-validation-error" asp-validation-for="Cash"></span>
+                    <input id="inputCash" class="form-control" type="number" min="0" step=".01" placeholder="Cantidad de efectivo" asp-for="CantidadEfectivo" required>
+                    <span class="field-validation-error" asp-validation-for="CantidadIva"></span>
                 </div>
                 <div class="col-12">
                     <label for="inputTotal" class="form-label">Total</label>
-                    <input id="inputTotal" class="form-control" type="number" min="0" step=".01" placeholder="Total recaudado" asp-for="Total" required>
-                    <span class="field-validation-error" asp-validation-for="Total"></span>
+                    <input id="inputTotal" class="form-control" type="number" min="0" step=".01" placeholder="Total recaudado" asp-for="TotalRecaudado" required>
+                    <span class="field-validation-error" asp-validation-for="TotalRecaudado"></span>
                 </div>
                 <div class="col-12">
                     <label for="inputDate" class="form-label">Fecha de recaudación</label>
-                    <input id="inputDate" class="form-control" type="date" asp-for="Date" required />
-                    <span class="field-validation-error" asp-validation-for="Date"></span>
+                    <input id="inputDate" class="form-control" type="date" asp-for="FechaRecaudacion" required />
+                    <span class="field-validation-error" asp-validation-for="FechaRecaudacion"></span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -186,33 +160,33 @@
             <form class="row g-3 p-3 was-validated" method="post" asp-controller="DailyCollection" asp-action="Create">
                 <div class="col-md-4">
                     <label for="inputHydrant" class="form-label">Hidrantes</label>
-                    <input id="inputHydrant" class="form-control" type="number" placeholder="Cantidad de hidrantes" asp-for="Hydrant" required>
-                    <span class="field-validation-error" asp-validation-for="Hydrant"></span>
+                    <input id="inputHydrant" class="form-control" type="number" placeholder="Cantidad de hidrantes" asp-for="CuentaHidrantes" required>
+                    <span class="field-validation-error" asp-validation-for="CuentaHidrantes"></span>
                 </div>
                 <div class="col-md-4">
                     <label for="inputInvoice" class="form-label">Recibos</label>
-                    <input id="inputInvoice" class="form-control" type="number" placeholder="Cantidad de recibos" asp-for="Invoce" required>
-                    <span class="field-validation-error" asp-validation-for="Invoce"></span>
+                    <input id="inputInvoice" class="form-control" type="number" placeholder="Cantidad de recibos" asp-for="CantidadRecibos" required>
+                    <span class="field-validation-error" asp-validation-for="CantidadRecibos"></span>
                 </div>
                 <div class="col-md-4">
                     <label for="inputTax" class="form-label">Impuesto al Valor Agregado (IVA)</label>
-                    <input id="inputTax" class="form-control" type="number" min="0" step=".01" placeholder="Cantidad de IVA" asp-for="Tax" required>
-                    <span class="field-validation-error" asp-validation-for="Tax"></span>
+                    <input id="inputTax" class="form-control" type="number" min="0" step=".01" placeholder="Cantidad de IVA" asp-for="CantidadIva" required>
+                    <span class="field-validation-error" asp-validation-for="CantidadIva"></span>
                 </div>
                 <div class="col-12">
                     <label for="inputCash" class="form-label">Efectivo</label>
-                    <input id="inputCash" class="form-control" type="number" min="0" step=".01" placeholder="Cantidad de efectivo" asp-for="Cash" required>
-                    <span class="field-validation-error" asp-validation-for="Cash"></span>
+                    <input id="inputCash" class="form-control" type="number" min="0" step=".01" placeholder="Cantidad de efectivo" asp-for="CantidadEfectivo" required>
+                    <span class="field-validation-error" asp-validation-for="CantidadEfectivo"></span>
                 </div>
                 <div class="col-12">
                     <label for="inputTotal" class="form-label">Total</label>
-                    <input id="inputTotal" class="form-control" type="number" min="0" step=".01" placeholder="Total recaudado" asp-for="Total" required>
-                    <span class="field-validation-error" asp-validation-for="Total"></span>
+                    <input id="inputTotal" class="form-control" type="number" min="0" step=".01" placeholder="Total recaudado" asp-for="TotalRecaudado" required>
+                    <span class="field-validation-error" asp-validation-for="TotalRecaudado"></span>
                 </div>
                 <div class="col-12">
                     <label for="inputDate" class="form-label">Fecha de recaudación</label>
-                    <input id="inputDate" class="form-control" type="date" asp-for="Date" required />
-                    <span class="field-validation-error" asp-validation-for="Date"></span>
+                    <input id="inputDate" class="form-control" type="date" asp-for="FechaRecaudacion" required />
+                    <span class="field-validation-error" asp-validation-for="FechaRecaudacion"></span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
