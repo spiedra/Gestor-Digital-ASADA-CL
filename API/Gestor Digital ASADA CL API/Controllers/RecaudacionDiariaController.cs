@@ -36,7 +36,7 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             {
                 _context.Entry(original).CurrentValues.SetValues(recaudacionDiaria);
                 await _context.SaveChangesAsync();
-                return Ok("Recaudación registrada con éxito");
+                return Ok("Recaudación actualizada con éxito");
             }
             else
             {

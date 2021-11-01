@@ -15,6 +15,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
     {
         public ActionResult Index()
         {
+            DisplayMessageDynamically();
             ViewBag.Collections = JsonConvert.DeserializeObject<List<DailyCollectionViewModel>>(Details().Result);
             return View();
         }
@@ -42,19 +43,17 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return View("Index");
         }
 
-        // GET: DailyCollection/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
-        // POST: DailyCollection/Edit/5
         [HttpPost]
-        public ActionResult Edit(DailyCollectionViewModel dailyCollectionViewModel)
+        public async Task<IActionResult> Edit(DailyCollectionViewModel dailyCollection)
         {
-            ViewBag.ShowModalResponse = true;
-            ViewBag.Message = "¡La información de la recaudación diaria ha sido actualizada correctamente!";
-            return View("Index");
+            HttpClient httpClient = new();
+            dailyCollection.IdUsuario = Int32.Parse(await UserController.GetUserIdByUserName(HttpContext.User.Identity.Name));
+            var response = await httpClient.PutAsync("https://localhost:44358/API/Recaudacion/ModificarRecaudacion"
+                , new StringContent(JsonConvert.SerializeObject(dailyCollection), Encoding.UTF8, "application/json"));
+            TempData["isShow"] = true;
+            TempData["message"] = await response.Content.ReadAsStringAsync();
+            return RedirectToAction("Index");
         }
 
         // GET: DailyCollection/Delete/5
@@ -75,6 +74,15 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        private void DisplayMessageDynamically()
+        {
+            if (TempData["isShow"] != null && TempData["message"] != null)
+            {
+                ViewBag.ShowModalResponse = TempData["isShow"];
+                ViewBag.Message = TempData["message"];
             }
         }
     }

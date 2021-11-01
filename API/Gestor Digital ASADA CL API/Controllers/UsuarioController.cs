@@ -25,6 +25,25 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             return Ok(await db.Usuarios.ToListAsync());
         }
 
+        [HttpGet]
+        [Route("/API/Usuario/ObtenerUsuarioIdByNombeUsuario/{nombreUsuario}")]
+        public async Task<IActionResult> Details(string nombreUsuario)
+        {
+            if (nombreUsuario == null)
+            {
+                return NotFound("Usuario no encontrado");
+            }
+
+            var user = await db.Usuarios
+                .FirstOrDefaultAsync(m => m.NombreUsuario == nombreUsuario);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user.IdUsuario);
+        }
+
         [HttpPut]
         [Route("/API/Usuario/ModificarUsuario")]
         public async Task<IActionResult> Edit(Usuario usuario)

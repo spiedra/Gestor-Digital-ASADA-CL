@@ -113,6 +113,7 @@
                 <h5 class="modal-title">Modificación de información de recaudación diaria</h5>
             </div>
             <form class="row g-3 p-3 was-validated" method="post" asp-controller="DailyCollection" asp-action="Edit">
+                <input id="inputIdCollection" class="form-control is-invalid" type="hidden" asp-for="IdRecaudacion" />
                 <div class="col-md-4">
                     <label for="inputCash" class="form-label">Efectivo</label>
                     <input id="inputCash" class="form-control" type="number" min="0" step=".01" placeholder="Cantidad de efectivo" asp-for="CantidadEfectivo" required>

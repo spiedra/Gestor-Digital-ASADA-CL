@@ -18,7 +18,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         {
             DynamicUserSending();
             ViewBag.Roles = JsonConvert.DeserializeObject<List<RoleViewModel>>(GetRoles().Result);
-            DynamicMessageSending();
+            DisplayMessageDynamically();
             return View();
         }
 
@@ -129,7 +129,14 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             }
         }
 
-        private void DynamicMessageSending()
+        public static async Task<string> GetUserIdByUserName(string userName)
+        {
+            HttpClient httpClient = new();
+            var response = await httpClient.GetAsync("https://localhost:44358/API/Usuario/ObtenerUsuarioIdByNombeUsuario/" + userName);
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        private void DisplayMessageDynamically()
         {
             if (TempData["isShow"] != null && TempData["message"] != null)
             {

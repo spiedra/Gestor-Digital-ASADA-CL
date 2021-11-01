@@ -1,6 +1,7 @@
 ﻿const putCollectionOnEditModal = (buttonContext) => {
     row = buttonContext.parentNode.parentNode;
 
+    $("#inputIdCollection").val(row.cells[0].textContent);
     $('#inputDate').val(moment(new Date(row.cells[1].textContent)).format('YYYY-MM-DDThh:mm:ss.SSS'));
     $("#inputCash").val(row.cells[2].textContent);
     $("#inputCard").val(row.cells[3].textContent);
