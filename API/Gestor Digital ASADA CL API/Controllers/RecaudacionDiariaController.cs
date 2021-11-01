@@ -21,10 +21,27 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
         }
 
         [HttpGet]
-        [Route("/API/Producto/ObtenerRecaudacionesDiarias")]
+        [Route("/API/Recaudacion/ObtenerRecaudacionesDiarias")]
         public IActionResult Get()
         {
             return Ok(_context.RecaudacionDiaria.ToList());
+        }
+
+        [HttpPut]
+        [Route("/API/Recaudacion/ModificarRecaudacion")]
+        public async Task<IActionResult> Edit(RecaudacionDiaria recaudacionDiaria)
+        {
+            var original = _context.RecaudacionDiaria.Find(recaudacionDiaria.IdRecaudacion);
+            if (original != null)
+            {
+                _context.Entry(original).CurrentValues.SetValues(recaudacionDiaria);
+                await _context.SaveChangesAsync();
+                return Ok("Recaudación registrada con éxito");
+            }
+            else
+            {
+                return Ok("Ha ocurrido un error al modificar la recaudación. Inténtelo de nuevo");
+            }
         }
     }
 }

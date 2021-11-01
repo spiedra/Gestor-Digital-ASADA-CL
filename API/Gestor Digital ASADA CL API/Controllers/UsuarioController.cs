@@ -34,7 +34,7 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             {
                 db.Entry(original).CurrentValues.SetValues(usuario);
                 await db.SaveChangesAsync();
-                return Ok("Usuario registrado con éxito");
+                return Ok("Usuario modificado con éxito");
             }
             else
             {

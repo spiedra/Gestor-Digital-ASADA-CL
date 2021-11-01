@@ -22,7 +22,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         public async Task<string> Details()
         {
             HttpClient httpClient = new();
-            var response = await httpClient.GetAsync("https://localhost:44358/API/Producto/ObtenerRecaudacionesDiarias");
+            var response = await httpClient.GetAsync("https://localhost:44358/API/Recaudacion/ObtenerRecaudacionesDiarias");
             return await response.Content.ReadAsStringAsync();
         }
 
