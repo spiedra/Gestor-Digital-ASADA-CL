@@ -49,28 +49,28 @@
                     {
                         @foreach (User u in ViewBag.Users)
                         {
-                    <tr>
-                        <td>@u.IdUsuario</td>
-                        <td>@u.Cedula</td>
-                        <td>@u.Nombre</td>
-                        <td>@u.Apellidos</td>
-                        <td>@u.NombreUsuario</td>
-                        <td>@u.Contrasenia</td>
-                        @foreach (var item in ((IEnumerable<dynamic>)ViewBag.Roles).Where(x => x.IdRole == u.IdRole))
-                        {
-                            <td>@item.TipoRole</td>
-                        }
-                        <td>
-                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal" onclick="putUserOnEditModal(this); return false;">
-                                Modificar
-                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                            </button>
-                            <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="putUserFullNameOnDeleteModal(this); return false">
-                                Eliminar
-                                <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                            </button>
-                        </td>
-                    </tr>
+                            <tr>
+                                <td>@u.IdUsuario</td>
+                                <td>@u.Cedula</td>
+                                <td>@u.Nombre</td>
+                                <td>@u.Apellidos</td>
+                                <td>@u.NombreUsuario</td>
+                                <td>@u.Contrasenia</td>
+                                @foreach (var item in ((IEnumerable<dynamic>)ViewBag.Roles).Where(x => x.IdRole == u.IdRole))
+                                {
+                                    <td>@item.TipoRole</td>
+                                }
+                                <td>
+                                    <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal" onclick="putUserOnEditModal(this); return false;">
+                                        Modificar
+                                        <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                    </button>
+                                    <button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="putUserFullNameOnDeleteModal(this); return false">
+                                        Eliminar
+                                        <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                    </button>
+                                </td>
+                            </tr>
                         }
                     }
                 </tbody>
@@ -214,6 +214,7 @@
 @section scripts
 {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/User.js" asp-append-version="true"></script>
     <script type="text/javascript">
             $(document).ready(function () {
             if ('@ViewBag.ShowModalResponse' === 'True') {

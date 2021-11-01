@@ -63,7 +63,3 @@ const putUserFullNameOnDeleteModal = (buttonContext) => {
     createInputHiddenOnDeleteUserModal(buttonContext);
     msgContainerDeleteModal.append('El usuario <p class="fw-bold d-inline">' + row.cells[2].textContent + ' ' + row.cells[3].textContent + '</p> va a ser borrado permanentemente del sistema')
 };
-
-const refreshPage = () => {
-    location.reload();
-}
