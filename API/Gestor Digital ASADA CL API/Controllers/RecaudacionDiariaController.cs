@@ -43,5 +43,14 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
                 return Ok("Ha ocurrido un error al modificar la recaudación. Inténtelo de nuevo");
             }
         }
+
+        [HttpPost]
+        [Route("/API/Recaudacion/RegistrarRecaudacion")]
+        public async Task<IActionResult> Create(RecaudacionDiaria recaudacionDiaria) // Considerar que validar
+        {
+            _context.RecaudacionDiaria.Add(recaudacionDiaria);
+            await _context.SaveChangesAsync();
+            return Ok("Recaudación registrada con éxito");
+        }
     }
 }

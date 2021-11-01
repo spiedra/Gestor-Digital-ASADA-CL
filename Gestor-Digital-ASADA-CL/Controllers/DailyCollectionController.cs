@@ -33,15 +33,17 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return View();
         }
 
-        // POST: DailyCollection/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(DailyCollectionViewModel dailyCollectionViewModel)
+        public async Task<IActionResult> Create(DailyCollectionViewModel dailyCollection)
         {
-            ViewBag.ShowModalResponse = true;
-            ViewBag.Message = "¡Recaudación diaria registrada correctamente!";
-            return View("Index");
+            HttpClient httpClient = new();
+            var response = await httpClient.PostAsync("https://localhost:44358/API//Recaudacion/RegistrarRecaudacion"
+                , new StringContent(JsonConvert.SerializeObject(dailyCollection), Encoding.UTF8, "application/json"));
+            TempData["isShow"] = true;
+            TempData["message"] = await response.Content.ReadAsStringAsync();
+            return RedirectToAction("Index");
         }
+
 
 
         [HttpPost]
