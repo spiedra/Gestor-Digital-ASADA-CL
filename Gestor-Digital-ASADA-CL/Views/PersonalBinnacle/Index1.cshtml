@@ -11,6 +11,7 @@
 <div class="row">
     <div class="col-12">
         <a data-bs-toggle="modal" data-bs-target="#modalBuscar" href="#" class="btn btn-dark me-1"><i class="fas fa-search"></i></a>
+        <a asp-controller="PersonalBinnacle" asp-action="Index1" class=" btn btn-dark me-1"> <i class="fas fa-sync"></i> </a>
         <form method="POST" asp-controller="PersonalBinnacle" asp-action="RegistrarActividad" class="needs-validation" novalidate>
             <div class="form-group">
                 <label for="note">¿Qué hiciste?</label>
@@ -33,6 +34,24 @@
         <div class="alert alert-success mt-1">
             <button type="button" class="btn close" data-bs-dismiss="alert">&times;</button>
             <strong>@ViewBag.EstadoActividad</strong>
+        </div>
+    }
+}
+
+@if (ViewBag.palabras != null)
+{
+    @if (ViewBag.cantidadResultado != null)
+    {
+        <div class="alert alert-success ">
+            <button type="button" class="btn close" data-bs-dismiss="alert">&times;</button>
+            <strong>@ViewBag.cantidadResultado coincidencia(s) encontradas sobre '@ViewBag.palabras'</strong>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning ">
+            <button type="button" class="btn close" data-bs-dismiss="alert">&times;</button>
+            <strong>No se han encontrado coincidencias para '@ViewBag.palabras'</strong>
         </div>
     }
 }
@@ -102,9 +121,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" class="mt-2 ml-2 p-3 needs-validation" novalidate>
+                <form method="get" asp-controller="PersonalBinnacle" asp-action="BuscarActividad" class="mt-2 ml-2 p-3 needs-validation" novalidate>
                     <div class="input-group">
-                        <input type="search" class="form-control rounded" placeholder="Ingresa una palabra clave" aria-label="Search"
+                        <input name="palabras" type="search" class="form-control rounded" placeholder="Ingresa una palabra clave" aria-label="Search"
                                aria-describedby="search-addon" required />
                         <div class="invalid-feedback">
                             Agrega una palabra clave
