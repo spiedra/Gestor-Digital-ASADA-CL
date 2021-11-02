@@ -38,15 +38,13 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         public async Task<IActionResult> Create(DailyCollectionViewModel dailyCollection)
         {
             HttpClient httpClient = new();
-            dailyCollection.IdUsuario = Int32.Parse(await UserController.GetUserIdByUserName(HttpContext.User.Identity.Name));
+            dailyCollection.IdUsuario = Int32.Parse(await UserController.GetUserIdByUserName(HttpContext.User.Identity.Name)); // probar mas detenidamente
             var response = await httpClient.PostAsync("https://localhost:44358/API/Recaudacion/RegistrarRecaudacion"
                 , new StringContent(JsonConvert.SerializeObject(dailyCollection), Encoding.UTF8, "application/json"));
             TempData["isShow"] = true;
             TempData["message"] = await response.Content.ReadAsStringAsync();
             return RedirectToAction("Index");
         }
-
-
 
         [HttpPost]
         public async Task<IActionResult> Edit(DailyCollectionViewModel dailyCollection)
