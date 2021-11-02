@@ -60,7 +60,7 @@
                         <td>@dailyCollection.CantidadRecibos</td>
                         <td>@dailyCollection.TotalRecaudado</td>
                         <td>@dailyCollection.FechaRecaudacion</td>
-                        @foreach (var item in ((IEnumerable<dynamic>)ViewBag.Users).Where(x => x.IdUsuario == 1))
+                        @foreach (var item in ((IEnumerable<dynamic>)ViewBag.Users).Where(x => x.IdUsuario == dailyCollection.IdUsuario))
                         {
                             <td>@item.Nombre</td>
                         }
