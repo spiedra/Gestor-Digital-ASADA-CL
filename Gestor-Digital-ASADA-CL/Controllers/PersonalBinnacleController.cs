@@ -16,7 +16,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         // GET: PersonalBinnacle
         public ActionResult Index1()
         {
-
+            ViewBag.actividades = JsonConvert.DeserializeObject<List<BitacoraViewModel>>(ObtenerActividades().Result);
             return View();
         }
         public ActionResult Index()
@@ -24,6 +24,28 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             ViewBag.actividades= JsonConvert.DeserializeObject<List<BitacoraViewModel>>(ObtenerActividades().Result);
             return View();
         }
+
+        [HttpGet]
+        public ActionResult BuscarActividad(string palabras)
+        {
+           List<BitacoraViewModel>listaActividades= JsonConvert.DeserializeObject<List<BitacoraViewModel>>(ObtenerActividades().Result);
+            List<BitacoraViewModel> resultadoActividades = listaActividades.Where(b => b.Detalle.ToLower().Contains(palabras.ToLower())).ToList();
+            if (resultadoActividades.Count != 0)
+            {
+                ViewBag.actividades = resultadoActividades;
+                ViewBag.cantidadResultado = resultadoActividades.Count;
+            }
+
+            ViewBag.palabras = palabras;
+
+            //direccion
+            if (HttpContext.User.IsInRole("Admin"))
+            {
+                return View("Index");
+            }
+            return View("Index1");
+        }
+
         public async Task<string> ObtenerActividades()
         {
             HttpClient httpClient = new HttpClient();
