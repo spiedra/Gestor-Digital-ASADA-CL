@@ -33,7 +33,6 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Fecha de recaudación</th>
                         <th scope="col">Cantidad efectivo</th>
                         <th scope="col">Cantidad tarjeta</th>
                         <th scope="col">Cantidad SINPE</th>
@@ -41,6 +40,8 @@
                         <th scope="col">Cantidad hidrantes</th>
                         <th scope="col">Cantidad recibos</th>
                         <th scope="col">Total recaudado</th>
+                        <th scope="col">Fecha de recaudación</th>
+                        <th scope="col">Usuario</th>
                         <th scope="col">Acción</th>
                     </tr>
                 </thead>
@@ -49,28 +50,28 @@
                     {
                         @foreach (DailyCollectionViewModel dailyCollection in ViewBag.Collections)
                         {
-                            <tr>
-                                <td>@dailyCollection.IdRecaudacion</td>
-                                <td>@dailyCollection.FechaRecaudacion</td>
-                                <td>@dailyCollection.CantidadEfectivo</td>
-                                <td>@dailyCollection.CantidadTarjeta</td>
-                                <td>@dailyCollection.CantidadSinpe</td>
-                                <td>@dailyCollection.CantidadIva</td>
-                                <td>@dailyCollection.CuentaHidrantes</td>
-                                <td>@dailyCollection.CantidadRecibos</td>
-                                <td>@dailyCollection.TotalRecaudado</td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal" onclick="putCollectionOnEditModal(this); return false;"> 
-                                        Modificar
-                                        <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                                    </button>
-                                </td>
-                            </tr>
+                    <tr>
+                        <td>@dailyCollection.IdRecaudacion</td>
+                        <td>@dailyCollection.CantidadEfectivo</td>
+                        <td>@dailyCollection.CantidadTarjeta</td>
+                        <td>@dailyCollection.CantidadSinpe</td>
+                        <td>@dailyCollection.CantidadIva</td>
+                        <td>@dailyCollection.CuentaHidrantes</td>
+                        <td>@dailyCollection.CantidadRecibos</td>
+                        <td>@dailyCollection.TotalRecaudado</td>
+                        <td>@dailyCollection.FechaRecaudacion</td>
+                        @foreach (var item in ((IEnumerable<dynamic>)ViewBag.Users).Where(x => x.IdUsuario == 1))
+                        {
+                            <td>@item.Nombre</td>
                         }
-                    }
-                    else
-                    {
-                        <p>No hay</p>
+                        <td>
+                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal" onclick="putCollectionOnEditModal(this); return false;">
+                                Modificar
+                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                        </td>
+                    </tr>
+                        }
                     }
                 </tbody>
             </table>

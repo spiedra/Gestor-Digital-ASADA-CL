@@ -16,6 +16,8 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         public ActionResult Index()
         {
             DisplayMessageDynamically();
+            UserController userController = new();
+            ViewBag.Users = JsonConvert.DeserializeObject<List<User>>(userController.Details().Result);
             ViewBag.Collections = JsonConvert.DeserializeObject<List<DailyCollectionViewModel>>(Details().Result);
             return View();
         }
@@ -27,7 +29,6 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return await response.Content.ReadAsStringAsync();
         }
 
-        // GET: DailyCollection/Create
         public ActionResult Create()
         {
             return View();
@@ -37,7 +38,8 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         public async Task<IActionResult> Create(DailyCollectionViewModel dailyCollection)
         {
             HttpClient httpClient = new();
-            var response = await httpClient.PostAsync("https://localhost:44358/API//Recaudacion/RegistrarRecaudacion"
+            dailyCollection.IdUsuario = Int32.Parse(await UserController.GetUserIdByUserName(HttpContext.User.Identity.Name));
+            var response = await httpClient.PostAsync("https://localhost:44358/API/Recaudacion/RegistrarRecaudacion"
                 , new StringContent(JsonConvert.SerializeObject(dailyCollection), Encoding.UTF8, "application/json"));
             TempData["isShow"] = true;
             TempData["message"] = await response.Content.ReadAsStringAsync();
