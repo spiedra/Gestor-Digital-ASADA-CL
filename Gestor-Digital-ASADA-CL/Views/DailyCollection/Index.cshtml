@@ -59,7 +59,7 @@
                         <td>@dailyCollection.CuentaHidrantes</td>
                         <td>@dailyCollection.CantidadRecibos</td>
                         <td>@dailyCollection.TotalRecaudado</td>
-                        <td>@dailyCollection.FechaRecaudacion</td>
+                        <td>@dailyCollection.FechaRecaudacion.ToString("yyyy-MM-dd HH:mm:ss")</td>
                         @foreach (var item in ((IEnumerable<dynamic>)ViewBag.Users).Where(x => x.IdUsuario == dailyCollection.IdUsuario))
                         {
                             <td>@item.Nombre</td>
@@ -84,7 +84,7 @@
             <div class="modal-header">
                 <h5 class="modal-title">Busqueda de recaudaciones diarias</h5>
             </div>
-            <form class="was-validated" method="post" asp-controller="User" asp-action="Details">
+            <form class="was-validated" method="get" asp-controller="DailyCollection" asp-action="GetCollectionsByDateRange">
                 <div class="modal-body">
                     <div class="container">
                         <div class="mb-3">
@@ -94,8 +94,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="inputName" class="form-label">Fecha final</label>
-                            <input id="inputName" class="form-control is-invalid" type="datetime-local" asp-for="FechaRecaudacion" required>
-                            <span class="field-validation-error" asp-validation-for="FechaRecaudacion"></span>
+                            <input id="inputName" class="form-control is-invalid" type="datetime-local" asp-for="FechaRecaudacionFinal" required>
+                            <span class="field-validation-error" asp-validation-for="FechaRecaudacionFinal"></span>
                         </div>
                     </div>
                 </div>

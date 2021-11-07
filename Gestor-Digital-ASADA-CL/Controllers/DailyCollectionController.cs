@@ -18,7 +18,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             DisplayMessageDynamically();
             UserController userController = new();
             ViewBag.Users = JsonConvert.DeserializeObject<List<User>>(userController.Details().Result);
-            ViewBag.Collections = JsonConvert.DeserializeObject<List<DailyCollectionViewModel>>(Details().Result);
+            DisplayCollectionInformation();
             return View();
         }
 
@@ -86,6 +86,32 @@ namespace Gestor_Digital_ASADA_CL.Controllers
                 ViewBag.ShowModalResponse = TempData["isShow"];
                 ViewBag.Message = TempData["message"];
             }
+        }
+
+        private void DisplayCollectionInformation()
+        {
+            if (TempData["startDate"] != null && TempData["endDate"] != null)
+            {
+                ViewBag.Collections = JsonConvert.DeserializeObject<List<DailyCollectionViewModel>>(Details().Result)
+                    .Where(x => x.FechaRecaudacion >= (DateTime)TempData["startDate"] && x.FechaRecaudacion <= (DateTime)TempData["endDate"]);
+                if (ViewBag.Collections == null)
+                {
+                    ViewBag.ShowModalResponse = true;
+                    ViewBag.Message = "Recaudaciones no encontradas. Inténtelo de nuevo";
+                }
+            }
+            else
+            {
+                ViewBag.Collections = JsonConvert.DeserializeObject<List<DailyCollectionViewModel>>(Details().Result);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult GetCollectionsByDateRange(DailyCollectionViewModel dailyCollectionViewModel)
+        {
+            TempData["startDate"] = dailyCollectionViewModel.FechaRecaudacion;
+            TempData["endDate"] = dailyCollectionViewModel.FechaRecaudacionFinal;
+            return RedirectToAction("Index");
         }
     }
 }
