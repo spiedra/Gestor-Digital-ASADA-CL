@@ -13,7 +13,6 @@ namespace Gestor_Digital_ASADA_CL.Controllers
 {
     public class UserController : Controller
     {
-        // GET: UserController1
         public ActionResult Index()
         {
             DynamicUserSending();
@@ -22,7 +21,6 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return View();
         }
 
-        // GET: UserController
         public async Task<string> Details()
         {
             HttpClient httpClient = new();

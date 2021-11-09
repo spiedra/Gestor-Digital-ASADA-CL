@@ -19,24 +19,18 @@
                 </form>
             </div>
             <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link nav-link--task noHover" aria-current="page" href="#">Roberto Jimenez</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link--task noHover" href="#">Raquel Flores</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link--task noHover" href="#">Juan Carlos Sequeira</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link--task noHover" href="#">Randall Gomez</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link--task noHover" aria-current="page" href="#">Carlos Alberto Piedra</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link--task noHover" href="#">Julian Sanchez</a>
-                </li>
+                @if (ViewBag.Users != null)
+                {
+                    @foreach (User u in ViewBag.Users)
+                    {
+                        <li class="nav-item">
+                            <form>
+                                <input type="hidden" name="UserId" value="@u.IdUsuario">
+                                <button class="nav-link nav-link--task noHover" type="submit">@u.Nombre @u.Apellidos</button>
+                            </form>
+                        </li>
+                    }
+                }
             </ul>
         </nav>
     </div>

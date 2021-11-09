@@ -1,6 +1,7 @@
 ﻿using Gestor_Digital_ASADA_CL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         public ActionResult Index()
         {
             ViewBag.ShowModalResponse = false;
+            UserController userController = new();
+            ViewBag.Users = JsonConvert.DeserializeObject<List<User>>(userController.Details().Result);
             return View();
         }
 
