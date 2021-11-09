@@ -5,18 +5,19 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Gestor_Digital_ASADA_CL.Controllers
 {
     public class TaskController : Controller
     {
-        // GET: TaskController
         public ActionResult Index()
         {
             ViewBag.ShowModalResponse = false;
             UserController userController = new();
             ViewBag.Users = JsonConvert.DeserializeObject<List<User>>(userController.Details().Result);
+
             return View();
         }
 
@@ -26,10 +27,12 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return View();
         }
 
-        // GET: TaskController/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public async Task<string> Details(int UserId)
         {
-            return View();
+            HttpClient httpClient = new();
+            var response = await httpClient.GetAsync("https://localhost:44358/API/Tareas/ObtenerTareasByIdUsuario/" + UserId);
+            return await response.Content.ReadAsStringAsync();
         }
 
         // GET: TaskController/Create
@@ -69,6 +72,12 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             {
                 return View();
             }
+        }
+
+        [HttpGet]
+        public JsonResult GetTasksByUserId(int UserId)
+        {
+            return Json(JsonConvert.DeserializeObject<List<TaskViewModel>>(Details(UserId).Result));
         }
     }
 }
