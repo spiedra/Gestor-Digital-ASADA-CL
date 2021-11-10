@@ -13,8 +13,8 @@ function putOnModal(button) {
     $("#nombre").val(name);
     $("#valor").val(unit_value);
     $("#cantidad").val(amount);
-    $("#fecha").val(date_in);
-    //document.getElementById("fecha").value(new Date("07/03/2021 10:34"));
+    //$("#fechaE").val(moment(new Date(date_in)).format('YYYY-MM-DDThh:mm:ss.SSS'));
+    //document.getElementById("fecha").value(moment(new Date(date_in)).format('YYYY-MM-DDThh:mm:ss.SSS'));
     $("#descripcion").text(description);
 }
 
