@@ -14,6 +14,9 @@ namespace Gestor_Digital_ASADA_CL.Models
         [Required(ErrorMessage = "La fecha de recaudación es requerida")]
         public DateTime FechaRecaudacion { get; set; }
 
+        [Required(ErrorMessage = "La fecha de recaudación es requerida")]
+        public DateTime FechaRecaudacionFinal { get; set; }
+
         [Required(ErrorMessage = "La cantidad de efectivo es requerida")]
         public string CantidadEfectivo { get; set; }
 

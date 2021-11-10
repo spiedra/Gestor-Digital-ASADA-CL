@@ -8,10 +8,20 @@ namespace Gestor_Digital_ASADA_CL.Models
 {
     public class TaskViewModel
     {
+        public int IdTarea { get; set; }
+
         [Required(ErrorMessage = "El título es requerido")]
-        public string Title { get; set; }
+        public string Titulo { get; set; }
 
         [Required(ErrorMessage = "El detalle es requerido")]
-        public string Detail { get; set; }
+        public string Detalles { get; set; }
+
+        public int IdUsuario { get; set; }
+
+        public bool Realizada { get; set; }
+
+        public DateTime FechaAsignacion { get; set; }
+
+        public bool? IsDelete { get; set; }
     }
 }
