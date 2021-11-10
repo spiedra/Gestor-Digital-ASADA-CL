@@ -38,7 +38,7 @@ const putRolesOnAddModal = () => {
         dataType: 'json',
         success: function (response) {
             selectJobsNamesAddModal.empty();
-            selectJobsNamesAddModal.prepend('<option class="select_opcion" selected>Seleccione algún puesto</option>');
+            selectJobsNamesAddModal.prepend('<option class="select_opcion" value="" selected>Seleccione algún puesto</option>');
             response.forEach(element => {
                 selectJobsNamesAddModal.append('<option class="select_opcion">' + element.tipoRole + '</option>');
             });
