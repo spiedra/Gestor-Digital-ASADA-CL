@@ -24,23 +24,5 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
         {
             return Ok(await _context.Tareas.Where(x => x.IdUsuario == id).ToListAsync());
         }
-
-        //// POST api/<ValuesController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        //// PUT api/<ValuesController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/<ValuesController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

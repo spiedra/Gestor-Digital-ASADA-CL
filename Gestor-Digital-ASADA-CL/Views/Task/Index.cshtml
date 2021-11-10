@@ -176,6 +176,18 @@
     </div>
 </div>
 
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Mensaje</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Usuario sin tareas actualmente.
+        </div>
+    </div>
+</div>
+
 @section scripts
 {
     <partial name="_ValidationScriptsPartial" />
