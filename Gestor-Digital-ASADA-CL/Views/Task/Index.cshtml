@@ -80,7 +80,7 @@
             <div class="modal-header">
                 <h5 class="modal-title">Agregar tarea</h5>
             </div>
-            <form class="was-validated" method="post" asp-controller="Task" asp-action="Create">
+            <form id="appForm" class="was-validated">
                 <div class="modal-body">
                     <div class="container">
                         <div class="mb-3">
@@ -97,7 +97,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button id="btn-search" type="submit" class="btn btn-primary">Agregar</button>
+                    <button id="btn-search" type="button" class="btn btn-primary" onclick="addTask(); return false;">Agregar</button>
                 </div>
             </form>
         </div>

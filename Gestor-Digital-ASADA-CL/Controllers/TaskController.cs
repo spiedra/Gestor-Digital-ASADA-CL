@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Gestor_Digital_ASADA_CL.Controllers
@@ -17,7 +18,6 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             ViewBag.ShowModalResponse = false;
             UserController userController = new();
             ViewBag.Users = JsonConvert.DeserializeObject<List<User>>(userController.Details().Result);
-
             return View();
         }
 
@@ -35,15 +35,21 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return await response.Content.ReadAsStringAsync();
         }
 
-        // GET: TaskController/Create
-        public ActionResult Create()
+        [HttpPost]
+        public async Task<JsonResult> Create(int UserId, string Title, string Details)
         {
-            ViewBag.ShowModalResponse = true;
-            ViewBag.Message = "¡Tarea registrada correctamente!";
-            return View("Index");
+            HttpClient httpClient = new();
+            TaskViewModel task = new()
+            {
+                IdUsuario = UserId,
+                Titulo = Title,
+                Detalles = Details,
+                FechaAsignacion = DateTime.Now
+            };
+            var response = await httpClient.PostAsync("https://localhost:44358/API/Tareas/RegistrarTarea", new StringContent(JsonConvert.SerializeObject(task), Encoding.UTF8, "application/json"));
+            return Json(await response.Content.ReadAsStringAsync());
         }
 
-        // POST: TaskController/Edit
         public ActionResult Edit(TaskViewModel taskViewModel)
         {
             ViewBag.ShowModalResponse = true;
@@ -51,7 +57,6 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return View("Index");
         }
 
-        // GET: TaskController/Delete/5
         public ActionResult Delete()
         {
             ViewBag.ShowModalResponse = true;
@@ -59,7 +64,6 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return View("Index");
         }
 
-        // POST: TaskController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

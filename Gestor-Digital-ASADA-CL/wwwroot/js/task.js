@@ -1,12 +1,50 @@
 const getTasksByUserId = (buttonContext) => {
+    var userId = $(buttonContext).val();
+    changeUserNameOfLabel($(buttonContext).attr("name"), userId);
+    setTasksOnTbodyTask(userId);
+};
+
+const changeUserNameOfLabel = (userFullName, userId) => {
+    var tagUserFullName = $('#tagUserFullName');
+    tagUserFullName.empty();
+    tagUserFullName.attr("userId", userId);
+    tagUserFullName.append("Usuario: " + userFullName);
+};
+
+const addTask = () => {
+    var userId = $('#tagUserFullName').attr('userId');
+    if ($("#appForm").valid()) {
+        if (userId != null) {
+            $.ajax({
+                url: '/Task/Create',
+                type: 'post',
+                data: {
+                    "UserId": userId,
+                    "Title": $('#inputTitle').val(),
+                    "Details": $('#inputDetail').val(),
+                },
+                dataType: 'json',
+                success: function (response) {
+                    setTasksOnTbodyTask(userId);
+                    $('#addModal').modal('hide');
+                    createModalResponse2(response);
+                }
+            });
+        } else {
+            $('#addModal').modal('hide');
+            createModalResponse2("Usuario no seleccionado. Intentelo de nuevo");
+        }
+    }
+};
+
+const setTasksOnTbodyTask = (userId) => {
     var tbodyTable = $('#tbodyTask');
-    changeUserNameOfLabel($(buttonContext).attr("name"));
 
     $.ajax({
         url: '/Task/GetTasksByUserId',
         type: 'get',
         data: {
-            "UserId": $(buttonContext).val()
+            "UserId": userId
         },
         dataType: 'json',
         success: function (response) {
@@ -31,10 +69,4 @@ const getTasksByUserId = (buttonContext) => {
             }
         }
     });
-};
-
-const changeUserNameOfLabel = (userFullName) => {
-    var tagUserFullName = $('#tagUserFullName');
-    tagUserFullName.empty();
-    tagUserFullName.append("Usuario: " + userFullName);
-};
+}

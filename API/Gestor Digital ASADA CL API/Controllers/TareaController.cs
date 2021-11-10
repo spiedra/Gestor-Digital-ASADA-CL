@@ -24,5 +24,14 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
         {
             return Ok(await _context.Tareas.Where(x => x.IdUsuario == id).ToListAsync());
         }
+
+        [HttpPost]
+        [Route("/API/Tareas/RegistrarTarea")]
+        public async Task<IActionResult> Create(Tarea tarea) 
+        {
+            _context.Tareas.Add(tarea);
+            await _context.SaveChangesAsync();
+            return Ok("Tarea registrada con éxito");
+        }
     }
 }
