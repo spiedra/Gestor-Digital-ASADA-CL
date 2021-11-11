@@ -61,7 +61,6 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             }
         }
 
-
         [HttpPost]
         [Route("/API/Usuario/RegistrarUsuario")]
         public async Task<IActionResult> Post(Usuario usuario)

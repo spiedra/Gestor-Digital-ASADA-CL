@@ -31,7 +31,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         public async Task<string> Details(int UserId)
         {
             HttpClient httpClient = new();
-            var response = await httpClient.GetAsync("https://localhost:44358/API/Tareas/ObtenerTareasByIdUsuario/" + UserId);
+            var response = await httpClient.GetAsync("https://localhost:44358/API/Tarea/ObtenerTareasByIdUsuario/" + UserId);
             return await response.Content.ReadAsStringAsync();
         }
 
@@ -46,15 +46,23 @@ namespace Gestor_Digital_ASADA_CL.Controllers
                 Detalles = Details,
                 FechaAsignacion = DateTime.Now
             };
-            var response = await httpClient.PostAsync("https://localhost:44358/API/Tareas/RegistrarTarea", new StringContent(JsonConvert.SerializeObject(task), Encoding.UTF8, "application/json"));
+            var response = await httpClient.PostAsync("https://localhost:44358/API/Tarea/RegistrarTarea", new StringContent(JsonConvert.SerializeObject(task), Encoding.UTF8, "application/json"));
             return Json(await response.Content.ReadAsStringAsync());
         }
 
-        public ActionResult Edit(TaskViewModel taskViewModel)
+        [HttpPost]
+        public async Task<JsonResult> Edit(int IdTask, int UserId, string Title, string Details)
         {
-            ViewBag.ShowModalResponse = true;
-            ViewBag.Message = "¡La información de la tarea ha sido actualizada correctamente!";
-            return View("Index");
+            HttpClient httpClient = new();
+            TaskViewModel task = new()
+            {
+                IdTarea = IdTask,
+                IdUsuario = UserId,
+                Titulo = Title,
+                Detalles = Details
+            };
+            var response = await httpClient.PutAsync("https://localhost:44358/API/Tarea/ModificarTarea",new StringContent(JsonConvert.SerializeObject(task),Encoding.UTF8,"application/json"));
+            return Json(await response.Content.ReadAsStringAsync());
         }
 
         public ActionResult Delete()

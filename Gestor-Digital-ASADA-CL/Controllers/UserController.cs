@@ -35,7 +35,6 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: UserController1/Create
         public ActionResult Create()
         {
             return View();
