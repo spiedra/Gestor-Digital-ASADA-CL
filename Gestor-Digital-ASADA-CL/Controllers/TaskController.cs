@@ -61,29 +61,16 @@ namespace Gestor_Digital_ASADA_CL.Controllers
                 Titulo = Title,
                 Detalles = Details
             };
-            var response = await httpClient.PutAsync("https://localhost:44358/API/Tarea/ModificarTarea",new StringContent(JsonConvert.SerializeObject(task),Encoding.UTF8,"application/json"));
+            var response = await httpClient.PutAsync("https://localhost:44358/API/Tarea/ModificarTarea", new StringContent(JsonConvert.SerializeObject(task), Encoding.UTF8, "application/json"));
             return Json(await response.Content.ReadAsStringAsync());
         }
 
-        public ActionResult Delete()
-        {
-            ViewBag.ShowModalResponse = true;
-            ViewBag.Message = "¡La tarea ha sido eliminado correctamente!";
-            return View("Index");
-        }
-
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<JsonResult> Delete(int IdTask)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            HttpClient httpClient = new();
+            var response = await httpClient.DeleteAsync("https://localhost:44358/API/Tarea/EliminarTarea/" + IdTask);
+            return Json(await response.Content.ReadAsStringAsync());
         }
 
         [HttpGet]

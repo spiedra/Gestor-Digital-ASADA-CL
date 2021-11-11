@@ -69,6 +69,27 @@ const updateTaskInformation = () => {
     }
 };
 
+const getIdTaskDelete = (buttonContext) => {
+    row = buttonContext.parentNode.parentNode;
+    idTask = row.cells[0].textContent;
+};
+
+const deleteTask = () => {
+    $.ajax({
+        url: '/Task/Delete',
+        type: 'post',
+        data: {
+            "IdTask": idTask
+        },
+        dataType: 'json',
+        success: function (response) {
+            $('#deleteModal').modal('hide');
+            setTasksOnTbodyTask();
+            createModalResponse2(response);
+        }
+    });
+};
+
 const setTasksOnTbodyTask = () => {
     var tbodyTable = $('#tbodyTask');
 
@@ -91,7 +112,7 @@ const setTasksOnTbodyTask = () => {
                         .append($('<td>').append(
                             $('<button class="btn btn-primary btn-sm my-1 me-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal" onClick="putTaskOnEditModal(this); return false;">'
                                 + 'Modificar <img src="/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class= "my-1"/></button>'
-                            )).append($('<button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal">'
+                            )).append($('<button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal" onClick="getIdTaskDelete(this); return false;">'
                                 + 'Eliminar <img src="/assets/delete_white_18dp.svg" alt="Icono eliminar usuario" class="my-1" /></button>'
                             )))
                     )

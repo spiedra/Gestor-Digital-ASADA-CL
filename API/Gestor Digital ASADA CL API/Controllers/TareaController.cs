@@ -51,5 +51,22 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
                 return Ok("Ha ocurrido un error al modificar la tarea. Inténtelo de nuevo");
             }
         }
+
+        [HttpDelete]
+        [Route("/API/Tarea/EliminarTarea/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var task = _context.Tareas.Find(id);
+            if (task != null)
+            {
+                _context.Remove(task);
+                await _context.SaveChangesAsync();
+                return Ok("Tarea eliminada con éxito");
+            }
+            else
+            {
+                return Ok("Error al eliminar la tarea. Inténtelo de nuevo");
+            }
+        }
     }
 }

@@ -163,15 +163,13 @@
                 <h5 class="modal-title" id="exampleModalLabel">¿Está seguro de eliminar esta tarea?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="get" asp-controller="Task" asp-action="Delete">
-                <div class="modal-body">
-                    La tarea va a ser borrada permanentemente del sistema
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Confirmar eliminación</button>
-                </div>
-            </form>
+            <div class="modal-body">
+                La tarea va a ser borrada permanentemente del sistema
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="deleteTask(); return false;">Confirmar eliminación</button>
+            </div>
         </div>
     </div>
 </div>
