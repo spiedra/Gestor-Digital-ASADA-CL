@@ -69,6 +69,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             //direccion
             if (HttpContext.User.IsInRole("Admin"))
             {
+                ViewBag.reportes = JsonConvert.DeserializeObject<List<SolicitudProducto>>(ObtenerReportes().Result);
                 return View("IndexAdmin");
             }
             return View("Index");
@@ -105,6 +106,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             //direccion
             if (HttpContext.User.IsInRole("Admin"))
             {
+                ViewBag.reportes = JsonConvert.DeserializeObject<List<SolicitudProducto>>(ObtenerReportes().Result);
                 return View("IndexAdmin");
             }
             return View("Index");
@@ -128,6 +130,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             var response = await httpClient.PostAsync("https://localhost:44358/API/Producto/RegistrarProducto", content);
             ViewBag.ShowModalResponse = "True";
             ViewBag.mensaje = await response.Content.ReadAsStringAsync();
+            ViewBag.reportes = JsonConvert.DeserializeObject<List<SolicitudProducto>>(ObtenerReportes().Result);
             ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
             return View("IndexAdmin");
         }
@@ -141,6 +144,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             var response = await httpClient.PutAsync("https://localhost:44358/API/Producto/ModificarProducto", content);
             ViewBag.ShowModalResponse = "True";
             ViewBag.mensaje = await response.Content.ReadAsStringAsync();
+            ViewBag.reportes = JsonConvert.DeserializeObject<List<SolicitudProducto>>(ObtenerReportes().Result);
             ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
             return View("IndexAdmin");
         }
@@ -153,6 +157,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             var response = await httpClient.DeleteAsync("https://localhost:44358/API/Producto/BorrarProducto/" + productCode);
             ViewBag.ShowModalResponse = "True";
             ViewBag.mensaje = await response.Content.ReadAsStringAsync();
+            ViewBag.reportes = JsonConvert.DeserializeObject<List<SolicitudProducto>>(ObtenerReportes().Result);
             ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
             return View("IndexAdmin");
         }
