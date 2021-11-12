@@ -38,22 +38,23 @@
     <div class="col-md-9">
         <div>
             <h3 id="tagUserFullName" class="promo-table__title d-inline me-3">Usuario:</h3>
-            <button id="btn__refresh--user" class="btn mb-3 d-inline btn__add"
+            <button id="btn__add--task" class="btn mb-3 d-inline btn__add"
                     data-bs-toggle="modal"
                     data-bs-target="#addModal"
                     data-bs-placement="right"
                     title="Agregar tarea">
                 <img src="~/assets/add_black_24dp.svg" alt="Icono de agregar" />
             </button>
-            <button id="btn__search--user" class="btn mb-3 d-inline btn__search"
+            <button id="btn__search--task" class="btn mb-3 d-inline btn__search"
                     data-bs-toggle="modal"
                     data-bs-target="#searchModal"
                     data-bs-placement="right"
                     title="Busqueda de usuarios">
                 <img src="~/assets/search_black_24dp.svg" alt="Icono de busqueda" />
             </button>
-            <button id="btn__refresh--user" class="btn mb-3 d-inline btn__refresh"
-                    title="Refrescar tabla">
+            <button id="btn__refresh--tasks" class="btn mb-3 d-inline btn__refresh"
+                    title="Refrescar tabla"
+                    onclick="refreshTaskTbody(); return false;">
                 <img src="~/assets/refresh_black_24dp.svg" alt="Icono de busqueda" />
             </button>
         </div>

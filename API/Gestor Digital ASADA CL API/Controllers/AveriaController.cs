@@ -1,6 +1,7 @@
 ﻿using Gestor_Digital_ASADA_CL_API.Models;
 using Gestor_Digital_ASADA_CL_API.Utility;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,7 +61,13 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
         [Route("/API/Averia/ObtenerAverias")]
         public IActionResult ObtenerAverias()
         {
-            return Ok(db.Averia.ToList());
+            List<Averium> averias = new();
+            foreach (Averium averium in db.Averia.ToList())
+            {
+                averium.AveriaTrabajadors.Add(db.AveriaTrabajadors.FirstOrDefault(x => x.IdAveria == averium.IdAveria));
+                averias.Add(averium);
+            }
+            return Ok(averias);
         }
 
         [HttpPut]
@@ -85,8 +92,10 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
         [Route("/API/Averia/BorrarAveria/{id}")]
         public IActionResult Delete(int id)
         {
+            var averiaTrabajador = db.AveriaTrabajadors.FirstOrDefault(x => x.IdAveria == id);
+            db.AveriaTrabajadors.Remove(averiaTrabajador);
+            db.SaveChanges();
             var averia = db.Averia.Find(id);
-            averia.IsDelete = true;
             db.Averia.Remove(averia);
             db.SaveChanges();
             return Ok("Avería eliminada exitosamente!");

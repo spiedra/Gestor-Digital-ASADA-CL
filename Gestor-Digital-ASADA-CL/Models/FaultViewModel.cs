@@ -8,10 +8,13 @@ namespace Gestor_Digital_ASADA_CL.Models
 {
     public class FaultViewModel
     {
-        
-        
-       
-        public int? IdSector { get; set; }
+        public FaultViewModel()
+        {
+            AveriaTrabajadors = new HashSet<AveriaTrabajador>();
+        }
+
+        [Required(ErrorMessage = "El sector requerido")]
+        public int IdSector { get; set; }
         public int IdAveria { get; set; }
         
         [Required(ErrorMessage = "El nombre es requerido")]
@@ -24,9 +27,11 @@ namespace Gestor_Digital_ASADA_CL.Models
         [Required(ErrorMessage = "Los detalles son requeridos")]
         public string DetallesReporte { get; set; }
         [Required(ErrorMessage = "La fecha de ejecución es requerida")]
-        public DateTime? FechaEjecucion { get; set; }
+        public DateTime FechaEjecucion { get; set; }
         [Required(ErrorMessage = "El trabajo ejecutado es requerido")]
         public string TrabajoEjecutado { get; set; }
         public bool? IsDelete { get; set; }
+
+        public virtual ICollection<AveriaTrabajador> AveriaTrabajadors { get; set; }
     }
 }

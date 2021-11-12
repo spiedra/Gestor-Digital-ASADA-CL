@@ -12,6 +12,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Gestor_Digital_ASADA_CL_API
@@ -36,6 +37,8 @@ namespace Gestor_Digital_ASADA_CL_API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Gestor_Digital_ASADA_CL_API", Version = "v1" });
             });
+
+            services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

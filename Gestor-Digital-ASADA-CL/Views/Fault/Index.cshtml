@@ -7,21 +7,21 @@
 
 <div class="mt-4 mb-2">
     <h1 class="promo-table__title d-inline me-3">Gestor de averías</h1>
-    <button id="btn__insert--user" class="btn btn-dark mb-3 d-inline btn__search"
+    <button id="btn__insert--user" class="btn mb-3 d-inline btn__add"
             data-bs-toggle="modal"
             data-bs-target="#insertModal"
             data-bs-placement="right"
             title="Registro de averías">
         <img src="~/assets/add_black_24dp.svg" alt="Icono de insertar" />
     </button>
-    <button id="btn__search--user" class="btn btn-dark mb-3 d-inline btn__search"
+    <button id="btn__search--user" class="btn mb-3 d-inline btn__search"
             data-bs-toggle="modal"
             data-bs-target="#searchModal"
             data-bs-placement="right"
             title="Busqueda de averías">
         <img src="~/assets/search_black_24dp.svg" alt="Icono de busqueda" />
     </button>
-    <button id="btn__refresh--user" class="btn btn-dark mb-3 d-inline btn__search"
+    <button id="btn__refresh--user" class="btn mb-3 d-inline btn__refresh"
             title="Refrescar tabla" onclick="refreshPage(); return false">
         <img src="~/assets/refresh_black_24dp.svg" alt="Icono de busqueda" />
     </button>
@@ -52,12 +52,20 @@
                             <tr>
                                 <td>@averia.IdAveria</td>
                                 <td>@averia.Afectado</td>
-                                <td>@averia.IdSector</td>
-                                <td>@averia.FechaReporte</td>
-                                <td>@averia.FechaEjecucion</td>
+                                @foreach (SectorViewModel sector in ((IEnumerable<dynamic>)ViewBag.sectores).Where(
+                            x => x.IdSector == averia.IdSector))
+                                {
+                                    <td>@sector.NombreSector</td>
+                                }
+                                <td>@averia.FechaReporte.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                                <td>@averia.FechaEjecucion.ToString("yyyy-MM-dd HH:mm:ss")</td>
                                 <td>@averia.DetallesReporte</td>
                                 <td>@averia.TrabajoEjecutado</td>
-                                <td>@averia.IdTrabajador</td>
+                                @foreach (User user in ((IEnumerable<dynamic>)ViewBag.fontaneros).Where(
+                             x => x.IdUsuario == @averia.AveriaTrabajadors.ToArray()[0].IdTrabajador))
+                                {
+                                    <td>@user.Nombre @user.Apellidos</td>
+                                }
                                 <td>
                                     <button class="btn btn-primary btn-sm my-1 my-xl-0 " onclick="putFaultOnModal(this);" data-bs-toggle="modal" data-bs-target="#editModal">
                                         Modificar
@@ -70,8 +78,6 @@
                                     </button>
                                 </td>
                             </tr>
-
-
                         }
                     }
                 </tbody>
@@ -83,9 +89,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-
                 <h5 class="modal-title">Búsqueda de avería</h5>
-
             </div>
             <form method="get" asp-controller="Fault" asp-action="BuscarAveriaPorSector" class="needs-validation" novalidate>
                 <div class="modal-body">
@@ -100,7 +104,6 @@
                                     {
                                         <option value="@sector.IdSector">@sector.NombreSector</option>
                                     }
-
                                 }
                             </select>
                             <span class="field-validation-error" asp-validation-for="IdSector"></span>
@@ -119,21 +122,20 @@
     </div>
 </div>
 <div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="insertModal" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Registro de avería</h5>
             </div>
-            <form class="row g-3 p-1" method="POST" asp-controller="Fault" asp-action="RegistrarAveria">
+            <form class="row g-3 p-3 was-validated" method="POST" asp-controller="Fault" asp-action="RegistrarAveria" novalidate>
                 <div class="col-md-4">
                     <label for="inputFaultName" class="form-label">Nombre del abonado</label>
-                    <input id="inputFaultName" class="form-control" type="text" placeholder="Ingrese el nombre del abonado" asp-for="Afectado">
+                    <input id="inputFaultName" class="form-control" type="text" placeholder="Ingrese el nombre del abonado" asp-for="Afectado" required>
                     <span class="field-validation-error" asp-validation-for="Afectado"></span>
                 </div>
-                @* ******PRUEBA COMBO SECTOR******* *@
                 <div class="col-4">
                     <label for="selectSector" class="form-label">Sector</label>
-                    <select class="form-select" aria-label="Sectores" asp-for="IdSector">
+                    <select class="form-select" aria-label="Sectores" asp-for="IdSector" required>
                         @if (ViewBag.sectores != null)
                         {
                             <option value="">Seleccione el sector</option>
@@ -141,15 +143,13 @@
                             {
                                 <option value="@sector.IdSector">@sector.NombreSector</option>
                             }
-
                         }
                     </select>
                     <span class="field-validation-error" asp-validation-for="IdSector"></span>
                 </div>
                 <div class="col-4">
                     <label for="inputName" class="form-label">Nombre del trabajador</label>
-                    <select class="form-select" aria-label="NombreTrabajador" asp-for="IdTrabajador">
-
+                    <select class="form-select" aria-label="NombreTrabajador" asp-for="IdTrabajador" required>
                         @if (ViewBag.fontaneros != null)
                         {
                             <option value="">Seleccione el fontanero</option>
@@ -161,29 +161,30 @@
                     </select>
                     <span class="field-validation-error" asp-validation-for="IdTrabajador"></span>
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <label for="inputReportDate" class="form-label">Fecha de reporte</label>
-                    <input id="inputReportDate" class="form-control" type="date" placeholder="Ingrese la fecha del reporte" asp-for="FechaReporte">
+                    <input id="inputReportDate" class="form-control" type="datetime-local" placeholder="Ingrese la fecha del reporte" asp-for="FechaReporte" required>
                     <span class="field-validation-error" asp-validation-for="FechaReporte"></span>
                 </div>
 
-                <div class="col-4">
+                <div class="col-6">
                     <label for="inputExecutionDate" class="form-label">Fecha de ejecución</label>
-                    <input id="inputExecutionDate" class="form-control" type="date" placeholder="Ingrese la fecha de ejecución" asp-for="FechaEjecucion">
+                    <input id="inputExecutionDate" class="form-control" type="datetime-local" placeholder="Ingrese la fecha de ejecución" asp-for="FechaEjecucion" required>
                     <span class="field-validation-error" asp-validation-for="FechaEjecucion"></span>
                 </div>
                 <div class="col-6">
                     <label for="inputDetails" class="form-label">Detalles del reporte</label>
-                    <textarea class="form-control" id="note" rows="2" placeholder="Ingrese detalles del reporte" asp-for="DetallesReporte"></textarea>
+                    <textarea class="form-control" id="note" rows="2" placeholder="Ingrese detalles del reporte" asp-for="DetallesReporte" required></textarea>
                     <span class="field-validation-error" asp-validation-for="DetallesReporte"></span>
                 </div>
                 <div class="col-6">
                     <label for="inputWork" class="form-label">Trabajo ejecutado</label>
-                    <textarea class="form-control" id="note" rows="2" placeholder="Ingrese el trabajo ejecutado" asp-for="TrabajoEjecutado"></textarea>
+                    <textarea class="form-control" id="note" rows="2" placeholder="Ingrese el trabajo ejecutado" asp-for="TrabajoEjecutado" required></textarea>
                     <span class="field-validation-error" asp-validation-for="TrabajoEjecutado"></span>
                 </div>
-                <div class="col-12 mb-2 mb-md-6">
-                    <button type="submit" class="btn btn-dark">Registrar</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="btn-search" type="submit" class="btn btn-primary">Actualizar</button>
                 </div>
             </form>
         </div>
@@ -195,30 +196,22 @@
             <div class="modal-header">
                 <h5 class="modal-title">Modificación de avería</h5>
             </div>
-            <form method="POST" asp-controller="Fault" asp-action="ModificarAveria" class="row g-3 p-3 needs-validation" novalidate>
-                <div class="col-md-4">
-                    <label for="inputIdAveria" class="form-label">Avería</label>
-                    <input id="inputIdAveria" class="form-control" asp-for="IdAveria" style="border:0; background-color:#ffffff; outline:none"
-                           readonly>
-                </div>
+            <form method="POST" asp-controller="Fault" asp-action="ModificarAveria" class="row g-3 p-3 was-validated" novalidate>
+                <input id="inputIdAveria" type="hidden" asp-for="IdAveria" />
                 <div class="col-md-4">
                     <label for="inputName" class="form-label">Nombre del afectado</label>
-                    <input id="inputName" class="form-control" type="text" placeholder="Nombre del cliente" asp-for="Afectado">
-                    <div class="invalid-feedback">
-                        Ingrese nombre del cliente
-                    </div>
+                    <input id="inputName" class="form-control" type="text" placeholder="Nombre del cliente" asp-for="Afectado" required>
+                    <span class="field-validation-error" asp-validation-for="Afectado"></span>
                 </div>
-
-                @* ******PRUEBA COMBO SECTOR******* *@
                 <div class="col-4">
                     <label for="selectSector" class="form-label">Sector</label>
-                    <select class="form-select" aria-label="Sectores" asp-for="IdSector">
+                    <select class="form-select" aria-label="Sectores" asp-for="IdSector" required>
                         @if (ViewBag.sectores != null)
                         {
                             <option value="">Seleccione el sector</option>
                             @foreach (SectorViewModel sector in ViewBag.sectores)
                             {
-                                <option value="">@sector.NombreSector</option>
+                                <option value="@sector.IdSector">@sector.NombreSector</option>
                             }
                         }
                     </select>
@@ -226,7 +219,7 @@
                 </div>
                 <div class="col-4">
                     <label for="inputName" class="form-label">Nombre del trabajador</label>
-                    <select class="form-select" aria-label="NombreTrabajador" asp-for="IdTrabajador">
+                    <select class="form-select" aria-label="NombreTrabajador" asp-for="IdTrabajador" required>
                         @if (ViewBag.fontaneros != null)
                         {
                             <option value="">Seleccione el fontanero</option>
@@ -238,36 +231,25 @@
                     </select>
                     <span class="field-validation-error" asp-validation-for="IdTrabajador"></span>
                 </div>
-
-                <div class="col-4">
+                <div class="col-6">
                     <label for="inputDateR" class="form-label">Fecha de reporte</label>
-                    <input id="inputDateR" class="form-control" type="date" asp-for="FechaReporte">
-                    <div class="invalid-feedback">
-                        Ingrese fecha
-                    </div>
+                    <input id="inputDateR" class="form-control" type="datetime-local" asp-for="FechaReporte" required>
+                    <span class="field-validation-error" asp-validation-for="FechaReporte"></span>
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <label for="inputDateE" class="form-label">Fecha de ejecución</label>
-                    <input id="inputDateE" class="form-control" type="date" asp-for="FechaEjecucion">
-                    <div class="invalid-feedback">
-                        Ingrese fecha
-                    </div>
-
+                    <input id="inputDateE" class="form-control" type="datetime-local" asp-for="FechaEjecucion" required>
+                    <span class="field-validation-error" asp-validation-for="FechaEjecucion"></span>
                 </div>
                 <div class="col-12">
                     <label for="inputDetails" class="form-label">Detalles del reporte</label>
-
-                    <textarea class="form-control" id="details" rows="2" placeholder="Ingrese detalles del reporte" asp-for="DetallesReporte"></textarea>
-                    <div class="invalid-feedback">
-                        Ingrese detalles del reporte
-                    </div>
+                    <textarea class="form-control" id="details" rows="2" placeholder="Ingrese detalles del reporte" asp-for="DetallesReporte" required></textarea>
+                    <span class="field-validation-error" asp-validation-for="DetallesReporte"></span>
                 </div>
                 <div class="col-12">
                     <label for="inputWork" class="form-label">Trabajo ejecutado</label>
-                    <textarea class="form-control" id="Work" rows="2" placeholder="Ingrese el trabajo ejecutado" asp-for="TrabajoEjecutado"></textarea>
-                    <div class="invalid-feedback">
-                        Ingrese el trabajo ejecutado
-                    </div>
+                    <textarea class="form-control" id="Work" rows="2" placeholder="Ingrese el trabajo ejecutado" asp-for="TrabajoEjecutado" required></textarea>
+                    <span class="field-validation-error" asp-validation-for="TrabajoEjecutado"></span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -284,20 +266,15 @@
                 <h5 class="modal-title" id="exampleModalLabel">¿Está seguro de eliminar a este registro?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                El registro de la avería será borrado permanentemente del sistema.
-            </div>
             <form method="POST" asp-controller="Fault" asp-action="BorrarAveria" id="formDeleteModal">
-
-                <label for="IdAveria">Avería de código: </label>
-
+                <div class="modal-body">
+                    El registro de la avería será borrado permanentemente del sistema.
+                </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Eliminar</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Eliminar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-
                 </div>
             </form>
-
         </div>
     </div>
 </div>
@@ -309,11 +286,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="~/js/Fault.js" asp-append-version="true"></script>
     <script type="text/javascript">
-
         $(document).ready(function () {
-    if ('@ViewBag.ShowModalResponse' === 'True') {
-    createModalResponse("@ViewBag.mensaje");
-    }
-    });
+            if ('@ViewBag.ShowModalResponse' === 'True') {
+                createModalResponse2("@ViewBag.Message");
+            }
+        });
     </script>
 }

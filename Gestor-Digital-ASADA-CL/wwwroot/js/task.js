@@ -123,3 +123,11 @@ const setTasksOnTbodyTask = () => {
         }
     });
 };
+
+const refreshTaskTbody = () => {
+    if (userId != null) {
+        setTasksOnTbodyTask();
+    } else {
+        createModalResponse2('No se ha seleccionado ningun usuario');
+    }
+};
