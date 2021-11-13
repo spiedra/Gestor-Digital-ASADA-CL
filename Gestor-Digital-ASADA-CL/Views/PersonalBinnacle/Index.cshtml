@@ -12,13 +12,14 @@
             title="Busqueda de actividades">
         <img src="~/assets/search_black_24dp.svg" alt="Icono de busqueda" />
     </button>
-    <button id="btn__refresh--products" class="btn mb-3 d-inline btn__refresh"
-            title="Refrescar tabla" onclick="refreshPage(); return false">
-        <img src="~/assets/refresh_black_24dp.svg" alt="Icono de busqueda" />
-    </button>
+    <form class="d-inline" method="get" asp-controller="PersonalBinnacle" asp-action="Index">
+        <button id="btn__refresh--products" type="submit" class="btn mb-3 d-inline btn__refresh"
+                title="Refrescar tabla">
+            <img src="~/assets/refresh_black_24dp.svg" alt="Icono de busqueda" />
+        </button>
+    </form>
 </div>
 <hr />
-
 <div class="row">
     <div class="col-12">
         <form id="formAddActivity" method="POST" asp-controller="PersonalBinnacle" asp-action="RegistrarActividad" class="needs-validation" novalidate>
