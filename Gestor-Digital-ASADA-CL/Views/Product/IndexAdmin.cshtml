@@ -1,34 +1,32 @@
-﻿@{
+﻿@model Gestor_Digital_ASADA_CL.Models.ProductViewModel
+@{
     ViewData["Titulo"] = "Gestor de inventario";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
-@model Gestor_Digital_ASADA_CL.Models.ProductViewModel
-
-<h2 class="mt-2">Inventario de productos</h2>
-<hr />
-
-<div class="row">
-    <div class="col col-md-6">
-        <div class="input-group mt-3">
-            <form method="get" asp-controller="Product" asp-action="BuscarProducto" class="needs-validation" novalidate>
-                <div class="input-group">
-                    <input type="search" name="producto" id="producto" class="form-control rounded" placeholder="nombre ó c-código" aria-label="Search"
-                           aria-describedby="search-addon" required />
-                    <div class="invalid-feedback">
-                        Ingresa un valor para buscar
-                    </div>
-                    <button type="submit" class="btn btn-outline-primary ms-1">buscar</button>
-                    <a style="background-color: #6DC7F6;" asp-controller="Product" asp-action="IndexAdmin" class=" btn btn-success ms-1"> <i style="background-color: #6DC7F6;" class="fas fa-sync"></i> </a>
-                </div>
-            </form>  
-        </div>
-    </div>
+<div class="mt-4 mb-2">
+    <h1 class="promo-table__title d-inline me-3">Gestor de inventario</h1>
+    <button id="btn__add--products" class="btn mb-3 d-inline btn__add"
+            data-bs-toggle="modal"
+            data-bs-target="#modalRegistrar"
+            data-bs-placement="right"
+            title="Agregar usuario"
+            onclick="putRolesOnAddModal(); return false;">
+        <img src="~/assets/add_black_24dp.svg" alt="Icono de agregar" />
+    </button>
+    <button id="btn__search--products" class="btn mb-3 d-inline btn__search"
+            data-bs-toggle="modal"
+            data-bs-target="#searchModal"
+            data-bs-placement="right"
+            title="Busqueda de usuarios"
+            onclick="putRolesOnAddModal(); return false;">
+        <img src="~/assets/search_black_24dp.svg" alt="Icono de busqueda" />
+    </button>
+    <button id="btn__refresh--products" class="btn mb-3 d-inline btn__refresh"
+            title="Refrescar tabla" onclick="refreshPage(); return false">
+        <img src="~/assets/refresh_black_24dp.svg" alt="Icono de busqueda" />
+    </button>
 </div>
-
-<button type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrar" class="mb-2 mt-2 btn btn-primary">Agregar nuevo</button>
-<button type="button" data-bs-toggle="modal" data-bs-target="#modalVerInforme" class="mb-2 mt-2 ms-lg-auto btn btn-primary">Ver reportes</button>
-
+<hr />
 @if (ViewBag.resultadoBusqueda != null)
 {
     @if (ViewBag.cantidadResultado != null)
@@ -46,213 +44,196 @@
         </div>
     }
 }
-
-<div class="row table-responsive">
-    <div class="col-12">
-        <table id="table" class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Código</th>
-                    <th> Nombre</th>
-                    <th>Valor unitario</th>
-                    <th>Cantidad</th>
-                    <th>Fecha de ingreso</th>
-                    <th>Descripción</th>
-                    <th>Solic. herramienta</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (ViewBag.products != null)
-                {
-                    @foreach (ProductViewModel temp in ViewBag.products)
+<div>
+    <div class="row table-responsive">
+        <div class="col-12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Valor unitario</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Fecha de ingreso</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyProducts">
+                    @if (ViewBag.products != null)
                     {
-                        <tr>
-                            <td>@temp.CodigoProducto</td>
-                            <td>@temp.NombreProducto</td>
-                            <td>@temp.ValorUnitario</td>
-                            <td>@temp.Cantidad</td>
-                            <td>@temp.FechaIngreso</td>
-                            <td>@temp.Descripcion</td>
-                            <td>
-                                <button class="btn btn-primary" onclick="putOnModalReport(this); return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
-                                    <i class="fas fa-hand-paper"></i>
-                                </button>
-                                <button class="btn btn-info" onclick="putOnModal(this); return false;" data-bs-toggle="modal" data-bs-target="#modalEditar">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-danger" onclick="putOnModalDelete(this); return false;" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        @foreach (ProductViewModel temp in ViewBag.products)
+                        {
+                            <tr>
+                                <td>@temp.CodigoProducto</td>
+                                <td>@temp.NombreProducto</td>
+                                <td>@temp.ValorUnitario</td>
+                                <td>@temp.Cantidad</td>
+                                <td>@temp.FechaIngreso.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                                <td>@temp.Descripcion</td>
+                                <td>
+                                    <button class="btn btn-info" onclick="putOnModalReport(this); return false;" data-bs-toggle="modal" data-bs-target="#modalTomar">
+                                        <i class="fas fa-hand-paper" style="color:#ffff"></i>
+                                    </button>
+                                    <button class="btn  btn-primary" onclick="putOnModal(this); return false;" data-bs-toggle="modal" data-bs-target="#modalEditar">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger" onclick="putOnModalDelete(this); return false;" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
                     }
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
-<div class="modal" id="modalTomar" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="modalTomar" tabindex="-1" aria-labelledby="addModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div style="background-color: #6DC7F6;" class="modal-header">
+            <div class="modal-header">
                 <h5 id="productoSolicitado" class="modal-title"></h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
-            <div class="modal-body">
-                <form method="POST" asp-controller="Product" asp-action="RealizarReporte" class="mt-2 ml-2 p-3 needs-validation" novalidate>
-                    <h5 class="modal-data mt-1">Yo: <span style="color: #6DC7F6;">@this.Context.User.Identity.Name</span></h5>
-                    <div class="form-group">
-                        <label for="taDetalles">Reporto solicitud de:</label>
-                        <input readonly type="text" name="productoS" class="form-control" id="productoS" required>
-                    </div>
-                    <div class="form-group mt-2">
-                        <label for="itStocl">Tomaré la cantidad de: </label>
-                        <input type="number" min="1" name="cantidad" value="" class="form-control" id="stock" placeholder="productos" required>
-                        <div class="invalid-feedback">
-                            Elige una cantidad
+            <form id="formRequestProduct" class="was-validated" asp-controller="Product" asp-action="RealizarReporte">
+                <div class="modal-body">
+                    <div class="container">
+                        <h5 class="modal-data mb-3">Yo: <span style="color: #6DC7F6;">@this.Context.User.Identity.Name</span></h5>
+                        <div class="mb-3">
+                            <label for="productoS" class="form-label">Reporto solicitud del producto</label>
+                            <input id="productoS" class="form-control" type="text" readonly asp-for="CodigoProducto">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputDetail" class="form-label">Tomaré la cantidad de:</label>
+                            <input id="inputDetail" class="form-control is-invalid" type="number" min="1" placeholder="Ingrese la cantidad a retirar" asp-for="Cantidad" required>
+                            <span class="field-validation-error" asp-validation-for="Cantidad"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputDetail" class="form-label">Para la cual:</label>
+                            <textarea id="detalles" class="form-control is-invalid" placeholder="Ingrese el porqué de la solicitud" asp-for="Descripcion" required></textarea>
+                            <span class="field-validation-error" asp-validation-for="Descripcion"></span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="taDetalles">Para la cual:</label>
-                        <textarea class="form-control" id="detalles" name="detalles" style="resize:none; height:5em; width:20em;" placeholder="detalles" required></textarea>
-                        <div class="invalid-feedback">
-                            El detalle es obligatorio
-                        </div>
-                    </div>
-                    <button type="submit" data-bs-toggle="modal" data-bs-target="#modalMensaje" style="background-color: #6DC7F6;" class="btn btn-primary mt-2">Reportar</button>
-                </form>
-            </div>
-            <div style="background-color: #6DC7F6;" class="modal-footer">
-                <button type="button" style="background-color: #313436;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal" id="modalEditar" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div style="background-color: #6DC7F6;" class="modal-header">
-                <h5 class="modal-title">Editar producto</h5>
-            </div>
-            <div class="modal-body">
-                <form method="post" asp-controller="Product" asp-action="EditarProducto" class="mt-2 ml-2 p-3">
-                    <div class="form-group">
-                        <label for="codigo">Código: </label>
-                        <input style="border:0; background-color:#ffffff; outline:none" asp-for="CodigoProducto" readonly id="codigo">
-                        <span class="field-validation-error" asp-validation-for="CodigoProducto"></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="mt-2" for="nombre">Nombre: </label>
-                        <input class="mt-2 form-control" id="nombre" asp-for="NombreProducto">
-                        <span class="field-validation-error" asp-validation-for="NombreProducto"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="cantidad">cantidad: </label>
-                        <input min="1" class="form-control" id="cantidad" asp-for="Cantidad">
-                        <span class="field-validation-error" asp-validation-for="Cantidad"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="valor">valor unitario: </label>
-                        <input class="form-control" id="valor" asp-for="ValorUnitario">
-                        <span class="field-validation-error" asp-validation-for="ValorUnitario"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="fecha">Fecha de ingreso: </label>
-                        <input class="form-control" id="fechaE" asp-for="FechaIngreso">
-                        <span class="field-validation-error" asp-validation-for="FechaIngreso"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="descripcion">Descripción: </label>
-                        <textarea style="resize:none;" class="form-control" id="descripcion" asp-for="Descripcion" rows="3"></textarea>
-                        <span class="field-validation-error" asp-validation-for="Descripcion"></span>
-                    </div>
-                    <button type="submit" data-bs-toggle="modal" data-bs-target="#modalMensaje" style="background-color: #6DC7F6;" class="btn btn-primary mt-2">Guardar cambios</button>
-                </form>
-            </div>
+                </div>
+            </form>
             <div class="modal-footer">
-                <button type="button" style="background-color: #313436;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button id="btn-search" type="submit" class="btn btn-primary" form="formRequestProduct">Agregar</button>
             </div>
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="addModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar información del producto</h5>
+            </div>
+            <form id="formEditModal" class="row g-3 was-validated modal-body" method="post" asp-controller="Product" asp-action="EditarProducto">
+                <div class="col-md-4">
+                    <label for="codigo" class="form-label">Código: </label>
+                    <input class="form-control" asp-for="CodigoProducto" readonly id="codigo">
+                    <span class="field-validation-error" asp-validation-for="CodigoProducto"></span>
+                </div>
+                <div class="col-md-4">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input id="nombre" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre" asp-for="NombreProducto" required>
+                    <span class="field-validation-error" asp-validation-for="NombreProducto"></span>
+                </div>
+                <div class="col-md-4">
+                    <label for="cantidad" class="form-label">Cantidad</label>
+                    <input id="cantidad" class="form-control is-invalid" type="number" min="1" step="1" placeholder="Ingrese la cantidad" asp-for="Cantidad" required>
+                    <span class="field-validation-error" asp-validation-for="Cantidad"></span>
+                </div>
+                <div class="col-12">
+                    <label for="valor" class="form-label">Valor unitario</label>
+                    <input id="valor" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre de usuario" asp-for="ValorUnitario" required>
+                    <span class="field-validation-error" asp-validation-for="ValorUnitario"></span>
+                </div>
+                <div class="col-12">
+                    <label for="fechaE" class="form-label">Fecha de ingreso</label>
+                    <input id="fechaE" class="form-control is-invalid" type="datetime-local" placeholder="Ingrese la fecha de ingreso" asp-for="FechaIngreso" required>
+                    <span class="field-validation-error" asp-validation-for="FechaIngreso"></span>
+                </div>
+                <div class="col-12">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <textarea id="descripcion" class="form-control is-invalid" placeholder="Ingrese la descripción" asp-for="Descripcion" required></textarea>
+                    <span class="field-validation-error" asp-validation-for="Descripcion"></span>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button id="btnAdd" type="submit" class="btn btn-primary" form="formEditModal">Actualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div style="background-color: #6DC7F6;" class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">¿Está seguro que desea eliminar este producto?</h5>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">¿Está seguro de eliminar a este producto?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form method="POST" asp-controller="Product" asp-action="BorrarProducto">
-                    <label for="codigoProducto">El producto de código: </label>
-                    <input style="border:0; background-color:#ffffff; outline:none" readonly id="productCode" name="productCode">
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    </div>         
-                </form>
+            <form id="formDeleteUser" class="modal-body" method="post" asp-controller="Product" asp-action="BorrarProducto">
+                <input id="productCode" type="hidden" name="productCode">
+                <div id="msgContainerDeleteModal"></div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="formDeleteUser">Confirmar eliminación</button>
             </div>
-            
         </div>
     </div>
 </div>
-
-<div class="modal" id="modalRegistrar" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="modalRegistrar" tabindex="-1" aria-labelledby="addModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div style="background-color: #6DC7F6;" class="modal-header">
+            <div class="modal-header">
                 <h5 class="modal-title">Registrar producto</h5>
             </div>
-            <div class="modal-body">
-                <form method="POST" asp-controller="Product" asp-action="RegistrarProducto" class="mt-2 ml-2 p-3">
-                    <div class="form-group">
-                        <label for="codigo">Código: </label>
-                        <input class="form-control" id="codigo" asp-for="CodigoProducto">
-                        <span class="field-validation-error" asp-validation-for="CodigoProducto"></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="mt-2" for="nombre">Nombre: </label>
-                        <input class="mt-2 form-control" id="nombre" asp-for="NombreProducto">
-                        <span class="field-validation-error" asp-validation-for="NombreProducto"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="cantidad">cantidad: </label>
-                        <input min="1" class="form-control" id="cantidad" asp-for="Cantidad">
-                        <span class="field-validation-error" asp-validation-for="Cantidad"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="valor">valor unitario: </label>
-                        <input class="form-control" id="valor" asp-for="ValorUnitario">
-                        <span class="field-validation-error" asp-validation-for="ValorUnitario"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="fecha">Fecha de ingreso: </label>
-                        <input class="form-control" id="fecha" asp-for="FechaIngreso">
-                        <span class="field-validation-error" asp-validation-for="FechaIngreso"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="descripcion">Descripción: </label>
-                        <textarea style="resize:none;" class="form-control" id="descripcion" asp-for="Descripcion" rows="3"></textarea>
-                        <span class="field-validation-error" asp-validation-for="Descripcion"></span>
-                    </div>
-                    <button type="submit" data-bs-toggle="modal" data-bs-target="#modalMensaje" style="background-color: #6DC7F6;" class="btn btn-primary mt-2">Agregar</button>
-                </form>
-            </div>
+            <form id="formAddModal" class="row g-3 was-validated modal-body" method="POST" asp-controller="Product" asp-action="RegistrarProducto">
+                <div class="col-md-4">
+                    <label for="codigo" class="form-label">Codigo</label>
+                    <input id="codigo" class="form-control is-invalid" type="text" placeholder="Ingrese el codigo" asp-for="CodigoProducto" required>
+                    <span class="field-validation-error" asp-validation-for="CodigoProducto"></span>
+                </div>
+                <div class="col-md-4">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input id="nombre" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre" asp-for="NombreProducto" required>
+                    <span class="field-validation-error" asp-validation-for="NombreProducto"></span>
+                </div>
+                <div class="col-md-4">
+                    <label for="cantidad" class="form-label">Cantidad</label>
+                    <input id="cantidad" class="form-control is-invalid" type="number" min="1" step="1" placeholder="Ingrese la cantidad" asp-for="Cantidad" required>
+                    <span class="field-validation-error" asp-validation-for="Cantidad"></span>
+                </div>
+                <div class="col-12">
+                    <label for="valor" class="form-label">Valor unitario</label>
+                    <input id="valor" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre de usuario" asp-for="ValorUnitario" required>
+                    <span class="field-validation-error" asp-validation-for="ValorUnitario"></span>
+                </div>
+                <div class="col-12">
+                    <label for="fecha" class="form-label">Fecha de ingreso</label>
+                    <input id="fecha" class="form-control is-invalid" type="datetime-local" placeholder="Ingrese la fecha de ingreso" asp-for="FechaIngreso" required>
+                    <span class="field-validation-error" asp-validation-for="FechaIngreso"></span>
+                </div>
+                <div class="col-12">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <textarea id="descripcion" class="form-control is-invalid" placeholder="Ingrese la descripción" asp-for="Descripcion" required></textarea>
+                    <span class="field-validation-error" asp-validation-for="Descripcion"></span>
+                </div>
+            </form>
             <div class="modal-footer">
-                <button type="button" style="background-color: #313436;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button id="btnAdd" type="submit" class="btn btn-primary" form="formAddModal">Registrar</button>
             </div>
         </div>
     </div>
 </div>
-
 <div class="modal" id="modalVerInforme" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -287,10 +268,12 @@
                                     }
                                 </tbody>
                             </table>
-                        }else{
+                        }
+                        else
+                        {
                             <h5>No hay reportes realizados</h5>
                         }
-                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -300,15 +283,38 @@
     </div>
 </div>
 
-<script src="~/js/Product.js" asp-append-version="true"></script>
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Busqueda de usuarios</h5>
+            </div>
+            <form id="formSearchModal" class="modal-body was-validated" method="get" asp-controller="Product" asp-action="BuscarProducto">
+                <div class="container">
+                    <div class="mb-3">
+                        <label for="producto" class="form-label">Nombre del trabajador</label>
+                        <input id="producto" class="form-control is-invalid" type="text" placeholder="nombre ó c-código" asp-for="NombreProducto" required>
+                        <span class="field-validation-error" asp-validation-for="NombreProducto"></span>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button id="btn-search" type="submit" class="btn btn-primary" form="formSearchModal">Buscar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section scripts
 {
     <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="~/js/Product.js" asp-append-version="true"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             if ('@ViewBag.ShowModalResponse' === 'True') {
-               createModalResponse("@ViewBag.mensaje");
+               createModalResponse2("@ViewBag.mensaje");
             }
            });
     </script>
