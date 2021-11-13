@@ -35,7 +35,7 @@ const addTask = () => {
             });
         } else {
             $('#addModal').modal('hide');
-            createModalResponse2("Usuario no seleccionado. Intentelo de nuevo");
+            createModalResponse2("Debe seleccionar un usuario.");
         }
     }
 };
@@ -91,8 +91,6 @@ const deleteTask = () => {
 };
 
 const setTasksOnTbodyTask = () => {
-    var tbodyTable = $('#tbodyTask');
-
     $.ajax({
         url: '/Task/GetTasksByUserId',
         type: 'get',
@@ -101,25 +99,7 @@ const setTasksOnTbodyTask = () => {
         },
         dataType: 'json',
         success: function (response) {
-            tbodyTable.empty();
-            if (response.length != 0) {
-                $(".toast").toast('hide');
-                response.forEach(element => {
-                    tbodyTable.append($('<tr>')
-                        .append($('<td>').append(element['idTarea']))
-                        .append($('<td>').append(element['titulo']))
-                        .append($('<td>').append(element['detalles']))
-                        .append($('<td>').append(
-                            $('<button class="btn btn-primary btn-sm my-1 me-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal" onClick="putTaskOnEditModal(this); return false;">'
-                                + 'Modificar <img src="/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class= "my-1"/></button>'
-                            )).append($('<button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal" onClick="getIdTaskDelete(this); return false;">'
-                                + 'Eliminar <img src="/assets/delete_white_18dp.svg" alt="Icono eliminar usuario" class="my-1" /></button>'
-                            )))
-                    )
-                });
-            } else {
-                $(".toast").toast('show');
-            }
+            createTasksTable(response, "Usuarios sin tareas actualmente");
         }
     });
 };
@@ -129,5 +109,54 @@ const refreshTaskTbody = () => {
         setTasksOnTbodyTask();
     } else {
         createModalResponse2('No se ha seleccionado ningun usuario');
+    }
+};
+
+const getTasksByTitle = () => {
+    if ($("#formSearchModal").valid()) {
+        if (userId != null) {
+            $.ajax({
+                url: '/Task/GetTasksByTitle',
+                type: 'get',
+                data: {
+                    "UserId": userId,
+                    "Title": $("#inputTitleSearch").val()
+                },
+                dataType: 'json',
+                success: function (response) {
+                    createTasksTable(response, "Tarea no encontrada");
+                    $('#searchModal').modal('hide');
+                }
+            });
+        } else {
+            $('#searchModal').modal('hide');
+            createModalResponse2("Debe seleccionar un usuario.");
+        }
+    }
+};
+
+const createTasksTable = (response, toastMessage) => {
+    var tbodyTable = $('#tbodyTask');
+
+    tbodyTable.empty();
+    if (response.length != 0) {
+        $(".toast").toast('hide');
+        response.forEach(element => {
+            tbodyTable.append($('<tr>')
+                .append($('<td>').append(element['idTarea']))
+                .append($('<td>').append(element['titulo']))
+                .append($('<td>').append(element['detalles']))
+                .append($('<td>').append(
+                    $('<button class="btn btn-primary btn-sm my-1 me-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal" onClick="putTaskOnEditModal(this); return false;">'
+                        + 'Modificar <img src="/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class= "my-1"/></button>'
+                    )).append($('<button class="btn btn-danger btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#deleteModal" onClick="getIdTaskDelete(this); return false;">'
+                        + 'Eliminar <img src="/assets/delete_white_18dp.svg" alt="Icono eliminar usuario" class="my-1" /></button>'
+                    )))
+            )
+        });
+    } else {
+        $("#toastBody").empty();
+        $("#toastBody").append(toastMessage);
+        $(".toast").toast('show');
     }
 };

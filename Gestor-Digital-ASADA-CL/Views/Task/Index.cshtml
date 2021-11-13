@@ -9,15 +9,6 @@
 <div class="row g-3">
     <div class="col-md-3 mb-3">
         <nav class="card py-2 shadow">
-            <div class="container-fluid">
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Usuario" aria-label="Search">
-                    <button class="btn btn__search"
-                            title="Busqueda de usuarios">
-                        <img src="~/assets/search_black_24dp.svg" alt="Icono de busqueda" />
-                    </button>
-                </form>
-            </div>
             <ul class="nav flex-column text-start">
                 @if (ViewBag.Users != null)
                 {
@@ -110,21 +101,19 @@
             <div class="modal-header">
                 <h5 class="modal-title">Busqueda de tareas</h5>
             </div>
-            <form class="was-validated" method="post" asp-controller="Task" asp-action="Detail">
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="mb-3">
-                            <label for="inputName" class="form-label">Título de tarea</label>
-                            <input id="inputName" class="form-control is-invalid" type="text" placeholder="Ingrese el título de la tarea" asp-for="Titulo" required>
-                            <span class="field-validation-error" asp-validation-for="Titulo"></span>
-                        </div>
+            <form id="formSearchModal" class="modal-body was-validated">
+                <div class="container">
+                    <div class="mb-3">
+                        <label for="inputTitleSearch" class="form-label">Título de tarea</label>
+                        <input id="inputTitleSearch" class="form-control is-invalid" type="text" placeholder="Ingrese el título de la tarea" asp-for="Titulo" required>
+                        <span class="field-validation-error" asp-validation-for="Titulo"></span>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button id="btn-search" type="submit" class="btn btn-primary">Buscar</button>
-                </div>
             </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button id="btn-search" type="button" class="btn btn-primary" onclick="getTasksByTitle(); return false;">Buscar</button>
+            </div>
         </div>
     </div>
 </div>
@@ -181,9 +170,7 @@
             <strong class="me-auto">Mensaje</strong>
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <div class="toast-body">
-            Usuario sin tareas actualmente.
-        </div>
+        <div id="toastBody" class="toast-body"></div>
     </div>
 </div>
 

@@ -53,7 +53,7 @@
                                 <td>@averia.IdAveria</td>
                                 <td>@averia.Afectado</td>
                                 @foreach (SectorViewModel sector in ((IEnumerable<dynamic>)ViewBag.sectores).Where(
-                            x => x.IdSector == averia.IdSector))
+                           x => x.IdSector == averia.IdSector))
                                 {
                                     <td>@sector.NombreSector</td>
                                 }
@@ -62,7 +62,7 @@
                                 <td>@averia.DetallesReporte</td>
                                 <td>@averia.TrabajoEjecutado</td>
                                 @foreach (User user in ((IEnumerable<dynamic>)ViewBag.fontaneros).Where(
-                             x => x.IdUsuario == @averia.AveriaTrabajadors.ToArray()[0].IdTrabajador))
+                            x => x.IdUsuario == @averia.AveriaTrabajadors.ToArray()[0].IdTrabajador))
                                 {
                                     <td>@user.Nombre @user.Apellidos</td>
                                 }

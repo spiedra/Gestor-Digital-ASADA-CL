@@ -78,5 +78,10 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         {
             return Json(JsonConvert.DeserializeObject<List<TaskViewModel>>(Details(UserId).Result));
         }
+
+        [HttpGet]
+        public JsonResult GetTasksByTitle(int UserId, string Title) =>
+            Json(JsonConvert.DeserializeObject<List<TaskViewModel>>(Details(UserId).Result)
+                .Where(x => x.Titulo.ToLower().Contains(Title.ToLower())).ToList());
     }
 }
