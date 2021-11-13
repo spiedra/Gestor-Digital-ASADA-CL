@@ -84,21 +84,19 @@
             <div class="modal-header">
                 <h5 class="modal-title">Busqueda de usuarios</h5>
             </div>
-            <form class="was-validated" method="get" asp-controller="User" asp-action="Details">
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="mb-3">
-                            <label for="" class="form-label">Nombre del trabajador</label>
-                            <input id="" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre del trabajor" asp-for="Nombre" required>
-                            <span class="field-validation-error" asp-validation-for="Nombre"></span>
-                        </div>
+            <form id="formSearchModal" class="modal-body was-validated" method="get" asp-controller="User" asp-action="Details">
+                <div class="container">
+                    <div class="mb-3">
+                        <label for="" class="form-label">Nombre del trabajador</label>
+                        <input id="" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre del trabajor" asp-for="Nombre" required>
+                        <span class="field-validation-error" asp-validation-for="Nombre"></span>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button id="btn-search" type="submit" class="btn btn-primary">Buscar</button>
-                </div>
             </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button id="btn-search" type="submit" class="btn btn-primary" form="formSearchModal">Buscar</button>
+            </div>
         </div>
     </div>
 </div>
@@ -108,7 +106,7 @@
             <div class="modal-header">
                 <h5 class="modal-title">Modificar información del usuario</h5>
             </div>
-            <form id="formEditUserModal" class="row g-3 p-3 was-validated" method="post" asp-controller="User" asp-action="Edit">
+            <form id="formEditUserModal" class="row g-3 was-validated modal-body mx-1" method="post" asp-controller="User" asp-action="Edit">
                 <input id="inputIdUser" class="form-control is-invalid" type="hidden" asp-for="IdUsuario" />
                 <div class="col-md-4">
                     <label for="inputName" class="form-label">Nombre</label>
@@ -140,11 +138,11 @@
                     <select id="selectJobsEditModal" class="form-select" aria-label="Lista puesto" asp-for="RoleName" required></select>
                     <span class="field-validation-error" asp-validation-for="RoleName"></span>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button id="btnEdit" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Actualizar</button>
-                </div>
             </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button id="btnEdit" type="submit" class="btn btn-primary" data-bs-dismiss="modal" form="formEditUserModal">Actualizar</button>
+            </div>
         </div>
     </div>
 </div>
@@ -154,7 +152,7 @@
             <div class="modal-header">
                 <h5 class="modal-title">Registrar un nuevo usuario</h5>
             </div>
-            <form class="row g-3 p-3 was-validated" method="post" asp-controller="User" asp-action="Create">
+            <form id="formAddModal" class="row g-3 was-validated modal-body mx-1" method="post" asp-controller="User" asp-action="Create">
                 <div class="col-md-4">
                     <label for="inputName" class="form-label">Nombre del trabajor</label>
                     <input id="inputName" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre" asp-for="Nombre" required>
@@ -185,11 +183,11 @@
                     <select id="selectJobsAddModal" class="form-select selectJobNames" aria-label="Lista puesto" asp-for="RoleName" required></select>
                     <span class="field-validation-error" asp-validation-for="RoleName"></span>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button id="btnAdd" type="submit" class="btn btn-primary">Registrar</button>
-                </div>
             </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button id="btnAdd" type="submit" class="btn btn-primary" form="formAddModal">Registrar</button>
+            </div>
         </div>
     </div>
 </div>
@@ -200,13 +198,13 @@
                 <h5 class="modal-title" id="exampleModalLabel">¿Está seguro de eliminar a este usuario?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="formDeleteUser" method="post" asp-controller="User" asp-action="Delete">
-                <div id="msgContainerDeleteModal" class="modal-body"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Confirmar eliminación</button>
-                </div>
+            <form id="formDeleteUser" class="modal-body" method="post" asp-controller="User" asp-action="Delete">
+                <div id="msgContainerDeleteModal"></div>
             </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="formDeleteUser">Confirmar eliminación</button>
+            </div>
         </div>
     </div>
 </div>

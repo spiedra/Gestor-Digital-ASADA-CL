@@ -123,8 +123,8 @@
             <div class="modal-header">
                 <h5 class="modal-title">Modificar información de tarea</h5>
             </div>
-            <form id="formEditTask" class="was-validated">
-                <div class="modal-body">
+            <div class="modal-body">
+                <form id="formEditTask" class="was-validated">
                     <div class="container">
                         <div class="mb-3">
                             <label for="inputTitleEdit" class="form-label">Título</label>
@@ -137,12 +137,12 @@
                             <span class="field-validation-error" asp-validation-for="Detalles"></span>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button id="btn-search" type="button" class="btn btn-primary" onclick="updateTaskInformation(); return false;">Actualizar</button>
-                </div>
-            </form>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button id="btn-search" type="button" class="btn btn-primary" onclick="updateTaskInformation(); return false;">Actualizar</button>
+            </div>
         </div>
     </div>
 </div>
