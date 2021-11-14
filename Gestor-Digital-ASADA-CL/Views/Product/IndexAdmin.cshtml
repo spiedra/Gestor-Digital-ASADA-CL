@@ -17,7 +17,14 @@
             data-bs-target="#searchModal"
             data-bs-placement="right"
             title="Busqueda de productos">
-        <img src="~/assets/search_black_24dp.svg" alt="Icono de busqueda" />
+        <img src="~/assets/search_black_24dp.svg" alt="Icono de historial" />
+    </button>
+    <button id="btn__search--history" class="btn mb-3 d-inline btn__search"
+            data-bs-toggle="modal"
+            data-bs-target="#modalVerInforme"
+            data-bs-placement="right"
+            title="Reporte de solicitudes">
+        <img src="~/assets/assessment_black_24dp.svg" alt="Icono de busqueda" />
     </button>
     <button id="btn__refresh--products" class="btn mb-3 d-inline btn__refresh"
             title="Refrescar tabla" onclick="refreshPage(); return false">
@@ -232,7 +239,57 @@
         </div>
     </div>
 </div>
-<div class="modal" id="modalVerInforme" tabindex="-1" role="dialog">
+<div class="modal fade" id="modalVerInforme" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Reporte de inventario</h5>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row table-responsive">
+                        <div class="col-12">
+                            @if (ViewBag.reportes != null)
+                            {
+                                <table class="table table-bordered table-striped table-hover">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th scope="col">Código producto</th>
+                                            <th scope="col">Usuario</th>
+                                            <th scope="col">Cantidad</th>
+                                            <th scope="col">Detalles</th>
+                                            <th scope="col">Fecha</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyHistory">
+                                        @foreach (SolicitudProducto reporte in ViewBag.reportes)
+                                        {
+                                            <tr>
+                                                <td>@reporte.CodigoProducto</td>
+                                                <td> @reporte.NombreUsuario</td>
+                                                <td>@reporte.Cantidad</td>
+                                                <td>@reporte.Detalles</td>
+                                                <td>@reporte.Fecha</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <h5>No hay reportes realizados</h5>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="modal" id="modalVerInforme" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div style="background-color: #6DC7F6;" class="modal-header">
@@ -279,7 +336,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModal" aria-hidden="true">
     <div class="modal-dialog modal-lg">
