@@ -12,7 +12,7 @@ namespace Gestor_Digital_ASADA_CL_API.Models
         public string Titulo { get; set; }
         public string Detalles { get; set; }
         public int IdUsuario { get; set; }
-        public bool? Realizada { get; set; }
+        public Boolean? Realizada { get; set; }
         public bool? IsDelete { get; set; }
 
         public virtual Usuario IdUsuarioNavigation { get; set; }

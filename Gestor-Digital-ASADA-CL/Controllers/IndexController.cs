@@ -47,22 +47,14 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             var response = await httpClient.PostAsync("https://localhost:44358/API/Usuario/IniciarSesion/" + UserViewModel.NombreUsuario + "/" + UserViewModel.Contrasenia, content);
             string action = await response.Content.ReadAsStringAsync();
 
-
-            //según la respuesta valida que tipo de usuario es, y crea una identidad (sesion) en el sistema.
-           
             switch (action)
             {
                 case "1":
-
-                    //creacion de claim de usuario
                     await CreateUserSession(UserViewModel.NombreUsuario, "Admin");
                     return Redirect("~/Home/Index");
-
                 case "2":
-
                     await CreateUserSession(UserViewModel.NombreUsuario, "Fontanero");
                     return Redirect("~/Home/Client/Index");
-
                 default:
                     ViewBag.ShowModalResponse = true;
                     ViewBag.Message = action;
@@ -70,7 +62,8 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             }
         }
 
-        public async Task<bool> CreateUserSession(string NombreUsuario, string Role) {
+        public async Task<bool> CreateUserSession(string NombreUsuario, string Role)
+        {
 
             List<Claim> claims;
             AuthenticationProperties authProperties;
@@ -97,8 +90,8 @@ namespace Gestor_Digital_ASADA_CL.Controllers
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
                 // The time at which the authentication ticket expires.
 
-                
-                IsPersistent =true,
+
+                IsPersistent = true,
                 // Whether the authentication session is persisted across 
                 // multiple requests. When used with cookies, controls
                 // whether the cookie's lifetime is absolute (matching the
@@ -107,7 +100,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
                 //IssuedUtc = <DateTimeOffset>,
                 // The time at which the authentication ticket was issued.
 
-                
+
 
                 //RedirectUri = "~/Index/Index"
                 // The full path or absolute URI to be used as an http 

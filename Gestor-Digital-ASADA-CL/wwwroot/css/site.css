@@ -12,6 +12,12 @@ a {
     color: #0366d6;
 }
 
+.table-wrapper {
+    height: 50vh;
+    overflow: auto;
+    display: inline-block;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;

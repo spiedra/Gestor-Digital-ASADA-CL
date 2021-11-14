@@ -1,0 +1,101 @@
+﻿@model TaskViewModel
+@{
+    ViewData["Titulo"] = "Mis tareas";
+    Layout = "~/Views/Shared/_ClientSiteLayout.cshtml";
+}
+<div class="mt-4 mb-2">
+    <h1 class="promo-table__title d-inline me-3">Mis tareas</h1>
+    <button id="btn__search--user" class="btn mb-3 d-inline btn__search"
+            data-bs-toggle="modal"
+            data-bs-target="#taskHistoryModal"
+            data-bs-placement="right"
+            title="Historial de tareas">
+        <img src="~/assets/task_black_24dp.svg" alt="Icono de historial" />
+    </button>
+</div>
+<hr />
+<div class="row table-responsive">
+    <div class="col-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Titulo</th>
+                    <th scope="col">Detalles</th>
+                    <th scope="col">Acción</th>
+                </tr>
+            </thead>
+            <tbody id="tbodyTask">
+                @if (ViewBag.Tasks != null)
+                {
+                    @foreach (TaskViewModel task in ViewBag.Tasks)
+                    {
+                        <tr>
+                            <td>@task.IdTarea</td>
+                            <td>@task.Titulo</td>
+                            <td>@task.Detalles</td>
+                            <td>
+                                <form method="post" asp-controller="Task" asp-action="CompleteTask">
+                                    <input type="hidden" asp-for="IdTarea" value="@task.IdTarea" />
+                                    <button class="btn btn-primary btn-sm my-1 my-xl-0">
+                                        Marcar como completada
+                                        <img src="~/assets/done_white_18dp.svg" alt="Icono de hecho" class="ms-2 my-1" />
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal fade" id="taskHistoryModal" tabindex="-1" aria-labelledby="taskHistoryModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tareas realizadas</h5>
+            </div>
+            <div class="modal-body table-wrapper">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Titulo</th>
+                            <th scope="col">Detalles</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyTaskHistory">
+                        @if (ViewBag.TasksDone != null)
+                        {
+                            @foreach (TaskViewModel task in ViewBag.TasksDone)
+                            {
+                                <tr>
+                                    <td>@task.IdTarea</td>
+                                    <td>@task.Titulo</td>
+                                    <td>@task.Detalles</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/Product.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+            $(document).ready(function () {
+            if ('@ViewBag.ShowModalResponse' === 'True') {
+               createModalResponse("@ViewBag.Message");
+            }
+           });
+    </script>
+}

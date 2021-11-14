@@ -21,9 +21,13 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return View();
         }
 
-        [Route("Home/Task/Client/Index")]
-        public ActionResult Index1()
+        [Route("Client/Task/Index")]
+        public async Task<ActionResult> IndexClient()
         {
+            int UserId = Int32.Parse(await UserController.GetUserIdByUserName(HttpContext.User.Identity.Name));
+            ViewBag.Tasks = JsonConvert.DeserializeObject<List<TaskViewModel>>(Details(UserId).Result).Where(x => x.Realizada == false);
+            ViewBag.TasksDone = JsonConvert.DeserializeObject<List<TaskViewModel>>(Details(UserId).Result).Where(x => x.Realizada == true);
+            DisplayMessageDynamically();
             return View();
         }
 
@@ -73,6 +77,17 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return Json(await response.Content.ReadAsStringAsync());
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CompleteTask(TaskViewModel taskViewModel)
+        {
+            HttpClient httpClient = new();
+            var response = await httpClient.PostAsync("https://localhost:44358/API/Tarea/CompletarTarea"
+                , new StringContent(JsonConvert.SerializeObject(taskViewModel), Encoding.UTF8, "application/json"));
+            TempData["isShow"] = true;
+            TempData["message"] = await response.Content.ReadAsStringAsync();
+            return RedirectToAction("IndexClient");
+        }
+
         [HttpGet]
         public JsonResult GetTasksByUserId(int UserId)
         {
@@ -83,5 +98,14 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         public JsonResult GetTasksByTitle(int UserId, string Title) =>
             Json(JsonConvert.DeserializeObject<List<TaskViewModel>>(Details(UserId).Result)
                 .Where(x => x.Titulo.ToLower().Contains(Title.ToLower())).ToList());
+
+        private void DisplayMessageDynamically()
+        {
+            if (TempData["isShow"] != null && TempData["message"] != null)
+            {
+                ViewBag.ShowModalResponse = TempData["isShow"];
+                ViewBag.Message = TempData["message"];
+            }
+        }
     }
 }

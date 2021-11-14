@@ -248,10 +248,10 @@
             <div class="modal-body">
                 <div class="container">
                     <div class="row table-responsive">
-                        <div class="col-12">
+                        <div class="col-12 table-wrapper">
                             @if (ViewBag.reportes != null)
                             {
-                                <table class="table table-bordered table-striped table-hover">
+                                <table class="table table-bordered table-striped table-hover nowrap">
                                     <thead class="table-dark">
                                         <tr>
                                             <th scope="col">Código producto</th>
@@ -289,55 +289,6 @@
         </div>
     </div>
 </div>
-@*<div class="modal" id="modalVerInforme" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div style="background-color: #6DC7F6;" class="modal-header">
-                    <h5 class="modal-title">Reporte de inventario</h5>
-                </div>
-                <div class="modal-body">
-                    <div class="row table-responsive">
-                        <div class="col-12">
-                            @if (ViewBag.reportes != null)
-                            {
-                                <table id="table" class="table table-bordered table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Código producto</th>
-                                            <th>Usuario</th>
-                                            <th>Cantidad</th>
-                                            <th>Detalles</th>
-                                            <th>Fecha</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (SolicitudProducto reporte in ViewBag.reportes)
-                                        {
-                                            <tr>
-                                                <td>@reporte.CodigoProducto</td>
-                                                <td> @reporte.NombreUsuario</td>
-                                                <td>@reporte.Cantidad</td>
-                                                <td>@reporte.Detalles</td>
-                                                <td>@reporte.Fecha</td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            }
-                            else
-                            {
-                                <h5>No hay reportes realizados</h5>
-                            }
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" style="background-color: #313436;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                </div>
-            </div>
-        </div>
-    </div>*@
-
 <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModal" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
