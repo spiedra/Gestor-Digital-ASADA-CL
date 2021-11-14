@@ -24,7 +24,7 @@
     <div class="col-12">
         <form id="formAddActivity" method="POST" asp-controller="PersonalBinnacle" asp-action="RegistrarActividad" class="needs-validation" novalidate>
             <label for="note" class="form-label">¿Qué hiciste?</label>
-            <textarea asp-for="Detalle" class="form-control" id="note" rows="3" required></textarea>
+            <textarea asp-for="Detalle" class="form-control" rows="3" required></textarea>
             <div class="invalid-feedback">
                 Anota algo primero
             </div>
@@ -121,7 +121,7 @@
                 <div class="container">
                     <div class="mb-3">
                         <label for="producto" class="form-label">Palabra clave</label>
-                        <input id="producto" class="form-control is-invalid" type="text" placeholder="Ingresa una palabra clave" asp-for="Detalle" required>
+                        <input id="producto" name="Detalle" class="form-control is-invalid" type="text" placeholder="Ingresa una palabra clave" required>
                         <span class="field-validation-error" asp-validation-for="Detalle"></span>
                     </div>
                 </div>

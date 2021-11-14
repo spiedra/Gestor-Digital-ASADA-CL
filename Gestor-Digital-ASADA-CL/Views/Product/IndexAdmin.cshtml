@@ -36,14 +36,14 @@
 {
     @if (ViewBag.cantidadResultado != null)
     {
-        <div class="alert alert-success ">
+        <div class="alert alert-success mt-1 ">
             <button type="button" class="btn close" data-bs-dismiss="alert">&times;</button>
             <strong>Se han encontrado @ViewBag.cantidadResultado resultado(s) sobre '@ViewBag.productoBuscar'</strong>
         </div>
     }
     else
     {
-        <div class="alert alert-warning ">
+        <div class="alert alert-warning mt-1">
             <button type="button" class="btn close" data-bs-dismiss="alert">&times;</button>
             <strong>No se han encontrado resultado(s) sobre '@ViewBag.productoBuscar'</strong>
         </div>
@@ -203,32 +203,32 @@
             <form id="formAddModal" class="row g-3 was-validated modal-body" method="POST" asp-controller="Product" asp-action="RegistrarProducto">
                 <div class="col-md-4">
                     <label for="codigo" class="form-label">Codigo</label>
-                    <input id="codigo" class="form-control is-invalid" type="text" placeholder="Ingrese el codigo" asp-for="CodigoProducto" required>
+                    <input  class="form-control is-invalid" type="text" placeholder="Ingrese el codigo" asp-for="CodigoProducto" required>
                     <span class="field-validation-error" asp-validation-for="CodigoProducto"></span>
                 </div>
                 <div class="col-md-4">
                     <label for="nombre" class="form-label">Nombre</label>
-                    <input id="nombre" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre" asp-for="NombreProducto" required>
+                    <input  class="form-control is-invalid" type="text" placeholder="Ingrese el nombre" asp-for="NombreProducto" required>
                     <span class="field-validation-error" asp-validation-for="NombreProducto"></span>
                 </div>
                 <div class="col-md-4">
                     <label for="cantidad" class="form-label">Cantidad</label>
-                    <input id="cantidad" class="form-control is-invalid" type="number" min="1" step="1" placeholder="Ingrese la cantidad" asp-for="Cantidad" required>
+                    <input  class="form-control is-invalid" type="number" min="1" step="1" placeholder="Ingrese la cantidad" asp-for="Cantidad" required>
                     <span class="field-validation-error" asp-validation-for="Cantidad"></span>
                 </div>
                 <div class="col-12">
                     <label for="valor" class="form-label">Valor unitario</label>
-                    <input id="valor" class="form-control is-invalid" type="text" placeholder="Ingrese el nombre de usuario" asp-for="ValorUnitario" required>
+                    <input  class="form-control is-invalid" type="text" placeholder="Ingrese el valor unitario" asp-for="ValorUnitario" required>
                     <span class="field-validation-error" asp-validation-for="ValorUnitario"></span>
                 </div>
                 <div class="col-12">
                     <label for="fecha" class="form-label">Fecha de ingreso</label>
-                    <input id="fecha" class="form-control is-invalid" type="datetime-local" placeholder="Ingrese la fecha de ingreso" asp-for="FechaIngreso" required>
+                    <input  class="form-control is-invalid" type="datetime-local" placeholder="Ingrese la fecha de ingreso" asp-for="FechaIngreso" required>
                     <span class="field-validation-error" asp-validation-for="FechaIngreso"></span>
                 </div>
                 <div class="col-12">
                     <label for="descripcion" class="form-label">Descripción</label>
-                    <textarea id="descripcion" class="form-control is-invalid" placeholder="Ingrese la descripción" asp-for="Descripcion" required></textarea>
+                    <textarea class="form-control is-invalid" placeholder="Ingrese la descripción" asp-for="Descripcion" required></textarea>
                     <span class="field-validation-error" asp-validation-for="Descripcion"></span>
                 </div>
             </form>
@@ -319,7 +319,7 @@
     <script src="~/js/Product.js" asp-append-version="true"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            if ('@ViewBag.ShowModalResponse' === 'True') {
+            if ('@ViewBag.ShowModalResponse' ==="True") {
                createModalResponse2("@ViewBag.mensaje");
             }
            });

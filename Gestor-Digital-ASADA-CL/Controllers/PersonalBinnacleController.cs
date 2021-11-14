@@ -17,12 +17,22 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         public ActionResult Index1()
         {
             ViewBag.actividades = JsonConvert.DeserializeObject<List<BitacoraViewModel>>(ObtenerActividades().Result);
+            this.DisplayDynamicMessage();
             return View();
         }
         public ActionResult Index()
         {
             ViewBag.actividades= JsonConvert.DeserializeObject<List<BitacoraViewModel>>(ObtenerActividades().Result);
+            this.DisplayDynamicMessage();
             return View();
+        }
+
+        public void DisplayDynamicMessage()
+        {
+            if (TempData["msg"] != null)
+            {
+                ViewBag.EstadoActividad = TempData["msg"];
+            }
         }
 
         [HttpGet]
@@ -30,6 +40,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         {
            List<BitacoraViewModel>listaActividades= JsonConvert.DeserializeObject<List<BitacoraViewModel>>(ObtenerActividades().Result);
             List<BitacoraViewModel> resultadoActividades = listaActividades.Where(b => b.Detalle.ToLower().Contains(Detalle.ToLower())).ToList();
+            
             if (resultadoActividades.Count != 0)
             {
                 ViewBag.actividades = resultadoActividades;
@@ -61,15 +72,14 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             HttpClient httpClient = new HttpClient();
             StringContent content = new StringContent(JsonConvert.SerializeObject(bitacora), Encoding.UTF8, "application/json");
             var response = await httpClient.PostAsync("https://localhost:44358/API/Bitacora/RegistrarActividad",content);
-            ViewBag.EstadoActividad = await response.Content.ReadAsStringAsync();
-            ViewBag.actividades = JsonConvert.DeserializeObject<List<BitacoraViewModel>>(ObtenerActividades().Result);
+            TempData["msg"] = await response.Content.ReadAsStringAsync();
 
             //direccion
             if (HttpContext.User.IsInRole("Admin"))
             {
-                return View("Index");
+                return RedirectToAction("Index");
             }
-            return View("Index1");
+            return RedirectToAction("Index1");
         }
 
         [HttpPost]
@@ -80,14 +90,13 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             HttpClient httpClient = new HttpClient();
             StringContent content = new StringContent(JsonConvert.SerializeObject(bitacora), Encoding.UTF8, "application/json");
             var response = await httpClient.PutAsync("https://localhost:44358/API/Bitacora/ModificarActividad",content);
-            ViewBag.EstadoActividad = await response.Content.ReadAsStringAsync();
-            ViewBag.actividades = JsonConvert.DeserializeObject<List<BitacoraViewModel>>(ObtenerActividades().Result);
+            TempData["msg"] = await response.Content.ReadAsStringAsync();
             //direccion
             if (HttpContext.User.IsInRole("Admin"))
             {
-                return View("Index");
+                return RedirectToAction("Index");
             }
-            return View("Index1");
+            return RedirectToAction("Index1");
         }
 
         [HttpPost]
@@ -96,14 +105,14 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         {
             HttpClient httpClient = new HttpClient();
             var response = await httpClient.DeleteAsync("https://localhost:44358/API/Bitacora/BorrarActividad/"+IdBitacora);
-            ViewBag.EstadoActividad = await response.Content.ReadAsStringAsync();
-            ViewBag.actividades = JsonConvert.DeserializeObject<List<BitacoraViewModel>>(ObtenerActividades().Result);
+            TempData["msg"] = await response.Content.ReadAsStringAsync();
+            
             //direccion
             if (HttpContext.User.IsInRole("Admin"))
             {
-                return View("Index");
+                return RedirectToAction("Index");
             }
-            return View("Index1");
+            return RedirectToAction("Index1");
         }
 
     }

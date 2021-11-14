@@ -17,14 +17,56 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         public ActionResult Index()
         {
             ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
+            this.SearchResult();
+            this.DisplayDynamicMessage();
             return View();
+        }
+
+        public void SearchResult()
+        {
+
+            if (TempData["search"] != null)
+            {
+                ViewBag.resultadoBusqueda = true;
+                var productos = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
+                List<ProductViewModel> resultados;
+
+                if (TempData["action"].ToString().ToLower().Equals("c"))
+                {
+                    ViewBag.productoBuscar = TempData["product"];
+                    resultados = BuscarPorCódigo(productos, TempData["product"].ToString());
+                }
+                else
+                {
+                    ViewBag.productoBuscar = TempData["search"];
+                    resultados = BuscarPorNombre(productos, TempData["search"].ToString());
+                }
+                //informar al usuario sobre la búsqueda
+                if (resultados.Count != 0)
+                {
+                    ViewBag.products = resultados;
+                    ViewBag.cantidadResultado = resultados.Count;
+                }
+            }
+        }
+
+        public void DisplayDynamicMessage()
+        {
+            if (TempData["msg"] != null)
+            {
+                ViewBag.ShowModalResponse = true;
+                ViewBag.mensaje = TempData["msg"];
+            }
         }
         public IActionResult IndexAdmin()
         {
             ViewBag.reportes = JsonConvert.DeserializeObject<List<SolicitudProducto>>(ObtenerReportes().Result);
             ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
+            this.SearchResult();
+            this.DisplayDynamicMessage();
             return View();
         }
+
 
         public async Task<string> ObtenerProductos()
         {
@@ -44,35 +86,27 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         public IActionResult BuscarProducto(string NombreProducto)
         {
             var accion = NombreProducto.Split("-");
-            var productos = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
-            List<ProductViewModel> resultados;
+            TempData["search"]=NombreProducto;
+            TempData["action"]=accion[0];
             ViewBag.resultadoBusqueda = true;
 
             //validar la búsqueda
             if (accion[0].ToLower().Equals("c"))
             {
-                ViewBag.productoBuscar = accion[1];
-                resultados = BuscarPorCódigo(productos, accion[1]);
+                TempData["product"] = accion[1];
             }
             else
             {
-                ViewBag.productoBuscar = NombreProducto;
-                resultados = BuscarPorNombre(productos, NombreProducto);
-            }
-            //informar al usuario sobre la búsqueda
-            if (resultados.Count != 0)
-            {
-                ViewBag.products = resultados;
-                ViewBag.cantidadResultado = resultados.Count;
+                TempData["product"] = NombreProducto;
             }
 
             //direccion
             if (HttpContext.User.IsInRole("Admin"))
             {
-                ViewBag.reportes = JsonConvert.DeserializeObject<List<SolicitudProducto>>(ObtenerReportes().Result);
-                return View("IndexAdmin");
+               
+                return RedirectToAction("IndexAdmin");
             }
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -95,22 +129,19 @@ namespace Gestor_Digital_ASADA_CL.Controllers
                 HttpClient httpClient = new HttpClient();
                 StringContent content = new StringContent(JsonConvert.SerializeObject(solicitud), Encoding.UTF8, "application/json");
                 var response = await httpClient.PostAsync("https://localhost:44358/API/Producto/SolicitarProducto", content);
-                ViewBag.mensaje = await response.Content.ReadAsStringAsync();
+                TempData["msg"] = await response.Content.ReadAsStringAsync();
             }
             else
             {
-                ViewBag.mensaje = "Error. La cantidad solicitada excede la disponible!";
+                TempData["msg"] = "Error. La cantidad solicitada excede la disponible!";
             }
-            ViewBag.ShowModalResponse = "True";
-            ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
 
             //direccion
             if (HttpContext.User.IsInRole("Admin"))
             {
-                ViewBag.reportes = JsonConvert.DeserializeObject<List<SolicitudProducto>>(ObtenerReportes().Result);
-                return View("IndexAdmin");
+                return RedirectToAction("IndexAdmin");
             }
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
         public List<ProductViewModel> BuscarPorCódigo(List<ProductViewModel> productos, string codigo)
@@ -129,11 +160,8 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             HttpClient httpClient = new HttpClient();
             StringContent content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
             var response = await httpClient.PostAsync("https://localhost:44358/API/Producto/RegistrarProducto", content);
-            ViewBag.ShowModalResponse = "True";
-            ViewBag.mensaje = await response.Content.ReadAsStringAsync();
-            ViewBag.reportes = JsonConvert.DeserializeObject<List<SolicitudProducto>>(ObtenerReportes().Result);
-            ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
-            return View("IndexAdmin");
+            TempData["msg"] = await response.Content.ReadAsStringAsync();
+            return RedirectToAction("IndexAdmin");
         }
 
         [HttpPost]
@@ -143,11 +171,8 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             HttpClient httpClient = new HttpClient();
             StringContent content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
             var response = await httpClient.PutAsync("https://localhost:44358/API/Producto/ModificarProducto", content);
-            ViewBag.ShowModalResponse = "True";
-            ViewBag.mensaje = await response.Content.ReadAsStringAsync();
-            ViewBag.reportes = JsonConvert.DeserializeObject<List<SolicitudProducto>>(ObtenerReportes().Result);
-            ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
-            return View("IndexAdmin");
+            TempData["msg"] = await response.Content.ReadAsStringAsync();
+            return RedirectToAction("IndexAdmin");
         }
 
         [HttpPost]
@@ -156,11 +181,8 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             HttpClient httpClient = new HttpClient();
             StringContent content = new StringContent(JsonConvert.SerializeObject(productCode), Encoding.UTF8, "application/json");
             var response = await httpClient.DeleteAsync("https://localhost:44358/API/Producto/BorrarProducto/" + productCode);
-            ViewBag.ShowModalResponse = "True";
-            ViewBag.mensaje = await response.Content.ReadAsStringAsync();
-            ViewBag.reportes = JsonConvert.DeserializeObject<List<SolicitudProducto>>(ObtenerReportes().Result);
-            ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
-            return View("IndexAdmin");
+            TempData["msg"] = await response.Content.ReadAsStringAsync();
+            return RedirectToAction("IndexAdmin");
         }
     }
 }

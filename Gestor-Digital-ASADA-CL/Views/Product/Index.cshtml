@@ -14,7 +14,7 @@
         <div class="input-group mt-3">
             <form method="get" asp-controller="Product" asp-action="BuscarProducto" class="needs-validation" novalidate>
                 <div class="input-group">
-                    <input type="search" name="producto" id="producto" class="form-control rounded" placeholder="nombre ó c-código" aria-label="Search"
+                    <input type="search" name="NombreProducto" id="producto" class="form-control rounded" placeholder="nombre ó c-código" aria-label="Search"
                            aria-describedby="search-addon" required />
                     <div class="invalid-feedback">
                         Ingresa un valor para buscar
@@ -31,14 +31,14 @@
 {
     @if (ViewBag.cantidadResultado != null)
     {
-        <div class="alert alert-success ">
+        <div class="alert alert-success mt-1 ">
             <button type="button" class="btn close" data-bs-dismiss="alert">&times;</button>
             <strong>Se han encontrado @ViewBag.cantidadResultado resultado(s) sobre '@ViewBag.productoBuscar'</strong>
         </div>
     }
     else
     {
-        <div class="alert alert-warning ">
+        <div class="alert alert-warning mt-1 ">
             <button type="button" class="btn close" data-bs-dismiss="alert">&times;</button>
             <strong>No se han encontrado resultado(s) sobre '@ViewBag.productoBuscar'</strong>
         </div>
@@ -98,18 +98,18 @@
                     <h5 class="modal-data mt-1">Yo: <span style="color: #6DC7F6;">@this.Context.User.Identity.Name</span></h5>
                     <div class="form-group">
                         <label for="taDetalles">Reporto solicitud de:</label>
-                        <input readonly type="text" name="productoS" class="form-control" id="productoS" required>
+                        <input readonly type="text" name="CodigoProducto" class="form-control" id="productoS" required>
                     </div>
                     <div class="form-group mt-2">
                         <label for="itStocl">Tomaré la cantidad de: </label>
-                        <input type="number" min="1" name="cantidad" value="" class="form-control" id="stock" placeholder="productos" required>
+                        <input type="number" min="1" name="Cantidad" value="" class="form-control" id="stock" placeholder="productos" required>
                         <div class="invalid-feedback">
                             Elige una cantidad
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="taDetalles">Para la cual:</label>
-                        <textarea class="form-control" id="detalles" name="detalles" style="resize:none; height:5em; width:20em;" placeholder="detalles" required></textarea>
+                        <textarea class="form-control" id="detalles" name="Descripcion" style="resize:none; height:5em; width:20em;" placeholder="detalles" required></textarea>
                         <div class="invalid-feedback">
                             El detalle es obligatorio
                         </div>
