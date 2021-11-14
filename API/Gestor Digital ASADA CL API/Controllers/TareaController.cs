@@ -34,6 +34,23 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             return Ok("Tarea registrada con éxito");
         }
 
+        [HttpPost]
+        [Route("/API/Tarea/CompletarTarea")]
+        public async Task<IActionResult> CompletarTarea(Tarea tarea)
+        {
+            var task = _context.Tareas.Find(tarea.IdTarea);
+            if (task != null)
+            {
+                task.Realizada = true;
+                await _context.SaveChangesAsync();
+                return Ok("Completada");
+            }
+            else
+            {
+                return Ok("Ha ocurrido un error al modificar la tarea. Inténtelo de nuevo");
+            }
+        }
+
         [HttpPut]
         [Route("/API/Tarea/ModificarTarea")]
         public async Task<IActionResult> Edit(Tarea tarea)
