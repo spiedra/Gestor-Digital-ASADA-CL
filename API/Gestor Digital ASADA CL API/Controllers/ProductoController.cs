@@ -81,6 +81,7 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
         {
             var product = db.Productos.Find(codigo);
             db.Productos.Remove(product);
+            db.UsuarioProductos.RemoveRange(db.UsuarioProductos.Where(up => up.CodigoProducto.Equals(codigo)));
             db.SaveChanges();
             return Ok("Producto eliminado con éxito!");
         }
