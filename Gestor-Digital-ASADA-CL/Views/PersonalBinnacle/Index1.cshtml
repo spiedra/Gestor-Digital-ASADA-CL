@@ -15,7 +15,7 @@
         <form method="POST" asp-controller="PersonalBinnacle" asp-action="RegistrarActividad" class="needs-validation" novalidate>
             <div class="form-group">
                 <label for="note">¿Qué hiciste?</label>
-                <textarea asp-for="Detalle" class="form-control" id="note" rows="3" required></textarea>
+                <textarea asp-for="Detalle" class="form-control" rows="3" required></textarea>
                 <div class="invalid-feedback">
                     Anota algo primero
                 </div>
@@ -123,7 +123,7 @@
             <div class="modal-body">
                 <form method="get" asp-controller="PersonalBinnacle" asp-action="BuscarActividad" class="mt-2 ml-2 p-3 needs-validation" novalidate>
                     <div class="input-group">
-                        <input name="palabras" type="search" class="form-control rounded" placeholder="Ingresa una palabra clave" aria-label="Search"
+                        <input name="Detalle" type="search" class="form-control rounded" placeholder="Ingresa una palabra clave" aria-label="Search"
                                aria-describedby="search-addon" required />
                         <div class="invalid-feedback">
                             Agrega una palabra clave
