@@ -81,7 +81,13 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             var userFinded = db.Usuarios.Find(id);
             if (userFinded != null)
             {
-                db.Remove(userFinded);
+                db.AveriaTrabajadors.RemoveRange(db.AveriaTrabajadors.Where(x => x.IdTrabajador == id));
+                db.UsuarioProductos.RemoveRange(db.UsuarioProductos.Where(x => x.IdUsuario == id));
+                db.BitacoraPersonals.RemoveRange(db.BitacoraPersonals.Where(x => x.IdUsuario == id));
+                db.BitacoraPersonals.RemoveRange(db.BitacoraPersonals.Where(x => x.IdUsuario == id));
+                db.CloroResiduals.RemoveRange(db.CloroResiduals.Where(x => x.IdUsuario == id));
+                db.Tareas.RemoveRange(db.Tareas.Where(x => x.IdUsuario == id));
+                db.Usuarios.Remove(userFinded);
                 await db.SaveChangesAsync();
                 return Ok("Usuario eliminado con éxito!");
             }
