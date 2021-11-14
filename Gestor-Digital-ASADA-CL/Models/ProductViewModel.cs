@@ -17,7 +17,7 @@ namespace Gestor_Digital_ASADA_CL.Models
         [Required(ErrorMessage = "La cantidad es requerida")]
         public int Cantidad { get; set; }
         [Required(ErrorMessage = "La fecha es requerida")]
-        public DateTime? FechaIngreso { get; set; }
+        public DateTime FechaIngreso { get; set; }
 
         [Required(ErrorMessage = "La descripción es requerida")]
         public string Descripcion { get; set; }

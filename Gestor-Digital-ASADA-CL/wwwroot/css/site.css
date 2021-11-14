@@ -213,3 +213,11 @@ form__registervaccination {
     width: 100%;
     background: #333;
 }
+
+.btn__anotar {
+    background-color: #6DC7F6 !important;
+}
+
+.btn__anotar:hover {
+   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5) !important;
+}

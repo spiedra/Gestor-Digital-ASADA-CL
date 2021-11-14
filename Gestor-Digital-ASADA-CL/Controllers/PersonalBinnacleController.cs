@@ -26,17 +26,17 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         }
 
         [HttpGet]
-        public ActionResult BuscarActividad(string palabras)
+        public ActionResult BuscarActividad(string Detalle)
         {
            List<BitacoraViewModel>listaActividades= JsonConvert.DeserializeObject<List<BitacoraViewModel>>(ObtenerActividades().Result);
-            List<BitacoraViewModel> resultadoActividades = listaActividades.Where(b => b.Detalle.ToLower().Contains(palabras.ToLower())).ToList();
+            List<BitacoraViewModel> resultadoActividades = listaActividades.Where(b => b.Detalle.ToLower().Contains(Detalle.ToLower())).ToList();
             if (resultadoActividades.Count != 0)
             {
                 ViewBag.actividades = resultadoActividades;
                 ViewBag.cantidadResultado = resultadoActividades.Count;
             }
 
-            ViewBag.palabras = palabras;
+            ViewBag.palabras = Detalle;
 
             //direccion
             if (HttpContext.User.IsInRole("Admin"))

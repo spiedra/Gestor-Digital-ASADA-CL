@@ -21,7 +21,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         }
         public IActionResult IndexAdmin()
         {
-            ViewBag.reportes= JsonConvert.DeserializeObject<List<SolicitudProducto>>(ObtenerReportes().Result);
+            ViewBag.reportes = JsonConvert.DeserializeObject<List<SolicitudProducto>>(ObtenerReportes().Result);
             ViewBag.products = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
             return View();
         }
@@ -41,10 +41,10 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         }
 
         [HttpGet]
-        public IActionResult BuscarProducto(string producto)
+        public IActionResult BuscarProducto(string NombreProducto)
         {
-            var accion = producto.Split("-");
-            var productos= JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
+            var accion = NombreProducto.Split("-");
+            var productos = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result);
             List<ProductViewModel> resultados;
             ViewBag.resultadoBusqueda = true;
 
@@ -52,12 +52,12 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             if (accion[0].ToLower().Equals("c"))
             {
                 ViewBag.productoBuscar = accion[1];
-                resultados= BuscarPorCódigo(productos,accion[1]);
+                resultados = BuscarPorCódigo(productos, accion[1]);
             }
             else
             {
-                ViewBag.productoBuscar = producto;
-                resultados = BuscarPorNombre(productos, producto);
+                ViewBag.productoBuscar = NombreProducto;
+                resultados = BuscarPorNombre(productos, NombreProducto);
             }
             //informar al usuario sobre la búsqueda
             if (resultados.Count != 0)
@@ -77,24 +77,25 @@ namespace Gestor_Digital_ASADA_CL.Controllers
 
         [HttpPost]
         [Route("Product/RealizarReporte")]
-        public async Task<IActionResult> SolicitarProducto(string productoS, int cantidad, string detalles)
+        public async Task<IActionResult> SolicitarProducto(string CodigoProducto, int Cantidad, string Descripcion)
         {
             var producto = JsonConvert.DeserializeObject<List<ProductViewModel>>(ObtenerProductos().Result).Find(
-                p => p.CodigoProducto.Equals(productoS));
+                p => p.CodigoProducto.Equals(CodigoProducto));
 
-            if (producto.Cantidad>=cantidad) {
-            SolicitudProducto solicitud = new SolicitudProducto
+            if (producto.Cantidad >= Cantidad)
             {
-                CodigoProducto = productoS,
-                Cantidad = cantidad,
-                Detalles = detalles,
-                NombreUsuario=HttpContext.User.Identity.Name
-            };
+                SolicitudProducto solicitud = new SolicitudProducto
+                {
+                    CodigoProducto = CodigoProducto,
+                    Cantidad = Cantidad,
+                    Detalles = Descripcion,
+                    NombreUsuario = HttpContext.User.Identity.Name
+                };
 
-            HttpClient httpClient = new HttpClient();
-            StringContent content = new StringContent(JsonConvert.SerializeObject(solicitud), Encoding.UTF8, "application/json");
-            var response = await httpClient.PostAsync("https://localhost:44358/API/Producto/SolicitarProducto", content);
-            ViewBag.mensaje = await response.Content.ReadAsStringAsync();
+                HttpClient httpClient = new HttpClient();
+                StringContent content = new StringContent(JsonConvert.SerializeObject(solicitud), Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync("https://localhost:44358/API/Producto/SolicitarProducto", content);
+                ViewBag.mensaje = await response.Content.ReadAsStringAsync();
             }
             else
             {
@@ -112,7 +113,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return View("Index");
         }
 
-        public List<ProductViewModel> BuscarPorCódigo(List<ProductViewModel> productos,string codigo)
+        public List<ProductViewModel> BuscarPorCódigo(List<ProductViewModel> productos, string codigo)
         {
             return productos.Where(p => p.CodigoProducto.ToLower().Contains(codigo.ToLower())).ToList();
         }
