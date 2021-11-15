@@ -22,16 +22,16 @@
 <hr />
 <div class="row">
     <div class="col-12">
-        <form id="formAddActivity" method="POST" asp-controller="PersonalBinnacle" asp-action="RegistrarActividad" class="needs-validation" novalidate>
+        <form method="POST" asp-controller="PersonalBinnacle" asp-action="RegistrarActividad" class="needs-validation" novalidate>
             <label for="note" class="form-label">¿Qué hiciste?</label>
             <textarea asp-for="Detalle" class="form-control" rows="3" required></textarea>
             <div class="invalid-feedback">
                 Anota algo primero
             </div>
+            <div class="form-group">
+                <button type="submit" class="mt-2 btn btn__anotar">Anotar</button>
+            </div>
         </form>
-        <div class="form-group">
-            <button type="submit" class="mt-2 btn btn__anotar" form="formAddActivity">Anotar</button>
-        </div>
     </div>
 </div>
 
@@ -117,11 +117,11 @@
             <div class="modal-header">
                 <h5 class="modal-title">Busqueda de actividades</h5>
             </div>
-            <form id="formSearchModal" class="modal-body was-validated" method="get" asp-controller="PersonalBinnacle" asp-action="BuscarActividad">
+            <form id="formSearchModal" class="modal-body needs-validation" novalidate method="get" asp-controller="PersonalBinnacle" asp-action="BuscarActividad">
                 <div class="container">
                     <div class="mb-3">
                         <label for="producto" class="form-label">Palabra clave</label>
-                        <input id="producto" name="Detalle" class="form-control is-invalid" type="text" placeholder="Ingresa una palabra clave" required>
+                        <input id="producto" name="Detalle" class="form-control" type="text" placeholder="Ingresa una palabra clave" required>
                         <span class="field-validation-error" asp-validation-for="Detalle"></span>
                     </div>
                 </div>

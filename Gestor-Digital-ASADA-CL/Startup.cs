@@ -31,7 +31,7 @@ namespace Gestor_Digital_ASADA_CL
             .AddCookie(options =>
             {
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                //options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
                 options.LoginPath = "/Index/Index";
                 //options.AccessDeniedPath = "/Error";
                 options.SlidingExpiration = true;
