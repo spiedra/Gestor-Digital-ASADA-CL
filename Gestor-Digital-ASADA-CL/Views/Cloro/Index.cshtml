@@ -2,25 +2,26 @@
     ViewData["Titulo"] = "Gestor de cloro residual";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+@model Gestor_Digital_ASADA_CL.Models.CloroViewModel
 
 <div class="mt-4 mb-2">
     <h1 class="promo-table__title d-inline me-3">Gestor de cloro residual</h1>
-    <button id="btn__insert--user" class="btn btn-dark mb-3 d-inline btn__search"
+    <button id="btn__insert--user" class="btn  mb-3 d-inline btn__add"
             data-bs-toggle="modal"
             data-bs-target="#insertModal"
             data-bs-placement="right"
             title="Registro de averías">
         <img src="~/assets/add_black_24dp.svg" alt="Icono de insertar" />
     </button>
-    <button id="btn__search--user" class="btn btn-dark mb-3 d-inline btn__search"
+    <button id="btn__search--user" class="btn  mb-3 d-inline btn__search"
             data-bs-toggle="modal"
             data-bs-target="#searchModal"
             data-bs-placement="right"
             title="Busqueda de averías">
         <img src="~/assets/search_black_24dp.svg" alt="Icono de busqueda" />
     </button>
-    <button id="btn__refresh--user" class="btn btn-dark mb-3 d-inline btn__search"
-            title="Refrescar tabla">
+    <button id="btn__refresh--user" class="btn  mb-3 d-inline btn__refresh"
+            title="Refrescar tabla" onclick="refreshPage(); return false">
         <img src="~/assets/refresh_black_24dp.svg" alt="Icono de refresh" />
     </button>
 </div>
@@ -41,48 +42,27 @@
                     </tr>
                 </thead>
                 <tbody id="tbodyUserSearch">
-                    <tr>
-                        <td>10/08/2021</td>
-                        <td>10:10</td>
-                        <td>10.5</td>
-                        <td>120</td>
-                        <td>Ana Rosales</td>
-                        <td>Alexis Fonseca</td>
-                        <td>
-                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
-                                Modificar
-                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>28/08/2021</td>
-                        <td>02:40</td>
-                        <td>12.5</td>
-                        <td>233</td>
-                        <td>David Sequeira</td>
-                        <td>Juan Perez</td>
-                        <td>
-                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
-                                Modificar
-                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>24/09/2021</td>
-                        <td>08:00</td>
-                        <td>11</td>
-                        <td>400</td>
-                        <td>Ariana Abadia</td>
-                        <td>Alexis Fonseca</td>
-                        <td>
-                            <button class="btn btn-primary btn-sm my-1 my-xl-0" data-bs-toggle="modal" data-bs-target="#editModal">
-                                Modificar
-                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                            </button>
-                        </td>
-                    </tr>
+                    @if (ViewBag.cloro != null)
+                    {
+                        @foreach (CloroViewModel cloro in ViewBag.cloro)
+                        {
+                            <tr>
+                                <td>@cloro.IdCloroResidual</td>
+                                <td>@cloro.Date</td>
+                                <td>@cloro.Time</td>
+                                <td>@cloro.Percent</td>
+                                <td>@cloro.IdHouse</td>
+                                <td>@cloro.NameC</td>
+                                <td>@cloro.NameE</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm my-1 my-xl-0" onclick="putCloroOnModal(this);" data-bs-toggle="modal" data-bs-target="#editModal">
+                                        Modificar
+                                        <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    }
                 </tbody>
             </table>
         </div>
@@ -108,15 +88,15 @@
                             <label for="inputName" class="form-label">Fecha final</label>
                             <input id="inputName" class="form-control " type="date" required>
                             <div class="invalid-feedback">
-                                Seleccione fecha 
+                                Seleccione fecha
                             </div>
                         </div>
 
                         @*<div class="mb-3">
-                        <label for="inputIdHouse" class="form-label">Número de casa</label>
-                        <input id="inputIdHouse" class="form-control is-invalid" type="text" placeholder="Ingrese el número de casa">
-                    </div>
-                </div>*@
+                                    <label for="inputIdHouse" class="form-label">Número de casa</label>
+                                    <input id="inputIdHouse" class="form-control is-invalid" type="text" placeholder="Ingrese el número de casa">
+                                </div>
+                            </div>*@
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -133,18 +113,21 @@
             <div class="modal-header">
                 <h5 class="modal-title">Modificación de cloro residual</h5>
             </div>
-            <form class="row g-3 p-3 needs-validation" novalidate>
+            <form method="POST" asp-controller="Cloro" asp-action="ModificarCloro" class="row g-3 p-3 needs-validation" novalidate>
+                <input id="inputIdCloro" type="hidden" asp-for="IdCloroResidual" />
                 <div class="col-md-6">
                     <label for="inputDate" class="form-label">Fecha</label>
-                    <input id="inputDate" class="form-control" type="date" required>
+                    <input id="inputDate" class="form-control" type="date" asp-for="Date" required>
+                    <span class="field-validation-error" asp-validation-for="Date"></span>
                     <div class="invalid-feedback">
-                        Ingrese fecha
+                        Ingrese la fecha
                     </div>
 
                 </div>
                 <div class="col-md-6">
                     <label for="inputTime" class="form-label">Hora</label>
-                    <input id="inputTime" class="form-control" type="time" placeholder="Ingrese la hora" required>
+                    <input id="inputTime" class="form-control" type="time" placeholder="Ingrese la hora" asp-for="Time" required>
+                    <span class="field-validation-error" asp-validation-for="Time"></span>
                     <div class="invalid-feedback">
                         Ingrese hora
                     </div>
@@ -152,28 +135,32 @@
                 </div>
                 <div class="col-md-6">
                     <label for="inputPercent" class="form-label">Porcentaje de cloro</label>
-                    <input id="inputPercent" class="form-control" type="number" min="0" step=".01" placeholder="Ingrese el porcentaje" required>
+                    <input id="inputPercent" class="form-control" type="number" min="0" step=".01" placeholder="Ingrese el porcentaje" asp-for="Percent" required>
+                    <span class="field-validation-error" asp-validation-for="Percent"></span>
                     <div class="invalid-feedback">
                         Ingrese porcentaje de cloro
                     </div>
                 </div>
                 <div class="col-6">
                     <label for="inputIdHouse" class="form-label">Número de casa</label>
-                    <input id="inputIdHouse" class="form-control" type="number" placeholder="Ingrese el número" required>
+                    <input id="inputIdHouse" class="form-control" type="number" placeholder="Ingrese el número" asp-for="IdHouse" required>
+                    <span class="field-validation-error" asp-validation-for="IdHouse"></span>
                     <div class="invalid-feedback">
-                       Ingrese número de casa
+                        Ingrese número de casa
                     </div>
                 </div>
                 <div class="col-6">
                     <label for="inputNameC" class="form-label">Nombre del abonado</label>
-                    <input id="inputNameC" class="form-control" type="text" placeholder="Ingrese el nombre" required>
+                    <input id="inputNameC" class="form-control" type="text" placeholder="Ingrese el nombre" asp-for="NameC" required>
+                    <span class="field-validation-error" asp-validation-for="NameC"></span>
                     <div class="invalid-feedback">
                         Ingrese nombre del abonado
                     </div>
                 </div>
                 <div class="col-6">
                     <label for="inputDateE" class="form-label">Nombre del trabajador</label>
-                    <input id="inputDateE" class="form-control" type="text" placeholder="Ingrese el nombre" required>
+                    <input id="inputDateE" class="form-control" type="text" placeholder="Ingrese el nombre" asp-for="NameE" required>
+                    <span class="field-validation-error" asp-validation-for="NameE"></span>
                     <div class="invalid-feedback">
                         Ingrese nombre del trabajador
                     </div>
@@ -192,10 +179,10 @@
             <div class="modal-header">
                 <h5 class="modal-title">Registro de cloro residual</h5>
             </div>
-            <form class="row g-3 p-3 needs-validation" novalidate>
+            <form method="POST" asp-controller="Cloro" asp-action="RegistrarCloro"class="row g-3 p-3 needs-validation" novalidate>
                 <div class="col-md-6">
                     <label for="inputDate" class="form-label">Fecha</label>
-                    <input id="inputDate" class="form-control" type="date" required>
+                    <input id="inputDate" class="form-control" type="date" asp-for="Date" required>
                     <div class="invalid-feedback">
                         Ingrese la fecha
                     </div>
@@ -203,7 +190,8 @@
                 </div>
                 <div class="col-md-6">
                     <label for="inputTime" class="form-label">Hora</label>
-                    <input id="inputTime" class="form-control" type="time" placeholder="Ingrese la hora" required>
+                    <input id="inputTime" class="form-control" type="time" placeholder="Ingrese la hora" asp-for="Time" required>
+                    <span class="field-validation-error" asp-validation-for="Time"></span>
                     <div class="invalid-feedback">
                         Ingrese hora
                     </div>
@@ -211,28 +199,32 @@
                 </div>
                 <div class="col-md-6">
                     <label for="inputPercent" class="form-label">Porcentaje de cloro</label>
-                    <input id="inputPercent" class="form-control" type="number" min="0" step=".01" placeholder="Ingrese el porcentaje" required>
+                    <input id="inputPercent" class="form-control" type="number" min="0" step=".01" placeholder="Ingrese el porcentaje" asp-for="Percent" required>
+                    <span class="field-validation-error" asp-validation-for="Percent"></span>
                     <div class="invalid-feedback">
                         Ingrese porcentaje
                     </div>
                 </div>
                 <div class="col-6">
                     <label for="inputIdHouse" class="form-label">Número de casa</label>
-                    <input id="inputIdHouse" class="form-control" type="number" placeholder="Ingrese el número" required>
+                    <input id="inputIdHouse" class="form-control" type="number" placeholder="Ingrese el número" asp-for="IdHouse" required>
+                    <span class="field-validation-error" asp-validation-for="IdHouse"></span>
                     <div class="invalid-feedback">
                         Ingrese número de casa
                     </div>
                 </div>
                 <div class="col-6">
                     <label for="inputNameC" class="form-label">Nombre del abonado</label>
-                    <input id="inputNameC" class="form-control" type="text" placeholder="Ingrese el nombre" required>
+                    <input id="inputNameC" class="form-control" type="text" placeholder="Ingrese el nombre" asp-for="NameC" required>
+                    <span class="field-validation-error" asp-validation-for="NameC"></span>
                     <div class="invalid-feedback">
                         Ingrese nombre del abonado
                     </div>
                 </div>
                 <div class="col-6">
                     <label for="inputDateE" class="form-label">Nombre del trabajador</label>
-                    <input id="inputDateE" class="form-control" type="text" placeholder="Ingrese el nombre" required>
+                    <input id="inputDateE" class="form-control" type="text" placeholder="Ingrese el nombre" asp-for="NameE" required>
+                    <span class="field-validation-error" asp-validation-for="NameE"></span>
                     <div class="invalid-feedback">
                         Ingrese nombre del trabajador
                     </div>
@@ -245,15 +237,20 @@
         </div>
     </div>
 </div>
-@*@section scripts
-    {
-        <partial name="_ValidationScriptsPartial" />
-        <script type="text/javascript">
-                $(document).ready(function () {
-                if ('@ViewBag.ShowModalResponse' === 'True') {
-                   createModalResponse("@ViewBag.mensaje");
-                }
-               });
-        </script>
-    }*@
+
+
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="~/js/Cloro.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ('@ViewBag.ShowModalResponse' === 'True') {
+                createModalResponse2("@ViewBag.Message");
+            }
+        });
+    </script>
+}
+
 

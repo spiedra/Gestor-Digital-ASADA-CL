@@ -18,7 +18,7 @@
             data-bs-toggle="modal"
             data-bs-target="#searchModal"
             data-bs-placement="right"
-            title="Busqueda de averías">
+            title="Búsqueda de averías">
         <img src="~/assets/search_black_24dp.svg" alt="Icono de busqueda" />
     </button>
     <button id="btn__refresh--user" class="btn mb-3 d-inline btn__refresh"
@@ -49,35 +49,39 @@
                     {
                         @foreach (FaultViewModel averia in ViewBag.averias)
                         {
-                            <tr>
-                                <td>@averia.IdAveria</td>
-                                <td>@averia.Afectado</td>
-                                @foreach (SectorViewModel sector in ((IEnumerable<dynamic>)ViewBag.sectores).Where(
-                           x => x.IdSector == averia.IdSector))
-                                {
-                                    <td>@sector.NombreSector</td>
-                                }
-                                <td>@averia.FechaReporte.ToString("yyyy-MM-dd HH:mm:ss")</td>
-                                <td>@averia.FechaEjecucion.ToString("yyyy-MM-dd HH:mm:ss")</td>
-                                <td>@averia.DetallesReporte</td>
-                                <td>@averia.TrabajoEjecutado</td>
-                                @foreach (User user in ((IEnumerable<dynamic>)ViewBag.fontaneros).Where(
-                            x => x.IdUsuario == @averia.AveriaTrabajadors.ToArray()[0].IdTrabajador))
-                                {
-                                    <td>@user.Nombre @user.Apellidos</td>
-                                }
-                                <td>
-                                    <button class="btn btn-primary btn-sm my-1 my-xl-0 " onclick="putFaultOnModal(this);" data-bs-toggle="modal" data-bs-target="#editModal">
-                                        Modificar
-                                        <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                                    </button>
-                                    <button class="btn btn-danger btn-sm my-1" onclick="createInputHiddenOnDeleteFaultModal(this); return false;"
-                                            data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                        Eliminar
-                                        <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
-                                    </button>
-                                </td>
-                            </tr>
+                    <tr>
+                        <td>@averia.IdAveria</td>
+                        <td>@averia.Afectado</td>
+                        @foreach (SectorViewModel sector in ((IEnumerable<dynamic>)ViewBag.sectores).Where(
+                 x => x.IdSector == averia.IdSector))
+                        {
+                            <td>@sector.NombreSector</td>
+                        }
+                        <td>@averia.FechaReporte.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>@averia.FechaEjecucion.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>@averia.DetallesReporte</td>
+                        <td>@averia.TrabajoEjecutado</td>
+                        @{AveriaTrabajador averiaTrabajador = averia.AveriaTrabajadors.FirstOrDefault();}
+                        @if (averiaTrabajador != null)
+                        {
+                            @foreach (User user in ((IEnumerable<dynamic>)ViewBag.fontaneros).Where(
+                                 x => x.IdUsuario == averiaTrabajador.IdTrabajador))
+                            {
+                                <td>@user.Nombre @user.Apellidos</td>
+                            }
+                        }
+                        <td>
+                            <button class="btn btn-primary btn-sm my-1 my-xl-0" onclick="putFaultOnModal(this);" data-bs-toggle="modal" data-bs-target="#editModal">
+                                Modificar
+                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                            <button class="btn btn-danger btn-sm my-1" onclick="createInputHiddenOnDeleteFaultModal(this); return false;"
+                                    data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                Eliminar
+                                <img src="~/assets/person_remove_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+                        </td>
+                    </tr>
                         }
                     }
                 </tbody>
@@ -155,7 +159,7 @@
                             <option value="">Seleccione el fontanero</option>
                             @foreach (User fontanero in ViewBag.fontaneros)
                             {
-                                <option value="@fontanero.IdUsuario"> @fontanero.Nombre </option>
+                                <option value="@fontanero.IdUsuario"> @fontanero.Nombre @fontanero.Apellidos</option>
                             }
                         }
                     </select>
@@ -184,7 +188,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button id="btn-search" type="submit" class="btn btn-primary">Actualizar</button>
+                    <button id="btn-search" type="submit" class="btn btn-primary">Registrar</button>
                 </div>
             </form>
         </div>

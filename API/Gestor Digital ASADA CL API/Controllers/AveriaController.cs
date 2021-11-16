@@ -10,17 +10,18 @@ using System.Threading.Tasks;
 namespace Gestor_Digital_ASADA_CL_API.Controllers
 {
     [ApiController]
-    [Route ("[controller]")]
+    [Route("[controller]")]
     public class AveriaController : Controller
     {
         GestorDigitalASADACLAYDContext db;
 
-        public AveriaController(GestorDigitalASADACLAYDContext db) {
+        public AveriaController(GestorDigitalASADACLAYDContext db)
+        {
             this.db = db;
         }
 
         [HttpPost]
-        [Route ("/API/Averia/RegistrarAveria")]
+        [Route("/API/Averia/RegistrarAveria")]
         public IActionResult RegistrarAveria([FromBody] FaultViewModel averia)
         {
             Averium averium = new Averium
@@ -40,14 +41,14 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
                 IdTrabajador = averia.IdTrabajador
             });
             db.SaveChanges();
-            return Ok("Avería registrada exitosamente!");
+            return Ok("Avería registrada con éxito");
         }
 
         [HttpGet]
         [Route("/API/Averia/ObtenerFontaneros")]
         public IActionResult ObtenerFontaneros()
         {
-            return Ok(db.Usuarios.ToList().Where(u=>u.IdRole==2).ToList());
+            return Ok(db.Usuarios.ToList().Where(u => u.IdRole == 2).ToList());
         }
 
         [HttpGet]
@@ -84,21 +85,36 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
                 original.FechaReporte = averia.FechaReporte;
                 original.TrabajoEjecutado = averia.TrabajoEjecutado;
                 db.SaveChanges();
-                return Ok("Avería modificada exitosamente!");
+                return Ok("Avería modificada con éxito");
             }
-            return Ok("La avería no ha hizo modificada");
+            return Ok("Ha ocurrido un error al modificar la avería. Inténtelo de nuevo");
         }
         [HttpDelete]
         [Route("/API/Averia/BorrarAveria/{id}")]
         public IActionResult Delete(int id)
         {
-            var averiaTrabajador = db.AveriaTrabajadors.FirstOrDefault(x => x.IdAveria == id);
-            db.AveriaTrabajadors.Remove(averiaTrabajador);
-            db.SaveChanges();
             var averia = db.Averia.Find(id);
-            db.Averia.Remove(averia);
-            db.SaveChanges();
-            return Ok("Avería eliminada exitosamente!");
+            if (averia != null)
+            {
+                db.AveriaTrabajadors.RemoveRange(db.AveriaTrabajadors.Where(x => x.IdTrabajador == id));
+                db.Averia.Remove(averia);
+                db.SaveChanges();
+                return Ok("Avería eliminada con éxito");
+            }
+            else
+            {
+                return Ok("Error al eliminar");
+            }
+            //db.SaveChanges();
+            //var averiaTrabajador = db.AveriaTrabajadors.FirstOrDefault(x => x.IdAveria == id);
+            //db.AveriaTrabajadors.Remove(averiaTrabajador);
+            //db.SaveChanges();
+            //var averia = db.Averia.Find(id);
+            //db.Averia.Remove(averia);
+            //db.SaveChanges();
+            //return Ok("Avería eliminada con éxito");
+
+
         }
     }
 }
