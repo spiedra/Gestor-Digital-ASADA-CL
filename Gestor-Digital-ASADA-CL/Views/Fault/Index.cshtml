@@ -18,7 +18,7 @@
             data-bs-toggle="modal"
             data-bs-target="#searchModal"
             data-bs-placement="right"
-            title="Busqueda de averías">
+            title="Búsqueda de averías">
         <img src="~/assets/search_black_24dp.svg" alt="Icono de busqueda" />
     </button>
     <button id="btn__refresh--user" class="btn mb-3 d-inline btn__refresh"
@@ -158,7 +158,7 @@
                             <option value="">Seleccione el fontanero</option>
                             @foreach (User fontanero in ViewBag.fontaneros)
                             {
-                                <option value="@fontanero.IdUsuario"> @fontanero.Nombre </option>
+                                <option value="@fontanero.IdUsuario"> @fontanero.Nombre @fontanero.Apellidos</option>
                             }
                         }
                     </select>
@@ -187,7 +187,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button id="btn-search" type="submit" class="btn btn-primary">Actualizar</button>
+                    <button id="btn-search" type="submit" class="btn btn-primary">Registrar</button>
                 </div>
             </form>
         </div>
