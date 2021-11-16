@@ -20,40 +20,42 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             this.db = db;
         }
 
-        [HttpGet]
-        [Route("/API/Cloro/ObtenerProductos")]
-        public IActionResult Get()
-        {
-            return Ok(db.Productos.ToList());
-        }
-
         [HttpPost]
         [Route("/API/Cloro/RegistrarCloro")]
-        public IActionResult Post([FromBody] Cloro c)
+        public IActionResult RegistrarCloro([FromBody] Cloro cloro)
         {
-            bool productExists = db.CloroResiduals.ToList().Exists(i => i.IdCloroResidual.ToString().ToLower().Equals(c.IdCloroResidual.ToString().ToLower()));
-            if (productExists)
-            {
-                return Ok("Error! código de cloro existente.");
-            }
-            db.CloroResiduals.Add(c);
+            db.CloroResiduals.Add(cloro);
             db.SaveChanges();
-            return Ok("Registro nuevo agregado en el control de cloro!");
+            return Ok("Datos registrados con éxito");
+        }
+
+        [HttpGet]
+        [Route("/API/Cloro/ObtenerCloro")]
+        public IActionResult ObtenerCloro()
+        {
+            return Ok(db.CloroResiduals.ToList());
         }
 
         [HttpPut]
         [Route("/API/Cloro/ModificarCloro")]
-        public IActionResult Put(Cloro c)
+        public IActionResult Put(Cloro cloro)
         {
-            var original = db.Productos.Find(c.IdCloroResidual);
+            var original = db.CloroResiduals.Find(cloro.IdCloroResidual);
             if (original != null)
             {
-                db.Entry(original).CurrentValues.SetValues(c);
+                db.Entry(original).CurrentValues.SetValues(cloro);
                 db.SaveChanges();
             }
-            return Ok("Registro modificado con éxito!");
+            return Ok("Datos modificados con éxito");
         }
 
-       
+        [HttpGet]
+        [Route("/API/Cloro/ObtenerFontaneros")]
+        public IActionResult ObtenerFontaneros()
+        {
+            return Ok(db.Usuarios.ToList().Where(u => u.IdRole == 2).ToList());
+        }
+
+
     }
 }
