@@ -92,12 +92,17 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         {
             if (TempData["startDate"] != null && TempData["endDate"] != null)
             {
-                ViewBag.Collections = JsonConvert.DeserializeObject<List<DailyCollectionViewModel>>(Details().Result)
-                    .Where(x => x.FechaRecaudacion >= (DateTime)TempData["startDate"] && x.FechaRecaudacion <= (DateTime)TempData["endDate"]);
-                if (ViewBag.Collections == null)
+                List<DailyCollectionViewModel> collections = JsonConvert.DeserializeObject<List<DailyCollectionViewModel>>(Details().Result)
+                    .Where(x => x.FechaRecaudacion >= (DateTime)TempData["startDate"] && x.FechaRecaudacion <= (DateTime)TempData["endDate"]).ToList();
+                if (collections.Count == 0)
                 {
+                    ViewBag.Collections = JsonConvert.DeserializeObject<List<DailyCollectionViewModel>>(Details().Result);
                     ViewBag.ShowModalResponse = true;
                     ViewBag.Message = "Recaudaciones no encontradas. Inténtelo de nuevo";
+                }
+                else
+                {
+                    ViewBag.Collections = collections;
                 }
             }
             else
