@@ -32,6 +32,6 @@ namespace Gestor_Digital_ASADA_CL.Models
         public string TrabajoEjecutado { get; set; }
         public bool? IsDelete { get; set; }
 
-        public virtual ICollection<AveriaTrabajador> AveriaTrabajadors { get; set; }
+        public ICollection<AveriaTrabajador> AveriaTrabajadors { get; set; }
     }
 }

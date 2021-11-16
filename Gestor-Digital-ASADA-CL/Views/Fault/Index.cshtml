@@ -52,8 +52,7 @@
                             <tr>
                                 <td>@averia.IdAveria</td>
                                 <td>@averia.Afectado</td>
-                                @foreach (SectorViewModel sector in ((IEnumerable<dynamic>)ViewBag.sectores).Where(
-                           x => x.IdSector == averia.IdSector))
+                                @foreach (SectorViewModel sector in ((IEnumerable<dynamic>)ViewBag.sectores).Where(x => x.IdSector == averia.IdSector))
                                 {
                                     <td>@sector.NombreSector</td>
                                 }
@@ -61,10 +60,14 @@
                                 <td>@averia.FechaEjecucion.ToString("yyyy-MM-dd HH:mm:ss")</td>
                                 <td>@averia.DetallesReporte</td>
                                 <td>@averia.TrabajoEjecutado</td>
-                                @foreach (User user in ((IEnumerable<dynamic>)ViewBag.fontaneros).Where(
-                            x => x.IdUsuario == @averia.AveriaTrabajadors.ToArray()[0].IdTrabajador))
+                                @{AveriaTrabajador averiaTrabajador = averia.AveriaTrabajadors.FirstOrDefault();}
+                                @if (averiaTrabajador != null)
                                 {
-                                    <td>@user.Nombre @user.Apellidos</td>
+                                    @foreach (User user in ((IEnumerable<dynamic>)ViewBag.fontaneros).Where(
+                                          x => x.IdUsuario == averiaTrabajador.IdTrabajador))
+                                    {
+                                        <td>@user.Nombre @user.Apellidos</td>
+                                    }
                                 }
                                 <td>
                                     <button class="btn btn-primary btn-sm my-1 my-xl-0 " onclick="putFaultOnModal(this);" data-bs-toggle="modal" data-bs-target="#editModal">
