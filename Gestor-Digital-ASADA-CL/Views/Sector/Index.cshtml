@@ -77,10 +77,10 @@
                         <div class="mb-3">
                             <label for="selectSector" class="form-label">Sector</label>
                             <select class="form-select" aria-label="Sectores" asp-for="IdSector">
-                                @if (ViewBag.sectores != null)
+                                @if (ViewBag.Allsectores != null)
                                 {
                                     <option value="">Seleccione el sector</option>
-                                    @foreach (SectorViewModel sector in ViewBag.sectores)
+                                    @foreach (SectorViewModel sector in ViewBag.Allsectores)
                                     {
                                         <option value="@sector.IdSector">@sector.NombreSector</option>
                                     }

@@ -78,6 +78,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         }
         private void DisplaySectorInformation()
         {
+            List<SectorViewModel> sectores = JsonConvert.DeserializeObject<List<SectorViewModel>>(ObtenerSectores().Result);
             if (TempData["idSector"] != null)
             {
                 List<SectorViewModel> sector = JsonConvert.DeserializeObject<List<SectorViewModel>>(ObtenerSectores().Result)
@@ -94,10 +95,9 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             }
             else
             {
-                ViewBag.sectores = JsonConvert.DeserializeObject<List<SectorViewModel>>(ObtenerSectores().Result);
+                ViewBag.sectores = sectores;
             }
+            ViewBag.Allsectores = sectores;
         }
-
-
     }
 }

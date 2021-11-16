@@ -18,7 +18,7 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             this.db = db;
         }
 
-       [HttpPost]
+        [HttpPost]
         [Route("/API/Sector/RegistrarSector")]
         public IActionResult RegistrarSector([FromBody] Sector sector)
         {
@@ -51,20 +51,23 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
         [Route("/API/Sector/BorrarSector/{id}")]
         public IActionResult Delete(int id)
         {
-
-
             var sector = db.Sectors.Find(id);
-            db.Sectors.Remove(sector);
-            db.SaveChanges();
-            var averiaSector = db.Averia.FirstOrDefault(x => x.IdSector == id);
-            db.Averia.Remove(averiaSector);
-            db.SaveChanges();
-            return Ok("Sector eliminado con éxito");
-
-
+            if (sector != null)
+            {
+                IEnumerable<Averium> averia = db.Averia.ToList().Where(x => x.IdSector == id);
+                foreach (Averium a in averia)
+                {
+                    db.AveriaTrabajadors.RemoveRange(db.AveriaTrabajadors.Where(x => x.IdAveria == a.IdAveria));
+                }
+                db.Averia.RemoveRange(db.Averia.Where(x => x.IdSector == id));
+                db.Sectors.Remove(sector);
+                db.SaveChanges();
+                return Ok("Sector eliminado con éxito");
+            }
+            else
+            {
+                return Ok("Ha ocurrido un error al eliminar el sector. Inténtelo de nuevo");
+            }
         }
-
-
-
     }
 }
