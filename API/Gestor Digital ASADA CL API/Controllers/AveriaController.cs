@@ -103,16 +103,9 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             }
             else
             {
-                return Ok("Error al eliminar");
+                return Ok("Ha ocurrido un error al eliminar la avería. Inténtelo de nuevo");
             }
-            //db.SaveChanges();
-            //var averiaTrabajador = db.AveriaTrabajadors.FirstOrDefault(x => x.IdAveria == id);
-            //db.AveriaTrabajadors.Remove(averiaTrabajador);
-            //db.SaveChanges();
-            //var averia = db.Averia.Find(id);
-            //db.Averia.Remove(averia);
-            //db.SaveChanges();
-            //return Ok("Avería eliminada con éxito");
+            
 
 
         }

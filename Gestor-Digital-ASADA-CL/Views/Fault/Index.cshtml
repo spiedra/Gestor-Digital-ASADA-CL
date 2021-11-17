@@ -110,9 +110,7 @@
                                 }
                             </select>
                             <span class="field-validation-error" asp-validation-for="IdSector"></span>
-                            <div class="invalid-feedback">
-                                Debe seleccionar un sector
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -130,7 +128,7 @@
             <div class="modal-header">
                 <h5 class="modal-title">Registro de avería</h5>
             </div>
-            <form class="row g-3 p-3 was-validated" method="POST" asp-controller="Fault" asp-action="RegistrarAveria" novalidate>
+            <form class="row g-3 p-3 needs-validation" method="POST" asp-controller="Fault" asp-action="RegistrarAveria" novalidate>
                 <div class="col-md-4">
                     <label for="inputFaultName" class="form-label">Nombre del abonado</label>
                     <input id="inputFaultName" class="form-control" type="text" placeholder="Ingrese el nombre del abonado" asp-for="Afectado" required>
@@ -155,7 +153,7 @@
                     <select class="form-select" aria-label="NombreTrabajador" asp-for="IdTrabajador" required>
                         @if (ViewBag.fontaneros != null)
                         {
-                            <option value="">Seleccione el fontanero</option>
+                            <option value="">Seleccione el trabajador</option>
                             @foreach (User fontanero in ViewBag.fontaneros)
                             {
                                 <option value="@fontanero.IdUsuario"> @fontanero.Nombre @fontanero.Apellidos</option>
@@ -225,10 +223,10 @@
                     <select class="form-select" aria-label="NombreTrabajador" asp-for="IdTrabajador" required>
                         @if (ViewBag.fontaneros != null)
                         {
-                            <option value="">Seleccione el fontanero</option>
+                            <option value="">Seleccione el trabajador</option>
                             @foreach (User fontanero in ViewBag.fontaneros)
                             {
-                                <option value="@fontanero.IdUsuario"> @fontanero.Nombre </option>
+                    <option value="@fontanero.IdUsuario"> @fontanero.Nombre @fontanero.Apellidos </option>
                             }
                         }
                     </select>

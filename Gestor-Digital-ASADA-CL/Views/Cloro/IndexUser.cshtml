@@ -1,0 +1,273 @@
+﻿@{
+    ViewData["Titulo"] = "Gestor de cloro residual";
+    Layout = "~/Views/Shared/_ClientSiteLayout.cshtml";
+}
+@model Gestor_Digital_ASADA_CL.Models.CloroViewModel
+<div class="mt-4 mb-2">
+    <h1 class="promo-table__title d-inline me-3">Gestor de cloro residual</h1>
+    <button id="btn__insert--user" class="btn  mb-3 d-inline btn__add"
+            data-bs-toggle="modal"
+            data-bs-target="#modalInsertar"
+            data-bs-placement="right"
+            title="Registro de averías">
+        <img src="~/assets/add_black_24dp.svg" alt="Icono de insertar" />
+    </button>
+    <button id="btn__search--user" class="btn  mb-3 d-inline btn__search"
+            data-bs-toggle="modal"
+            data-bs-target="#modalBuscar"
+            data-bs-placement="right"
+            title="Busqueda de averías">
+        <img src="~/assets/search_black_24dp.svg" alt="Icono de busqueda" />
+    </button>
+    <button id="btn__refresh--user" class="btn  mb-3 d-inline btn__refresh"
+            title="Refrescar tabla" onclick="refreshPage(); return false">
+        <img src="~/assets/refresh_black_24dp.svg" alt="Icono de refresh" />
+    </button>
+</div>
+
+<hr />
+
+<div class="row table-responsive">
+    <div class="col-12 mt-3">
+        <table id="table" class="table table-hover">
+            <thead>
+                <tr>
+
+                    <th>#</th>
+                    <th>Fecha y hora</th>
+                    <th>Porcentaje de cloro</th>
+                    <th>Número de casa</th>
+                    <th>Nombre del abonado</th>
+                    <th>Nombre del trabajador</th>
+                    <th>Detalles</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.cloro != null)
+                {
+                @foreach (CloroViewModel cloro in ViewBag.cloro)
+                {
+                <tr>
+                    <td>@cloro.IdCloroResidual</td>
+                    <td>@cloro.Fecha.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    <td>@cloro.PorcentajeCloro</td>
+                    <td>@cloro.NumeroCasa</td>
+                    <td>@cloro.NombreCliente</td>
+
+                    @foreach (User user in ((IEnumerable
+                    <dynamic>
+                        )ViewBag.fontaneros).Where(x => x.IdUsuario == cloro.IdUsuario))
+                        {
+                        <td>@user.Nombre @user.Apellidos</td>
+                        }
+                        <td>@cloro.Detalles</td>
+                        
+                        <td>
+                            <button class="btn btn-primary" onclick="putCloroOnModal(this);" data-bs-toggle="modal" data-bs-target="#modalEditar">
+                                Editar
+                                <img src="~/assets/edit_white_18dp.svg" alt="Icono eliminar usuario" class="ms-2 my-1" />
+                            </button>
+
+                        </td>
+                </tr>
+                }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@***********************BUSCAR***************************@
+<div class="modal" id="modalBuscar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div style="background-color: #6DC7F6;" class="modal-header">
+                <h5 class="modal-title">Búsqueda de cloro residual</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="get" asp-controller="Cloro" asp-action="BuscarCloroPorFecha" id="formSearch" class="mt-2 ml-2 p-3 needs-validation" novalidate>
+                    <div class="input-group">
+                        <div class="mb-3">
+                            <label for="inputName" class="form-label">Fecha inicial</label>
+                            <input id="inputName" class="form-control is-invalid" type="datetime-local" asp-for="Fecha1">
+                            <span class="field-validation-error" asp-validation-for="Fecha1"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputName" class="form-label">Fecha final</label>
+                            <input id="inputName" class="form-control is-invalid" type="datetime-local" asp-for="FechaFinal">
+                            <span class="field-validation-error" asp-validation-for="FechaFinal"></span>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button form="formSearch" type="submit" class="btn-search btn btn-outline-primary">Buscar</button>
+                <button type="button" style="background-color: #313436;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@***********************EDITAR************************************@
+<div class="modal" id="modalEditar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div style="background-color: #6DC7F6;" class="modal-header">
+                <h5 class="modal-title">Modificar cloro residual</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" asp-controller="Cloro" asp-action="ModificarCloro" id="formEdit" class="mt-2 ml-2 p-3 needs-validation" novalidate>
+                    <div class="form-group">
+                        <input id="inputIdCloro" type="hidden" asp-for="IdCloroResidual" />
+                        <div class="col-md-6">
+                            <label for="inputDate" class="form-label">Fecha y hora</label>
+                            <input id="inputDate" class="form-control" type="datetime-local" asp-for="Fecha" required>
+                            <span class="field-validation-error" asp-validation-for="Fecha"></span>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputPercent" class="form-label">Porcentaje de cloro</label>
+                            <input id="inputPercent" class="form-control" type="number" min="0" step=".01" placeholder="Ingrese el porcentaje" asp-for="PorcentajeCloro" required>
+                            <span class="field-validation-error" asp-validation-for="PorcentajeCloro"></span>
+
+                        </div>
+                        <div class="col-6">
+                            <label for="inputIdHouse" class="form-label">Número de casa</label>
+                            <input id="inputIdHouse" class="form-control" type="number" placeholder="Ingrese el número" asp-for="NumeroCasa" required>
+                            <span class="field-validation-error" asp-validation-for="NumeroCasa"></span>
+
+                        </div>
+                        <div class="col-6">
+                            <label for="inputNameC" class="form-label">Nombre del abonado</label>
+                            <input id="inputNameC" class="form-control" type="text" placeholder="Ingrese el nombre" asp-for="NombreCliente" required>
+                            <span class="field-validation-error" asp-validation-for="NombreCliente"></span>
+
+                        </div>
+                        <div class="col-6">
+                            <label for="inputNameE" class="form-label">Nombre del trabajador</label>
+                            <select id="inputNameE" class="form-select sedit" aria-label="NombreTrabajador" asp-for="IdUsuario" required>
+                                @if (ViewBag.fontaneros != null)
+                                {
+                                <option value="fonta" >Seleccione el fontanero</option>
+                                @foreach (User fontanero in ViewBag.fontaneros)
+                                {
+                                <option value="@fontanero.IdUsuario"> @fontanero.Nombre @fontanero.Apellidos</option>
+                                }
+                                }
+                            </select>
+                            <span class="field-validation-error" asp-validation-for="IdUsuario"></span>
+                        </div>
+                        <div class="col-6">
+                            <label for="inputDetails" class="form-label">Detalles</label>
+                            <textarea class="form-control" id="inputDetails" rows="2" placeholder="Ingrese detalles del reporte" asp-for="Detalles" required></textarea>
+                            <span class="field-validation-error" asp-validation-for="Detalles"></span>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" form="formEdit" data-bs-toggle="modal" data-bs-target="#modalMensaje" style="background-color: #6DC7F6;" class="btn btn-primary mt-2">Guardar cambios</button>
+
+                <button type="button" style="background-color: #313436;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@***************************************Insertar***************************************@
+<div class="modal" id="modalInsertar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div style="background-color: #6DC7F6;" class="modal-header">
+                <h5 class="modal-title">Registrar cloro residual</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" asp-controller="Cloro" asp-action="RegistrarCloro" id="formR" class="mt-2 ml-2 p-3 needs-validation" novalidate>
+                    <div class="form-group">
+                        <input id="inputIdCloro" type="hidden" asp-for="IdCloroResidual" />
+                        <div class="col-md-6">
+                            <label for="inputDate" class="form-label">Fecha y hora</label>
+                            <input id="inputDate" class="form-control" type="datetime-local" asp-for="Fecha" required>
+                            <span class="field-validation-error" asp-validation-for="Fecha"></span>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputPercent" class="form-label">Porcentaje de cloro</label>
+                            <input id="inputPercent" class="form-control" type="number" min="0" step=".01" placeholder="Ingrese el porcentaje" asp-for="PorcentajeCloro" required>
+                            <span class="field-validation-error" asp-validation-for="PorcentajeCloro"></span>
+                           
+                        </div>
+                        <div class="col-6">
+                            <label for="inputIdHouse" class="form-label">Número de casa</label>
+                            <input id="inputIdHouse" class="form-control" type="number" placeholder="Ingrese el número" asp-for="NumeroCasa" required>
+                            <span class="field-validation-error" asp-validation-for="NumeroCasa"></span>
+                            
+                        </div>
+                        <div class="col-6">
+                            <label for="inputNameC" class="form-label">Nombre del abonado</label>
+                            <input id="inputNameC" class="form-control" type="text" placeholder="Ingrese el nombre" asp-for="NombreCliente" required>
+                            <span class="field-validation-error" asp-validation-for="NombreCliente"></span>
+                            
+                        </div>
+                        <div class="col-6">
+                            <label for="inputName" class="form-label">Nombre del trabajador</label>
+                            <select class="form-select" aria-label="NombreTrabajador" asp-for="IdUsuario" required>
+                                @if (ViewBag.fontaneros != null)
+                                {
+                                <option value="">Seleccione el fontanero</option>
+                                @foreach (User fontanero in ViewBag.fontaneros)
+                                {
+                                <option value="@fontanero.IdUsuario"> @fontanero.Nombre @fontanero.Apellidos</option>
+                                }
+                                }
+                            </select>
+                            <span class="field-validation-error" asp-validation-for="IdUsuario"></span>
+                        </div>
+                        <div class="col-6">
+                            <label for="inputDetails" class="form-label">Detalles</label>
+                            <textarea class="form-control" id="note" rows="2" placeholder="Ingrese detalles del reporte" asp-for="Detalles" required></textarea>
+                            <span class="field-validation-error" asp-validation-for="Detalles"></span>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="formR" data-bs-toggle="modal" data-bs-target="#modalMensaje" style="background-color: #6DC7F6;" class="btn btn-primary mt-2">Registrar</button>
+
+
+                <button type="button" style="background-color: #313436;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@section scripts
+{
+<partial name="_ValidationScriptsPartial" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="~/js/Cloro.js" asp-append-version="true"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ('@ViewBag.ShowModalResponse' === 'True') {
+            createModalResponse2("@ViewBag.Message");
+        }
+    });
+</script>
+}
