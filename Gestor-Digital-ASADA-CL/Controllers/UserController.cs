@@ -29,7 +29,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(User user)
+        public IActionResult Details(User user)
         {
             TempData["name"] = user.Nombre;
             return RedirectToAction("Index");
@@ -116,6 +116,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
                 }
                 else
                 {
+                    ViewBag.Users = JsonConvert.DeserializeObject<List<User>>(Details().Result);
                     ViewBag.ShowModalResponse = true;
                     ViewBag.Message = "Usuario no encontrado. Inténtelo de nuevo";
                 }

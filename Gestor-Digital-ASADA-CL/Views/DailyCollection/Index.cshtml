@@ -84,16 +84,16 @@
             <div class="modal-header">
                 <h5 class="modal-title">Busqueda de recaudaciones diarias</h5>
             </div>
-            <form id="formSearchModal" class="was-validated modal-body" method="get" asp-controller="DailyCollection" asp-action="GetCollectionsByDateRange">
+            <form id="formSearchModal" class="needs-validation modal-body" method="get" asp-controller="DailyCollection" asp-action="GetCollectionsByDateRange">
                 <div class="container">
                     <div class="mb-3">
                         <label for="inputName" class="form-label">Fecha inicial</label>
-                        <input id="inputName" class="form-control is-invalid" type="datetime-local" asp-for="FechaRecaudacion" required>
+                        <input id="inputName" class="form-control" type="datetime-local" asp-for="FechaRecaudacion" required>
                         <span class="field-validation-error" asp-validation-for="FechaRecaudacion"></span>
                     </div>
                     <div class="mb-3">
                         <label for="inputName" class="form-label">Fecha final</label>
-                        <input id="inputName" class="form-control is-invalid" type="datetime-local" asp-for="FechaRecaudacionFinal" required>
+                        <input id="inputName" class="form-control" type="datetime-local" asp-for="FechaRecaudacionFinal" required>
                         <span class="field-validation-error" asp-validation-for="FechaRecaudacionFinal"></span>
                     </div>
                 </div>
@@ -111,8 +111,8 @@
             <div class="modal-header">
                 <h5 class="modal-title">Modificación de información de recaudación diaria</h5>
             </div>
-            <form id="formEditModal" class="row g-3 was-validated modal-body mx-1" method="post" asp-controller="DailyCollection" asp-action="Edit">
-                <input id="inputIdCollection" class="form-control is-invalid" type="hidden" asp-for="IdRecaudacion" />
+            <form id="formEditModal" class="row g-3 needs-validation modal-body mx-1" method="post" asp-controller="DailyCollection" asp-action="Edit">
+                <input id="inputIdCollection" class="form-control" type="hidden" asp-for="IdRecaudacion" />
                 <div class="col-md-4">
                     <label for="inputCash" class="form-label">Efectivo</label>
                     <input id="inputCash" class="form-control" type="number" min="0" step=".01" placeholder="Cantidad de efectivo" asp-for="CantidadEfectivo" required>
@@ -167,7 +167,7 @@
             <div class="modal-header">
                 <h5 class="modal-title">Registrar recaudación diaria</h5>
             </div>
-            <form id="formAddModal" class="row g-3 was-validated modal-body mx-1" method="post" asp-controller="DailyCollection" asp-action="Create">
+            <form id="formAddModal" class="row g-3 needs-validation modal-body mx-1" method="post" asp-controller="DailyCollection" asp-action="Create">
                 <div class="col-md-4">
                     <label for="inputCash" class="form-label">Efectivo</label>
                     <input id="inputCash" class="form-control" type="number" min="0" step=".01" placeholder="Cantidad de efectivo" asp-for="CantidadEfectivo" required>

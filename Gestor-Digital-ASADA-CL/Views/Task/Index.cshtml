@@ -71,17 +71,17 @@
             <div class="modal-header">
                 <h5 class="modal-title">Agregar tarea</h5>
             </div>
-            <form id="formAddTask" class="was-validated">
+            <form id="formAddTask" class="needs-validation">
                 <div class="modal-body">
                     <div class="container">
                         <div class="mb-3">
                             <label for="inputTitle" class="form-label">Título</label>
-                            <input id="inputTitle" class="form-control is-invalid" type="text" placeholder="Ingrese el título de la tarea" asp-for="Titulo" required>
+                            <input id="inputTitle" class="form-control" type="text" placeholder="Ingrese el título de la tarea" asp-for="Titulo" required>
                             <span class="field-validation-error" asp-validation-for="Titulo"></span>
                         </div>
                         <div class="mb-3">
                             <label for="inputDetail" class="form-label">Detalle</label>
-                            <input id="inputDetail" class="form-control is-invalid" type="text" placeholder="Ingrese el detalle de la tarea" asp-for="Detalles" required>
+                            <input id="inputDetail" class="form-control" type="text" placeholder="Ingrese el detalle de la tarea" asp-for="Detalles" required>
                             <span class="field-validation-error" asp-validation-for="Detalles"></span>
                         </div>
                     </div>
@@ -100,11 +100,11 @@
             <div class="modal-header">
                 <h5 class="modal-title">Busqueda de tareas</h5>
             </div>
-            <form id="formSearchModal" class="modal-body was-validated">
+            <form id="formSearchModal" class="modal-body needs-validation">
                 <div class="container">
                     <div class="mb-3">
                         <label for="inputTitleSearch" class="form-label">Título de tarea</label>
-                        <input id="inputTitleSearch" class="form-control is-invalid" type="text" placeholder="Ingrese el título de la tarea" asp-for="Titulo" required>
+                        <input id="inputTitleSearch" class="form-control" type="text" placeholder="Ingrese el título de la tarea" asp-for="Titulo" required>
                         <span class="field-validation-error" asp-validation-for="Titulo"></span>
                     </div>
                 </div>
@@ -123,16 +123,16 @@
                 <h5 class="modal-title">Modificar información de tarea</h5>
             </div>
             <div class="modal-body">
-                <form id="formEditTask" class="was-validated">
+                <form id="formEditTask" class="needs-validation">
                     <div class="container">
                         <div class="mb-3">
                             <label for="inputTitleEdit" class="form-label">Título</label>
-                            <input id="inputTitleEdit" class="form-control is-invalid" type="text" placeholder="Ingrese el título de la tarea" asp-for="Titulo" required>
+                            <input id="inputTitleEdit" class="form-control" type="text" placeholder="Ingrese el título de la tarea" asp-for="Titulo" required>
                             <span class="field-validation-error" asp-validation-for="Titulo"></span>
                         </div>
                         <div class="mb-3">
                             <label for="inputDetailEdit" class="form-label">Detalle</label>
-                            <input id="inputDetailEdit" class="form-control is-invalid" type="text" placeholder="Ingrese el detalle de la tarea" asp-for="Detalles" required>
+                            <input id="inputDetailEdit" class="form-control" type="text" placeholder="Ingrese el detalle de la tarea" asp-for="Detalles" required>
                             <span class="field-validation-error" asp-validation-for="Detalles"></span>
                         </div>
                     </div>
