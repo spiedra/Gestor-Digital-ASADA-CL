@@ -32,12 +32,13 @@
             <table class="table table-bordered table-striped table-hover">
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Hora</th>
+                        <th scope="col">#</th>
+                        <th scope="col">Fecha y hora</th>
                         <th scope="col">Porcentaje de cloro</th>
                         <th scope="col">Número de casa</th>
                         <th scope="col">Nombre del abonado</th>
                         <th scope="col">Nombre del trabajador</th>
+                        <th scope="col">Detalles</th>
                         <th scope="col">Acción</th>
                     </tr>
                 </thead>
@@ -48,12 +49,16 @@
                         {
                             <tr>
                                 <td>@cloro.IdCloroResidual</td>
-                                <td>@cloro.Date</td>
-                                <td>@cloro.Time</td>
-                                <td>@cloro.Percent</td>
-                                <td>@cloro.IdHouse</td>
-                                <td>@cloro.NameC</td>
-                                <td>@cloro.NameE</td>
+                                <td>@cloro.Fecha.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                                <td>@cloro.PorcentajeCloro</td>
+                                <td>@cloro.NumeroCasa</td>
+                                <td>@cloro.NombreCliente</td>
+
+                                @foreach (User user in ((IEnumerable<dynamic>)ViewBag.fontaneros).Where(x => x.IdUsuario == cloro.IdUsuario))
+                                {
+                                    <td>@user.Nombre @user.Apellidos</td>
+                                }
+                                <td>@cloro.Detalles</td>
                                 <td>
                                     <button class="btn btn-primary btn-sm my-1 my-xl-0" onclick="putCloroOnModal(this);" data-bs-toggle="modal" data-bs-target="#editModal">
                                         Modificar
@@ -74,34 +79,22 @@
             <div class="modal-header">
                 <h5 class="modal-title">Búsqueda de cloro residual</h5>
             </div>
-            <form class="needs-validation" novalidate>
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="mb-3">
-                            <label for="inputName" class="form-label">Fecha inicial</label>
-                            <input id="inputName" class="form-control" type="date" required>
-                            <div class="invalid-feedback">
-                                Seleccione fecha
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="inputName" class="form-label">Fecha final</label>
-                            <input id="inputName" class="form-control " type="date" required>
-                            <div class="invalid-feedback">
-                                Seleccione fecha
-                            </div>
-                        </div>
-
-                        @*<div class="mb-3">
-                                    <label for="inputIdHouse" class="form-label">Número de casa</label>
-                                    <input id="inputIdHouse" class="form-control is-invalid" type="text" placeholder="Ingrese el número de casa">
-                                </div>
-                            </div>*@
+            <form id="formSearchModal" class="was-validated modal-body" method="get" asp-controller="Cloro" asp-action="BuscarCloroPorFecha">
+                <div class="container">
+                    <div class="mb-3">
+                        <label for="inputName" class="form-label">Fecha inicial</label>
+                        <input id="inputName" class="form-control is-invalid" type="datetime-local" asp-for="Fecha1" required>
+                        <span class="field-validation-error" asp-validation-for="Fecha1"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputName" class="form-label">Fecha final</label>
+                        <input id="inputName" class="form-control is-invalid" type="datetime-local" asp-for="FechaFinal" required>
+                        <span class="field-validation-error" asp-validation-for="FechaFinal"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button id="btn-search" type="submit" class="btn btn-primary">Buscar</button>
+                    <button id="btn-search" type="submit" class="btn btn-primary" form="formSearchModal">Buscar</button>
                 </div>
             </form>
         </div>
@@ -116,54 +109,47 @@
             <form method="POST" asp-controller="Cloro" asp-action="ModificarCloro" class="row g-3 p-3 needs-validation" novalidate>
                 <input id="inputIdCloro" type="hidden" asp-for="IdCloroResidual" />
                 <div class="col-md-6">
-                    <label for="inputDate" class="form-label">Fecha</label>
-                    <input id="inputDate" class="form-control" type="date" asp-for="Date" required>
-                    <span class="field-validation-error" asp-validation-for="Date"></span>
-                    <div class="invalid-feedback">
-                        Ingrese la fecha
-                    </div>
-
-                </div>
-                <div class="col-md-6">
-                    <label for="inputTime" class="form-label">Hora</label>
-                    <input id="inputTime" class="form-control" type="time" placeholder="Ingrese la hora" asp-for="Time" required>
-                    <span class="field-validation-error" asp-validation-for="Time"></span>
-                    <div class="invalid-feedback">
-                        Ingrese hora
-                    </div>
-
+                    <label for="inputDate" class="form-label">Fecha y hora</label>
+                    <input id="inputDate" class="form-control" type="datetime-local" asp-for="Fecha" required>
+                    <span class="field-validation-error" asp-validation-for="Fecha"></span>
+                    
                 </div>
                 <div class="col-md-6">
                     <label for="inputPercent" class="form-label">Porcentaje de cloro</label>
-                    <input id="inputPercent" class="form-control" type="number" min="0" step=".01" placeholder="Ingrese el porcentaje" asp-for="Percent" required>
-                    <span class="field-validation-error" asp-validation-for="Percent"></span>
-                    <div class="invalid-feedback">
-                        Ingrese porcentaje de cloro
-                    </div>
+                    <input id="inputPercent" class="form-control" type="number" min="0" step=".01" placeholder="Ingrese el porcentaje" asp-for="PorcentajeCloro" required>
+                    <span class="field-validation-error" asp-validation-for="PorcentajeCloro"></span>
+                    
                 </div>
                 <div class="col-6">
                     <label for="inputIdHouse" class="form-label">Número de casa</label>
-                    <input id="inputIdHouse" class="form-control" type="number" placeholder="Ingrese el número" asp-for="IdHouse" required>
-                    <span class="field-validation-error" asp-validation-for="IdHouse"></span>
-                    <div class="invalid-feedback">
-                        Ingrese número de casa
-                    </div>
+                    <input id="inputIdHouse" class="form-control" type="number" placeholder="Ingrese el número" asp-for="NumeroCasa" required>
+                    <span class="field-validation-error" asp-validation-for="NumeroCasa"></span>
+                    
                 </div>
                 <div class="col-6">
                     <label for="inputNameC" class="form-label">Nombre del abonado</label>
-                    <input id="inputNameC" class="form-control" type="text" placeholder="Ingrese el nombre" asp-for="NameC" required>
-                    <span class="field-validation-error" asp-validation-for="NameC"></span>
-                    <div class="invalid-feedback">
-                        Ingrese nombre del abonado
-                    </div>
+                    <input id="inputNameC" class="form-control" type="text" placeholder="Ingrese el nombre" asp-for="NombreCliente" required>
+                    <span class="field-validation-error" asp-validation-for="NombreCliente"></span>
+                   
                 </div>
-                <div class="col-6">
-                    <label for="inputDateE" class="form-label">Nombre del trabajador</label>
-                    <input id="inputDateE" class="form-control" type="text" placeholder="Ingrese el nombre" asp-for="NameE" required>
-                    <span class="field-validation-error" asp-validation-for="NameE"></span>
-                    <div class="invalid-feedback">
-                        Ingrese nombre del trabajador
-                    </div>
+                <div class="col-4">
+                    <label for="inputNameE" class="form-label">Nombre del trabajador</label>
+                    <select id="inputNameE" class="form-select sedit" aria-label="NombreTrabajador" asp-for="IdUsuario" required>
+                        @if (ViewBag.fontaneros != null)
+                        {
+                            <option value="fonta">Seleccione el fontanero</option>
+                            @foreach (User fontanero in ViewBag.fontaneros)
+                            {
+                                <option value="@fontanero.IdUsuario"> @fontanero.Nombre @fontanero.Apellidos</option>
+                            }
+                        }
+                    </select>
+                    <span class="field-validation-error" asp-validation-for="IdUsuario"></span>
+                </div>
+                <div class="col-4">
+                    <label for="inputDetails" class="form-label">Detalles</label>
+                    <textarea class="form-control" id="inputDetails" rows="2" placeholder="Ingrese detalles del reporte" asp-for="Detalles" required></textarea>
+                    <span class="field-validation-error" asp-validation-for="Detalles"></span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -179,56 +165,52 @@
             <div class="modal-header">
                 <h5 class="modal-title">Registro de cloro residual</h5>
             </div>
-            <form method="POST" asp-controller="Cloro" asp-action="RegistrarCloro"class="row g-3 p-3 needs-validation" novalidate>
+            <form method="POST" asp-controller="Cloro" asp-action="RegistrarCloro" class="row g-3 p-3 needs-validation" novalidate>
                 <div class="col-md-6">
-                    <label for="inputDate" class="form-label">Fecha</label>
-                    <input id="inputDate" class="form-control" type="date" asp-for="Date" required>
-                    <div class="invalid-feedback">
-                        Ingrese la fecha
-                    </div>
-
-                </div>
-                <div class="col-md-6">
-                    <label for="inputTime" class="form-label">Hora</label>
-                    <input id="inputTime" class="form-control" type="time" placeholder="Ingrese la hora" asp-for="Time" required>
-                    <span class="field-validation-error" asp-validation-for="Time"></span>
-                    <div class="invalid-feedback">
-                        Ingrese hora
-                    </div>
+                    <label for="inputDate" class="form-label">Fecha y hora</label>
+                    <input id="inputDate" class="form-control" type="datetime-local" asp-for="Fecha" required>
+                    <span class="field-validation-error" asp-validation-for="Fecha"></span>
+                    
 
                 </div>
                 <div class="col-md-6">
                     <label for="inputPercent" class="form-label">Porcentaje de cloro</label>
-                    <input id="inputPercent" class="form-control" type="number" min="0" step=".01" placeholder="Ingrese el porcentaje" asp-for="Percent" required>
-                    <span class="field-validation-error" asp-validation-for="Percent"></span>
-                    <div class="invalid-feedback">
-                        Ingrese porcentaje
-                    </div>
+                    <input id="inputPercent" class="form-control" type="number" min="0" step=".01" placeholder="Ingrese el porcentaje" asp-for="PorcentajeCloro" required>
+                    <span class="field-validation-error" asp-validation-for="PorcentajeCloro"></span>
+                    
                 </div>
                 <div class="col-6">
                     <label for="inputIdHouse" class="form-label">Número de casa</label>
-                    <input id="inputIdHouse" class="form-control" type="number" placeholder="Ingrese el número" asp-for="IdHouse" required>
-                    <span class="field-validation-error" asp-validation-for="IdHouse"></span>
-                    <div class="invalid-feedback">
-                        Ingrese número de casa
-                    </div>
+                    <input id="inputIdHouse" class="form-control" type="number" placeholder="Ingrese el número" asp-for="NumeroCasa" required>
+                    <span class="field-validation-error" asp-validation-for="NumeroCasa"></span>
+                    
                 </div>
                 <div class="col-6">
                     <label for="inputNameC" class="form-label">Nombre del abonado</label>
-                    <input id="inputNameC" class="form-control" type="text" placeholder="Ingrese el nombre" asp-for="NameC" required>
-                    <span class="field-validation-error" asp-validation-for="NameC"></span>
-                    <div class="invalid-feedback">
-                        Ingrese nombre del abonado
-                    </div>
+                    <input id="inputNameC" class="form-control" type="text" placeholder="Ingrese el nombre" asp-for="NombreCliente" required>
+                    <span class="field-validation-error" asp-validation-for="NombreCliente"></span>
+                    
+                </div>
+                <div class="col-4">
+                    <label for="inputNameE" class="form-label">Nombre del trabajador</label>
+                    <select id="inputNameE" class="form-select" aria-label="NombreTrabajador" asp-for="IdUsuario" required>
+                        @if (ViewBag.fontaneros != null)
+                        {
+                            <option value="">Seleccione el trabajador</option>
+                            @foreach (User fontanero in ViewBag.fontaneros)
+                            {
+                                <option value="@fontanero.IdUsuario"> @fontanero.Nombre @fontanero.Apellidos</option>
+                            }
+                        }
+                    </select>
+                    <span class="field-validation-error" asp-validation-for="IdUsuario"></span>
                 </div>
                 <div class="col-6">
-                    <label for="inputDateE" class="form-label">Nombre del trabajador</label>
-                    <input id="inputDateE" class="form-control" type="text" placeholder="Ingrese el nombre" asp-for="NameE" required>
-                    <span class="field-validation-error" asp-validation-for="NameE"></span>
-                    <div class="invalid-feedback">
-                        Ingrese nombre del trabajador
-                    </div>
+                    <label for="inputDetails" class="form-label">Detalles</label>
+                    <textarea id="inputDetails" class="form-control"  rows="2" placeholder="Ingrese detalles del reporte" asp-for="Detalles" required></textarea>
+                    <span class="field-validation-error" asp-validation-for="Detalles"></span>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     <button id="btn-search" type="submit" class="btn btn-primary">Registrar</button>

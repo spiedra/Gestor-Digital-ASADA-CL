@@ -22,7 +22,7 @@
     </button>
     <button id="btn__refresh--user" class="btn mb-3 d-inline btn__refresh"
             title="Refrescar tabla" onclick="refreshPage(); return false">
-        >
+        
         <img src="~/assets/refresh_black_24dp.svg" alt="Icono de busqueda" />
     </button>
 </div>
@@ -87,9 +87,7 @@
                                 }
                             </select>
                             <span class="field-validation-error" asp-validation-for="IdSector"></span>
-                            <div class="invalid-feedback">
-                                Debe seleccionar un sector
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -113,9 +111,6 @@
                     <label for="inputName" class="form-label">Nombre del sector</label>
                     <input id="inputName" class="form-control" type="text" required asp-for="NombreSector">
                     <span class="field-validation-error" asp-validation-for="NombreSector"></span>
-                    <div class="invalid-feedback">
-                        Ingrese el nombre del sector
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -136,9 +131,6 @@
                     <label for="inputName" class="form-label">Nombre del sector</label>
                     <input id="inputName" class="form-control" type="text" asp-for="NombreSector" required>
                     <span class="field-validation-error" asp-validation-for="NombreSector"></span>
-                    <div class="invalid-feedback">
-                        Ingrese el nombre del sector
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
