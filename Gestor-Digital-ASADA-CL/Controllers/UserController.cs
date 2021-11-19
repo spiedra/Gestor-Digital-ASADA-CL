@@ -28,6 +28,13 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return await response.Content.ReadAsStringAsync();
         }
 
+        public async Task<string> GetAllUsers()
+        {
+            HttpClient httpClient = new();
+            var response = await httpClient.GetAsync("https://localhost:44358/API/Usuario/ObtenerTodosUsuarios");
+            return await response.Content.ReadAsStringAsync();
+        }
+
         [HttpGet]
         public IActionResult Details(User user)
         {

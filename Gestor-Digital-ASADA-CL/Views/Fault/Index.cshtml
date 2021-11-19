@@ -63,8 +63,8 @@
                                 @{AveriaTrabajador averiaTrabajador = averia.AveriaTrabajadors.FirstOrDefault();}
                                 @if (averiaTrabajador != null)
                                 {
-                                    @foreach (User user in ((IEnumerable<dynamic>)ViewBag.fontaneros).Where(
-                                          x => x.IdUsuario == averiaTrabajador.IdTrabajador))
+                                    @foreach (User user in ((IEnumerable<dynamic>)ViewBag.Allfontaneros).Where(
+                                         x => x.IdUsuario == averiaTrabajador.IdTrabajador))
                                     {
                                         <td>@user.Nombre @user.Apellidos</td>
                                     }
@@ -110,7 +110,7 @@
                                 }
                             </select>
                             <span class="field-validation-error" asp-validation-for="IdSector"></span>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -226,7 +226,7 @@
                             <option value="">Seleccione el trabajador</option>
                             @foreach (User fontanero in ViewBag.fontaneros)
                             {
-                    <option value="@fontanero.IdUsuario"> @fontanero.Nombre @fontanero.Apellidos </option>
+                                <option value="@fontanero.IdUsuario"> @fontanero.Nombre @fontanero.Apellidos </option>
                             }
                         }
                     </select>

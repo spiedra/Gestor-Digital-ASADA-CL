@@ -54,7 +54,7 @@
                                 <td>@cloro.NumeroCasa</td>
                                 <td>@cloro.NombreCliente</td>
 
-                                @foreach (User user in ((IEnumerable<dynamic>)ViewBag.fontaneros).Where(x => x.IdUsuario == cloro.IdUsuario))
+                                @foreach (User user in ((IEnumerable<dynamic>)ViewBag.Allfontaneros).Where(x => x.IdUsuario == cloro.IdUsuario))
                                 {
                                     <td>@user.Nombre @user.Apellidos</td>
                                 }
@@ -79,16 +79,16 @@
             <div class="modal-header">
                 <h5 class="modal-title">Búsqueda de cloro residual</h5>
             </div>
-            <form id="formSearchModal" class="was-validated modal-body" method="get" asp-controller="Cloro" asp-action="BuscarCloroPorFecha">
+            <form id="formSearchModal" class="needs-validation modal-body" method="get" asp-controller="Cloro" asp-action="BuscarCloroPorFecha">
                 <div class="container">
                     <div class="mb-3">
                         <label for="inputName" class="form-label">Fecha inicial</label>
-                        <input id="inputName" class="form-control is-invalid" type="datetime-local" asp-for="Fecha1" required>
+                        <input id="inputName" class="form-control" type="datetime-local" asp-for="Fecha1" required>
                         <span class="field-validation-error" asp-validation-for="Fecha1"></span>
                     </div>
                     <div class="mb-3">
                         <label for="inputName" class="form-label">Fecha final</label>
-                        <input id="inputName" class="form-control is-invalid" type="datetime-local" asp-for="FechaFinal" required>
+                        <input id="inputName" class="form-control" type="datetime-local" asp-for="FechaFinal" required>
                         <span class="field-validation-error" asp-validation-for="FechaFinal"></span>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
                     <span class="field-validation-error" asp-validation-for="NombreCliente"></span>
                    
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <label for="inputNameE" class="form-label">Nombre del trabajador</label>
                     <select id="inputNameE" class="form-select sedit" aria-label="NombreTrabajador" asp-for="IdUsuario" required>
                         @if (ViewBag.fontaneros != null)
@@ -146,7 +146,7 @@
                     </select>
                     <span class="field-validation-error" asp-validation-for="IdUsuario"></span>
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <label for="inputDetails" class="form-label">Detalles</label>
                     <textarea class="form-control" id="inputDetails" rows="2" placeholder="Ingrese detalles del reporte" asp-for="Detalles" required></textarea>
                     <span class="field-validation-error" asp-validation-for="Detalles"></span>

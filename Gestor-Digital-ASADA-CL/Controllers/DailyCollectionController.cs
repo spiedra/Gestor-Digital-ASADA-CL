@@ -17,7 +17,7 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         {
             DisplayMessageDynamically();
             UserController userController = new();
-            ViewBag.Users = JsonConvert.DeserializeObject<List<User>>(userController.Details().Result);
+            ViewBag.Users = JsonConvert.DeserializeObject<List<User>>(userController.GetAllUsers().Result);
             DisplayCollectionInformation();
             return View();
         }

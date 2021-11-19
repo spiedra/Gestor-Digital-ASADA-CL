@@ -17,6 +17,8 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         public IActionResult Index()
         {
             DisplayFaultInformation();
+            UserController userController = new();
+            ViewBag.Allfontaneros = JsonConvert.DeserializeObject<List<User>>(userController.GetAllUsers().Result);
             ViewBag.fontaneros = JsonConvert.DeserializeObject<List<User>>(ObtenerFontaneros().Result);
             ViewBag.sectores = JsonConvert.DeserializeObject<List<SectorViewModel>>(ObtenerSectores().Result);
             DisplayMessageDynamically();
