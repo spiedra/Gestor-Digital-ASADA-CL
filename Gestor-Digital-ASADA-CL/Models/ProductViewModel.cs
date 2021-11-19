@@ -10,7 +10,7 @@ namespace Gestor_Digital_ASADA_CL.Models
     {
         [Required(ErrorMessage = "El código de producto es requerido")]
         public string CodigoProducto { get; set; }
-        [Required(ErrorMessage = "El nombre es requerido")]
+        [Required(ErrorMessage = "El nombre del producto es requerido")]
         public string NombreProducto { get; set; }
         [Required(ErrorMessage = "El valor unitario es requerido")]
         public string ValorUnitario { get; set; }

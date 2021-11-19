@@ -263,7 +263,7 @@
                         <div class="col-12 table-wrapper">
                             @if (ViewBag.reportes != null)
                             {
-                                <table class="table table-bordered table-striped table-hover nowrap">
+                                <table id="tb_reportes" class="table table-bordered table-striped table-hover nowrap">
                                     <thead class="table-dark">
                                         <tr>
                                             <th scope="col">Código producto</th>
@@ -334,6 +334,15 @@
             if ('@ViewBag.ShowModalResponse' ==="True") {
                createModalResponse2("@ViewBag.mensaje");
             }
+            $("#tb_reportes").DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                },
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
            });
     </script>
 }
