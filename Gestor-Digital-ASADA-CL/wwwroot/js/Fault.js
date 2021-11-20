@@ -6,7 +6,8 @@
     $("#inputDateE").val(moment(new Date(row.cells[4].textContent)).format('YYYY-MM-DDThh:mm:ss.SSS'));
     $("#details").val(row.cells[5].textContent);
     $("#Work").val(row.cells[6].textContent);
-    putSectorOnAddModal(button);
+    putSectorOnEditModal(row.cells[2].textContent);
+    putWorkerNameOnEditModal(row.cells[7].textContent);
 }
 
 const createInputHiddenOnDeleteFaultModal = (buttonContext) => {
@@ -18,9 +19,7 @@ const createInputHiddenOnDeleteFaultModal = (buttonContext) => {
     }).appendTo('#formDeleteModal');
 };
 
-const putSectorOnAddModal = (buttonContext) => {
-    row = buttonContext.parentNode.parentNode;
-    const currentSector = row.cells[2].textContent;
+const putSectorOnEditModal = (currentSector) => {
     const sectorSelect = $("#sectorSelectEditModal");
 
     $.ajax({
@@ -34,7 +33,28 @@ const putSectorOnAddModal = (buttonContext) => {
                 if (element.nombreSector === currentSector) {
                     sectorSelect.append('<option id=' + element.idSector + ' class="select_opcion" selected>' + element.nombreSector + '</option>');
                 } else {
-                   sectorSelect.append('<option id=' + element.idSector + ' class="select_opcion">' + element.nombreSector + '</option>');
+                    sectorSelect.append('<option id=' + element.idSector + ' class="select_opcion">' + element.nombreSector + '</option>');
+                }
+            });
+        }
+    });
+};
+
+const putWorkerNameOnEditModal = (currentWorkerName, currentWorkerLastName) => {
+    const workerNameSelect = $("#workerNameSelect");
+
+    $.ajax({
+        url: '/Fault/GetFontanerosByAjax',
+        type: 'get',
+        dataType: 'json',
+        success: function (response) {
+            workerNameSelect.empty();
+            workerNameSelect.prepend('<option class="select_opcion" value="" selected>Seleccione algún fontanero</option>');
+            response.forEach(element => {
+                if ((element.nombre + " " + element.apellidos) === currentWorkerName) {
+                    workerNameSelect.append('<option id=' + element.idUsuario + ' class="select_opcion" selected>' + element.nombre + " " + element.apellidos + '</option>');
+                } else {
+                    workerNameSelect.append('<option id=' + element.idUsuario + ' class="select_opcion">' + element.nombre + " " + element.apellidos + '</option>');
                 }
             });
         }

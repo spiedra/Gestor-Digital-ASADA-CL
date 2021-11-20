@@ -56,6 +56,12 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             return Json(JsonConvert.DeserializeObject<List<SectorViewModel>>(ObtenerSectores().Result));
         }
 
+        [HttpGet]
+        public JsonResult GetFontanerosByAjax()
+        {
+            return Json(JsonConvert.DeserializeObject<List<User>>(ObtenerFontaneros().Result));
+        }
+
         public async Task<string> ObtenerAverias()
         {
             HttpClient httpClient = new HttpClient();
