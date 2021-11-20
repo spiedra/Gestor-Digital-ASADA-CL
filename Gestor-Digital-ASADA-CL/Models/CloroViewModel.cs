@@ -31,6 +31,7 @@ namespace Gestor_Digital_ASADA_CL.Models
         [Required(ErrorMessage = "El porcentaje es requerido")]
         public string PorcentajeCloro { get; set; }
 
+        [Required(ErrorMessage = "El detalle es requerido")]
         public string Detalles { get; set; }
        
      
