@@ -197,31 +197,17 @@
             <div class="modal-header">
                 <h5 class="modal-title">Modificación de avería</h5>
             </div>
-            <form method="POST" asp-controller="Fault" asp-action="ModificarAveria" class="row g-3 p-3 was-validated" novalidate>
+            <form method="POST" asp-controller="Fault" asp-action="ModificarAveria" class="row g-3 p-3 needs-validation">
                 <input id="inputIdAveria" type="hidden" asp-for="IdAveria" />
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label for="inputName" class="form-label">Nombre del afectado</label>
                     <input id="inputName" class="form-control" type="text" placeholder="Nombre del cliente" asp-for="Afectado" required>
                     <span class="field-validation-error" asp-validation-for="Afectado"></span>
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <label for="sectorSelectEditModal" class="form-label">Sector</label>
                     <select id="sectorSelectEditModal" class="form-select" aria-label="Sectores" asp-for="IdSector" required></select>
                     <span class="field-validation-error" asp-validation-for="IdSector"></span>
-                </div>
-                <div class="col-4">
-                    <label for="workerNameSelect" class="form-label">Nombre del trabajador</label>
-                    <select id="workerNameSelect" class="form-select" aria-label="NombreTrabajador" asp-for="IdTrabajador" required>
-                        @if (ViewBag.fontaneros != null)
-                        {
-                            <option value="">Seleccione el trabajador</option>
-                            @foreach (User fontanero in ViewBag.fontaneros)
-                            {
-                                <option value="@fontanero.IdUsuario"> @fontanero.Nombre @fontanero.Apellidos </option>
-                            }
-                        }
-                    </select>
-                    <span class="field-validation-error" asp-validation-for="IdTrabajador"></span>
                 </div>
                 <div class="col-6">
                     <label for="inputDateR" class="form-label">Fecha de reporte</label>

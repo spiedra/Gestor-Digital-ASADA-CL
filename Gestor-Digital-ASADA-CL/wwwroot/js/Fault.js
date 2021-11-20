@@ -29,11 +29,12 @@ const putSectorOnEditModal = (currentSector) => {
         success: function (response) {
             sectorSelect.empty();
             sectorSelect.prepend('<option class="select_opcion" value="" selected>Seleccione algún sector</option>');
+            console.log(response)
             response.forEach(element => {
                 if (element.nombreSector === currentSector) {
-                    sectorSelect.append('<option id=' + element.idSector + ' class="select_opcion" selected>' + element.nombreSector + '</option>');
+                    sectorSelect.append('<option value=' + element.idSector + ' class="select_opcion" selected>' + element.nombreSector + '</option>');
                 } else {
-                    sectorSelect.append('<option id=' + element.idSector + ' class="select_opcion">' + element.nombreSector + '</option>');
+                    sectorSelect.append('<option value=' + element.idSector + ' class="select_opcion">' + element.nombreSector + '</option>');
                 }
             });
         }
@@ -52,9 +53,9 @@ const putWorkerNameOnEditModal = (currentWorkerName) => {
             workerNameSelect.prepend('<option class="select_opcion" value="" selected>Seleccione algún fontanero</option>');
             response.forEach(element => {
                 if ((element.nombre + " " + element.apellidos) === currentWorkerName) {
-                    workerNameSelect.append('<option id=' + element.idUsuario + ' class="select_opcion" selected>' + element.nombre + " " + element.apellidos + '</option>');
+                    workerNameSelect.append('<option value=' + element.idUsuario + ' class="select_opcion" selected>' + element.nombre + " " + element.apellidos + '</option>');
                 } else {
-                    workerNameSelect.append('<option id=' + element.idUsuario + ' class="select_opcion">' + element.nombre + " " + element.apellidos + '</option>');
+                    workerNameSelect.append('<option value=' + element.idUsuario + ' class="select_opcion">' + element.nombre + " " + element.apellidos + '</option>');
                 }
             });
         }
