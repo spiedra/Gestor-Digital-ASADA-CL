@@ -64,7 +64,7 @@
                                 @if (averiaTrabajador != null)
                                 {
                                     @foreach (User user in ((IEnumerable<dynamic>)ViewBag.Allfontaneros).Where(
-                                         x => x.IdUsuario == averiaTrabajador.IdTrabajador))
+                                        x => x.IdUsuario == averiaTrabajador.IdTrabajador))
                                     {
                                         <td>@user.Nombre @user.Apellidos</td>
                                     }
@@ -134,9 +134,9 @@
                     <input id="inputFaultName" class="form-control" type="text" placeholder="Ingrese el nombre del abonado" asp-for="Afectado" required>
                     <span class="field-validation-error" asp-validation-for="Afectado"></span>
                 </div>
-                <div class="col-4">
-                    <label for="selectSector" class="form-label">Sector</label>
-                    <select class="form-select" aria-label="Sectores" asp-for="IdSector" required>
+                <div class="col-md-4">
+                    <label for="sectorSelectAddModal" class="form-label">Sector</label>
+                    <select id="sectorSelectAddModal" class="form-select" aria-label="Sectores" asp-for="IdSector" required>
                         @if (ViewBag.sectores != null)
                         {
                             <option value="">Seleccione el sector</option>
@@ -148,7 +148,7 @@
                     </select>
                     <span class="field-validation-error" asp-validation-for="IdSector"></span>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4">
                     <label for="inputName" class="form-label">Nombre del trabajador</label>
                     <select class="form-select" aria-label="NombreTrabajador" asp-for="IdTrabajador" required>
                         @if (ViewBag.fontaneros != null)
@@ -162,23 +162,23 @@
                     </select>
                     <span class="field-validation-error" asp-validation-for="IdTrabajador"></span>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <label for="inputReportDate" class="form-label">Fecha de reporte</label>
                     <input id="inputReportDate" class="form-control" type="datetime-local" placeholder="Ingrese la fecha del reporte" asp-for="FechaReporte" required>
                     <span class="field-validation-error" asp-validation-for="FechaReporte"></span>
                 </div>
 
-                <div class="col-6">
+                <div class="col-md-6">
                     <label for="inputExecutionDate" class="form-label">Fecha de ejecución</label>
                     <input id="inputExecutionDate" class="form-control" type="datetime-local" placeholder="Ingrese la fecha de ejecución" asp-for="FechaEjecucion" required>
                     <span class="field-validation-error" asp-validation-for="FechaEjecucion"></span>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <label for="inputDetails" class="form-label">Detalles del reporte</label>
                     <textarea class="form-control" id="note" rows="2" placeholder="Ingrese detalles del reporte" asp-for="DetallesReporte" required></textarea>
                     <span class="field-validation-error" asp-validation-for="DetallesReporte"></span>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <label for="inputWork" class="form-label">Trabajo ejecutado</label>
                     <textarea class="form-control" id="note" rows="2" placeholder="Ingrese el trabajo ejecutado" asp-for="TrabajoEjecutado" required></textarea>
                     <span class="field-validation-error" asp-validation-for="TrabajoEjecutado"></span>
@@ -205,17 +205,8 @@
                     <span class="field-validation-error" asp-validation-for="Afectado"></span>
                 </div>
                 <div class="col-4">
-                    <label for="selectSector" class="form-label">Sector</label>
-                    <select class="form-select" aria-label="Sectores" asp-for="IdSector" required>
-                        @if (ViewBag.sectores != null)
-                        {
-                            <option value="">Seleccione el sector</option>
-                            @foreach (SectorViewModel sector in ViewBag.sectores)
-                            {
-                                <option value="@sector.IdSector">@sector.NombreSector</option>
-                            }
-                        }
-                    </select>
+                    <label for="sectorSelectEditModal" class="form-label">Sector</label>
+                    <select id="sectorSelectEditModal" class="form-select" aria-label="Sectores" asp-for="IdSector" required></select>
                     <span class="field-validation-error" asp-validation-for="IdSector"></span>
                 </div>
                 <div class="col-4">

@@ -49,6 +49,13 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             var Response = await httpClient.GetAsync("https://localhost:44358/API/Averia/ObtenerSectores");
             return await Response.Content.ReadAsStringAsync();
         }
+
+        [HttpGet]
+        public JsonResult GetSectorsByAjax()
+        {
+            return Json(JsonConvert.DeserializeObject<List<SectorViewModel>>(ObtenerSectores().Result));
+        }
+
         public async Task<string> ObtenerAverias()
         {
             HttpClient httpClient = new HttpClient();
