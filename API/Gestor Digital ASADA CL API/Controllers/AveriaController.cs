@@ -96,7 +96,7 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             var averia = db.Averia.Find(id);
             if (averia != null)
             {
-                db.AveriaTrabajadors.RemoveRange(db.AveriaTrabajadors.Where(x => x.IdTrabajador == id));
+                db.AveriaTrabajadors.RemoveRange(db.AveriaTrabajadors.Where(x => x.IdAveria==id));
                 db.Averia.Remove(averia);
                 db.SaveChanges();
                 return Ok("Avería eliminada con éxito");
