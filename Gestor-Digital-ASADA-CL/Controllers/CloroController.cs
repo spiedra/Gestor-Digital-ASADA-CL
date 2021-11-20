@@ -61,22 +61,11 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         [Route("Cloro/ModificarCloro")]
         public async Task<IActionResult> ModificarCloro(CloroViewModel cloro)
         {
-            
-            //if(cloro.IdUsuario.Equals("current")){
-            //    int IdUsuario = 0;
-
-            //    List<CloroViewModel> listaCloro = JsonConvert.DeserializeObject<List<CloroViewModel>>(ObtenerCloro().Result);
-            //    IdUsuario = (int)(from lc in listaCloro where lc.IdUsuario == cloro.IdUsuario select lc.IdUsuario).FirstOrDefault();
-            //    cloro.IdUsuario = IdUsuario;
-            //}
-            
            HttpClient httpClient = new();
             var Response = await httpClient.PutAsync("https://localhost:44358/API/Cloro/ModificarCloro"
                 , new StringContent(JsonConvert.SerializeObject(cloro), Encoding.UTF8, "application/json"));
             TempData["isShow"] = true;
-            TempData["message"] = await Response.Content.ReadAsStringAsync();
-            
-
+            TempData["message"] = await Response.Content.ReadAsStringAsync();            
             if (HttpContext.User.IsInRole("Admin"))
             {
                 return RedirectToAction("Index");
@@ -98,7 +87,13 @@ namespace Gestor_Digital_ASADA_CL.Controllers
             var Response = await httpClient.GetAsync("https://localhost:44358/API/Cloro/ObtenerFontaneros");
             return await Response.Content.ReadAsStringAsync();
         }
-               
+
+        [HttpGet]
+        public JsonResult GetFontanerosByAjax()
+        {
+            return Json(JsonConvert.DeserializeObject<List<User>>(ObtenerFontaneros().Result));
+        }
+
         private void DisplayCloroInformation()
         {
             if (TempData["fechaInicio"] != null && TempData["fechaFin"] != null)

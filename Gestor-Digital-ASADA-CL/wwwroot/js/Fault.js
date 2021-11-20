@@ -40,7 +40,7 @@ const putSectorOnEditModal = (currentSector) => {
     });
 };
 
-const putWorkerNameOnEditModal = (currentWorkerName, currentWorkerLastName) => {
+const putWorkerNameOnEditModal = (currentWorkerName) => {
     const workerNameSelect = $("#workerNameSelect");
 
     $.ajax({

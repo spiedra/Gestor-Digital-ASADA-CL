@@ -133,17 +133,8 @@
                    
                 </div>
                 <div class="col-6">
-                    <label for="inputNameE" class="form-label">Nombre del trabajador</label>
-                    <select id="inputNameE" class="form-select sedit" aria-label="NombreTrabajador" asp-for="IdUsuario" required>
-                        @if (ViewBag.fontaneros != null)
-                        {
-                            <option value="fonta">Seleccione el fontanero</option>
-                            @foreach (User fontanero in ViewBag.fontaneros)
-                            {
-                                <option value="@fontanero.IdUsuario">@fontanero.Nombre @fontanero.Apellidos</option>
-                            }
-                        }
-                    </select>
+                    <label for="workerNameSelect" class="form-label">Nombre del trabajador</label>
+                    <select id="workerNameSelect" class="form-select sedit" aria-label="NombreTrabajador" asp-for="IdUsuario" required></select>
                     <span class="field-validation-error" asp-validation-for="IdUsuario"></span>
                 </div>
                 <div class="col-6">

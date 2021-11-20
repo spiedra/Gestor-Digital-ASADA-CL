@@ -1,6 +1,5 @@
 ﻿function putCloroOnModal(button) {
     var row = button.parentNode.parentNode;
-    var idUsuario = 0;
     var option = $('.sedit option:first-child')
     if (option.data('last') === undefined){
     } else {
@@ -11,29 +10,27 @@
     $("#inputPercent").val(row.cells[2].textContent);
     $("#inputIdHouse").val(row.cells[3].textContent);
     $("#inputNameC").val(row.cells[4].textContent);
-
-    //$("#inputNameE").each(function () {
-    //    //alert($.trim($(this).val()) +"comparando con: "+ $.trim(row.cells[5].textContent));
-    //    if ($(this).val() === row.cells[5].textContent) {
-
-    //        idUsuario = $(this).attr('value');
-
-    //    }
-    //    //alert('opcion ' + $(this).text() + ' valor ' + $(this).attr('value'))
-    //});
-
-    //alert(row.cells[5].textContent)
-    //let $option = $('<option />', {
-    //    text: 'Actual: ' + row.cells[5].textContent,
-    //    value: idUsuario,
-    //    data: {
-    //        last: 1
-    //    }
-    //});
-    //$('#inputNameE').prepend($option);
-    //$('.sedit option[value='+idUsuario+']').attr("selected", true);
-    //$(".sedit option[value='fonta']").remove();
-
-
     $("#inputDetails").val(row.cells[6].textContent);
+    putWorkerNameOnEditModal(row.cells[5].textContent);
 }
+
+const putWorkerNameOnEditModal = (currentWorkerName) => {
+    const workerNameSelect = $("#workerNameSelect");
+
+    $.ajax({
+        url: '/Cloro/GetFontanerosByAjax',
+        type: 'get',
+        dataType: 'json',
+        success: function (response) {
+            workerNameSelect.empty();
+            workerNameSelect.prepend('<option class="select_opcion" value="" selected>Seleccione algún fontanero</option>');
+            response.forEach(element => {
+                if ((element.nombre + " " + element.apellidos) === currentWorkerName) {
+                    workerNameSelect.append('<option id=' + element.idUsuario + ' class="select_opcion" selected>' + element.nombre + " " + element.apellidos + '</option>');
+                } else {
+                    workerNameSelect.append('<option id=' + element.idUsuario + ' class="select_opcion">' + element.nombre + " " + element.apellidos + '</option>');
+                }
+            });
+        }
+    });
+};
