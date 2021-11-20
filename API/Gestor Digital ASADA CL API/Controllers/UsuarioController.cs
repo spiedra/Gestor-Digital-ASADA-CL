@@ -59,6 +59,7 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
             var original = db.Usuarios.Find(usuario.IdUsuario);
             if (original != null)
             {
+                usuario.IsDelete = false;
                 db.Entry(original).CurrentValues.SetValues(usuario);
                 await db.SaveChangesAsync();
                 return Ok("Usuario modificado con éxito");
