@@ -26,6 +26,8 @@ namespace Gestor_Digital_ASADA_CL.Controllers
         public IActionResult IndexUser()
         {
             DisplayCloroInformation();
+            UserController userController = new();
+            ViewBag.Allfontaneros = JsonConvert.DeserializeObject<List<User>>(userController.GetAllUsers().Result);
             ViewBag.fontaneros = JsonConvert.DeserializeObject<List<User>>(ObtenerFontaneros().Result);
             DisplayMessageDynamically();
 

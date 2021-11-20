@@ -24,9 +24,7 @@
         <img src="~/assets/refresh_black_24dp.svg" alt="Icono de refresh" />
     </button>
 </div>
-
 <hr />
-
 <div class="row table-responsive">
     <div class="col-12 mt-3">
         <table id="table" class="table table-hover">
@@ -57,7 +55,7 @@
 
                             @foreach (User user in ((IEnumerable
                            <dynamic>
-                               )ViewBag.fontaneros).Where(x => x.IdUsuario == cloro.IdUsuario))
+                               )ViewBag.Allfontaneros).Where(x => x.IdUsuario == cloro.IdUsuario))
                             {
                                 <td>@user.Nombre @user.Apellidos</td>
                             }
@@ -92,12 +90,12 @@
                     <div class="input-group">
                         <div class="mb-3">
                             <label for="inputName" class="form-label">Fecha inicial</label>
-                            <input id="inputName" class="form-control is-invalid" type="datetime-local" asp-for="Fecha1">
+                            <input id="inputName" class="form-control" type="datetime-local" asp-for="Fecha1" required>
                             <span class="field-validation-error" asp-validation-for="Fecha1"></span>
                         </div>
                         <div class="mb-3">
                             <label for="inputName" class="form-label">Fecha final</label>
-                            <input id="inputName" class="form-control is-invalid" type="datetime-local" asp-for="FechaFinal">
+                            <input id="inputName" class="form-control" type="datetime-local" asp-for="FechaFinal" required>
                             <span class="field-validation-error" asp-validation-for="FechaFinal"></span>
                         </div>
 

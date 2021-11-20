@@ -55,7 +55,5 @@ namespace Gestor_Digital_ASADA_CL_API.Controllers
         {
             return Ok(db.Usuarios.ToList().Where(u => u.IdRole == 2 && u.IsDelete == false).ToList());
         }
-
-
     }
 }
