@@ -191,7 +191,7 @@
                     <span class="field-validation-error" asp-validation-for="NombreCliente"></span>
                     
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <label for="inputNameE" class="form-label">Nombre del trabajador</label>
                     <select id="inputNameE" class="form-select" aria-label="NombreTrabajador" asp-for="IdUsuario" required>
                         @if (ViewBag.fontaneros != null)
@@ -219,8 +219,6 @@
         </div>
     </div>
 </div>
-
-
 @section scripts
 {
     <partial name="_ValidationScriptsPartial" />
